@@ -1,0 +1,72 @@
+.ant-btn-ghost{
+    color: white;
+}
+.ant-btn{
+    margin: 5px;
+}
+.authorization-field{
+    float: right;
+}
+.App-header{
+   clear: both;
+   text-align:  center;
+}
+.App-title, .App-footer{
+    font-size: 30px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+.App-feed{
+    margin-left: 15%;
+    margin-right: 15%; 
+    background-color: darkgrey;
+}
+.App-footer{
+    background-color: black;
+    position: fixed;
+    font-size: 15px;
+    width: 100%;
+    bottom: 0;
+    height: 50px;
+}
+.App-feed{
+    padding-right: 40px;
+}
+.tweet-item{
+    background-color: aliceblue;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 10px;
+    font-size: 15px;
+}
+.author{
+    font-weight: bold;
+    font-size: 17px;
+}
+.anticon-twitter{
+    font-size: 30px;
+}
+.anticon{
+    font-size: 20px;
+}
+.tweet-text{
+    margin-bottom: 10px;
+}
+.anticon-like{
+    margin-right: 10px;
+}
+.tweet-date{
+    float: right;
+    margin-right: 20px;
+}
+.App-footer{
+    color: white;
+    padding-left: 15%;
+    padding-right: 15%;
+    text-align: center;
+    padding-top: 10px; 
+}
+.auth-form{
+    width: 50%;
+    height: 50%;
+    display: none;
+}
