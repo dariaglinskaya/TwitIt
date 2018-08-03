@@ -1,3 +1,17 @@
+@font-face {
+    font-family: "Helvetica";
+    src: url(./fonts/texgyreheros-bold.otf),
+         url(./fonts/texgyreheros-bolditalic.otf),
+         url(./fonts/texgyreheros-italic.otf),
+         url(./fonts/texgyreheros-regular.otf),
+         url(./fonts/texgyreheroscn-bold.otf),
+         url(./fonts/texgyreheroscn-bolditalic.otf),
+         url(./fonts/texgyreheroscn-italic.otf),
+         url(./fonts/texgyreheroscn-regular.otf)
+        }
+.html{
+    font-family: "Helvetica";
+}
 .ant-btn-ghost{
     color: white;
 }
@@ -16,8 +30,6 @@
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
 .App-feed{
-    margin-left: 15%;
-    margin-right: 15%; 
     background-color: darkgrey;
 }
 .App-footer{
@@ -33,7 +45,7 @@
 }
 .tweet-item{
     background-color: aliceblue;
-    border-radius: 10px;
+    border-radius: 4px;
     padding: 10px;
     margin-bottom: 10px;
     font-size: 15px;
@@ -41,24 +53,25 @@
 .author{
     font-weight: bold;
     font-size: 17px;
+    display: block;
 }
-.anticon-twitter{
-    font-size: 30px;
-}
+
 .anticon{
     font-size: 20px;
 }
 .tweet-text{
     margin-bottom: 10px;
+    font-family: "Helvetica";
 }
 .anticon-like{
     margin-right: 10px;
 }
+.anticon-twitter{
+    font-size: 30px;
+}
 .tweet-date{
-    float: right;
-    margin-right: 20px;
     opacity: 0.5;
-    font-style: italic;
+    font-size: 13px;
 }
 .App-footer{
     color: white;
@@ -143,4 +156,26 @@
 }
 .anticon-like, .anticon-retweet, .tweet-date{
     color: #1890ff;
+}
+.ant-col-7{
+    background-color: aquamarine;
+    height: 100vh;
+}
+.user-page-icon{
+    font-size: 50px;
+}
+.user-page{
+    margin: 20px; 
+    clear: both;
+}
+.user-page-author{
+    font-size: 17px;
+    font-weight: bold;
+}
+.add-tweet{
+    margin-top: 20px;
+}
+.add-tweet-btn{
+    margin-top: 20px;
+    float: right;
 }

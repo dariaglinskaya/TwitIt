@@ -2,17 +2,28 @@ import { Icon } from 'antd';
 import * as React from 'react';
 
 
-function Tweet(){
-    return(
+class Tweet extends React.Component<{}, {author: string, date: string, text: string}>{
+    constructor(props: string){
+        super(props);
+        this.state = {
+            author: 'admin',
+            date: "01.01.2018",
+            text: "my first tweet"
+        }
+    }
+    public render() {
+        return (
         <div className="tweet-item">
-            <span className="author">Admin Admin</span>
+            <span className="author">{this.state.author}</span>
+            <time dateTime="2018-08-02" className="tweet-date">{this.state.date}</time>
             <hr/>
-            <div className="tweet-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
+            <div className="tweet-text">{this.state.text}</div>
             <Icon type="like"/>
             <Icon type="retweet"/>
-            <time dateTime="2018-08-02" className="tweet-date">2018-08-02</time>            
+                        
         </div>
         );
+    }
 }
 
 export default Tweet

@@ -4,14 +4,19 @@ import Tweet from './Tweet';
 
 const Search = Input.Search;
 
-function Feed(){
-    return(
+class Feed extends React.Component<{}, {}>{
+    constructor(props: object){
+        super(props);
+    }
+    public render(){
+        return(
         <ul className="App-feed">
             <Search placeholder="search user by login" enterButton="Search" className="search-input"/>
-            <Tweet/>
+            <Tweet />
             <Tweet/>
         </ul>
         );
+    }
 }
 
 export default Feed
