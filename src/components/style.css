@@ -1,8 +1,8 @@
 .ant-btn-ghost{
     color: white;
 }
-.ant-btn{
-    margin: 5px;
+.ant-avatar{
+    margin-right: 5px;
 }
 .authorization-field{
     float: right;
@@ -57,6 +57,8 @@
 .tweet-date{
     float: right;
     margin-right: 20px;
+    opacity: 0.5;
+    font-style: italic;
 }
 .App-footer{
     color: white;
@@ -66,7 +68,79 @@
     padding-top: 10px; 
 }
 .auth-form{
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9000;
+    width: 100%;
+    height: 100%;
+    background-color: gray;
+    opacity: 0.3;      
+}
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 8000;
+    width: 100%;
+    height: 100%;
+    background-color: gray;
+    background: rgba(0, 0, 0, 0.6);
+  }
+  
+  .modal-main {
+    position:fixed;
+    background: white;
     width: 50%;
-    height: 50%;
+    height: 35%;
+    top:50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+    clear: both;    
+    display: flex;
+  }
+  .modal-main > div{
+      flex: 1;
+  }
+  .display-block {
+    display: block;
+  }
+  
+  .display-none {
     display: none;
+  }
+  .hide-modal-button{
+      float: right;
+      color: black;
+      font-size: 25px;
+  }
+  .hide-modal-button:hover{
+      opacity: 0.5;
+  }
+  .log-in-col, .register-col{
+      color: black;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+  }
+  .log-in-col span, .register-col span{
+      font-size: 25px;
+      top: 0;
+
+  }
+  .register-col form button.ant-btn span, .log-in-col form button.ant-btn span{
+      font-size: 17px;
+      padding: 0 15px;
+  }
+.modal-main input{
+    width: 100%;
+    height: 30px;
+    margin: 10px;
+}
+.search-input{
+    margin-bottom: 10px;
+}
+.anticon-like, .anticon-retweet, .tweet-date{
+    color: #1890ff;
 }
