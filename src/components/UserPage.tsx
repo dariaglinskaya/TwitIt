@@ -3,6 +3,7 @@ import * as React from 'react';
 
 const { TextArea } = Input;
 
+
 class UserPage extends React.Component<{}, { author: string, placeholder: string }>{
     constructor(props: string) {
         super(props);
@@ -13,6 +14,7 @@ class UserPage extends React.Component<{}, { author: string, placeholder: string
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
+
     public handleChange(event: any) {
         this.setState({ placeholder: event.target.placeholder });
     }
@@ -26,7 +28,7 @@ class UserPage extends React.Component<{}, { author: string, placeholder: string
             <div className="user-page">
                 <Icon type="user" className="user-page-icon" />
                 <span className="user-page-author">{this.state.author}</span>
-                <TextArea rows={4} className="add-tweet" placeholder={this.state.placeholder} onChange={this.handleChange}/>
+                <TextArea rows={4} className="add-tweet" placeholder={this.state.placeholder} onChange={this.handleChange} />
                 <Button type="primary" className="add-tweet-btn" onClick={this.handleSubmit}>Add</Button>
             </div>
         );

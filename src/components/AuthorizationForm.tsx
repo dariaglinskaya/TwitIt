@@ -12,7 +12,7 @@ const Modal = ({ handleClose, show }: any) => {
                     <span>Log In</span>
                     <form>
                         <div>Login:</div>
-                        <Input type="text" name="login" placeholder="login" />
+                        <Input type="text" name="login" placeholder="username" />
                         <div>Password:</div>
                         <Input type="password" name="password" placeholder="password" />
                         <Button >Submit</Button>
@@ -22,7 +22,7 @@ const Modal = ({ handleClose, show }: any) => {
                     <span>Register</span>
                     <form>
                         <div>Login:</div>
-                        <Input type="text" name="login" placeholder="login" />
+                        <Input type="text" name="login" placeholder="username" />
                         <div>Password:</div>
                         <Input type="password" name="password" placeholder="password" />
                         <Button>Submit</Button>
