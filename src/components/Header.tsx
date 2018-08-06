@@ -3,9 +3,7 @@ import * as React from 'react';
 import Modal from './AuthorizationForm';
 import './style.css';
 
-
-
-class Header extends React.Component {
+export default class Header extends React.Component {
     public state = { show: false };
 
     public showModal = () => {
@@ -30,6 +28,3 @@ class Header extends React.Component {
     }
 
 }
-
-
-export default Header

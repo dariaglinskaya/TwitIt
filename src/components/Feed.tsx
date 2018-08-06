@@ -4,7 +4,7 @@ import Tweet from './Tweet';
 
 const Search = Input.Search;
 
-class Feed extends React.Component<{}, {}>{
+export default class Feed extends React.Component<{}, {}>{
     constructor(props: object){
         super(props);
     }
@@ -18,5 +18,3 @@ class Feed extends React.Component<{}, {}>{
         );
     }
 }
-
-export default Feed

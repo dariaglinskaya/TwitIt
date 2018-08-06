@@ -2,7 +2,7 @@ import { Icon } from 'antd';
 import * as React from 'react';
 
 
-class Tweet extends React.Component<{}, {author: string, date: string, text: string}>{
+export default class Tweet extends React.Component<{}, {author: string, date: string, text: string}>{
     constructor(props: string){
         super(props);
         this.state = {
@@ -18,12 +18,9 @@ class Tweet extends React.Component<{}, {author: string, date: string, text: str
             <time dateTime="2018-08-02" className="tweet-date">{this.state.date}</time>
             <hr/>
             <div className="tweet-text">{this.state.text}</div>
-            <Icon type="like"/>
-            <Icon type="retweet"/>
-                        
+            <a href=''><Icon type="like"/></a>
+            <a href=''><Icon type="retweet"/></a>                        
         </div>
         );
     }
 }
-
-export default Tweet
