@@ -31,6 +31,7 @@
 }
 .App-feed{
     background-color: darkgrey;
+    padding-left: 10px;
 }
 .App-footer{
     background-color: black;

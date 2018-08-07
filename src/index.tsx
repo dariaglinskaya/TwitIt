@@ -8,7 +8,7 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
 import Body from './components/Body';
-// import registerServiceWorker from './registerServiceWorker';
+import registerServiceWorker from './registerServiceWorker';
 import store from "./store";
 
 
@@ -39,4 +39,4 @@ ReactDOM.render(
   </Provider>,
   document.getElementById('root') as HTMLElement
 );
-// registerServiceWorker();
+registerServiceWorker();
