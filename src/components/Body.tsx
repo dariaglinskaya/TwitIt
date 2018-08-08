@@ -5,10 +5,13 @@ import Feed from './Feed';
 import Footer from './Footer';
 import Header from './Header';
 
-interface Props {
+interface IStateProps {
+  authenticated: boolean;
 }
 
 interface State { newTweetContent: string, }
+
+//export interface IAppProps extends IStateProps,State{}
 
 const tweets = [{
   author: 'admin',
@@ -22,7 +25,7 @@ const tweets = [{
 }
 ];
 
-export default class Body extends React.Component<Props, State>{
+export default class Body extends React.Component<IStateProps, State>{
   constructor(props: any) {
     super(props);
   }

@@ -11,9 +11,14 @@ import Body from './components/Body';
 import registerServiceWorker from './registerServiceWorker';
 import store from "./store";
 
+interface IStateProps {
+  isUserAuthorized: boolean;
+}
+interface IActionProps {}
 
+export interface IAppProps extends IStateProps,IActionProps{}
 
-export default class App extends React.Component {
+export default class App extends React.Component<IAppProps, {}> {
   constructor(props: any) {
     super(props);
     this.state = {
@@ -23,7 +28,7 @@ export default class App extends React.Component {
 
   public render() {
     return (
-      <Body />
+      <Body authenticated={this.props.isUserAuthorized}/>
     );
   }
 }

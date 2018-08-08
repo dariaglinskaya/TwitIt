@@ -25,18 +25,10 @@ export default class AddForm extends React.Component<{}, { author: string, place
     public handleSubmit(event: any) {
         event.preventDefault();
         if (!this.state.text) {
-            this.setState(() => ({ error: 'Empty field.' }));
+            this.setState(() => (alert('Nothing to add')));
         } else {
             this.setState(() => ({ error: '' }));
-            /*this.props.onSubmitTweet(
-                {
-                    author: this.state.author,
-                    date: this.state.date,
-                    id: 1,                   
-                    text: this.state.text,
-                    
-                }
-            );*/
+            console.log(this.state);
         }
     }
     public render() {
