@@ -1,5 +1,3 @@
-import config from 'config';
-
 export const userService = {
     login,
     logout
@@ -23,7 +21,7 @@ function login(username, password) {
         body: JSON.stringify({ username, password })
     };
 
-    return fetch(`${config.apiUrl}/users/authenticate`, requestOptions)
+    return fetch(`/users/authenticate`, requestOptions)
         .then(handleResponse)
         .then(user => {
             if (user.token) {

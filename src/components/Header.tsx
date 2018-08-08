@@ -1,6 +1,6 @@
 import { Avatar, Button, Icon } from 'antd';
 import * as React from 'react';
-import Modal from './AuthorizationForm';
+import Modal from './Modal';
 import './style.css';
 
 export default class Header extends React.Component {

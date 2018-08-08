@@ -4,6 +4,7 @@ import * as React from 'react';
 
 export default class Tweet extends React.Component<any, any>{
     public render() {
+        console.log(this.props)
         return (
             <div className="tweet-item">
                 <span className="author">@{this.props.author}</span>

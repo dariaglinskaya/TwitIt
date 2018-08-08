@@ -11,6 +11,18 @@ import Body from './components/Body';
 import registerServiceWorker from './registerServiceWorker';
 import store from "./store";
 
+const tweets = [{
+  author: 'admin',
+  date: "01.01.2018",
+  text: "my first tweet"
+},
+{
+  author: 'batman',
+  date: "02.01.2018",
+  text: "lorem"
+}
+];
+
 interface IStateProps {
   isUserAuthorized: boolean;
 }
@@ -28,13 +40,16 @@ export default class App extends React.Component<IAppProps, {}> {
 
   public render() {
     return (
-      <Body authenticated={this.props.isUserAuthorized}/>
+      <Body tweets={tweets}/>
     );
   }
 }
 
 const ConnectedApp = connect((state) => {
+  console.log("State");
   console.log(state);
+  console.log("Store");
+  console.log(store);
   return state;
 })(App);
 
@@ -44,4 +59,5 @@ ReactDOM.render(
   </Provider>,
   document.getElementById('root') as HTMLElement
 );
+
 registerServiceWorker();

@@ -1,18 +1,22 @@
 import { Button, Icon, Input } from 'antd';
+//import connect from 'redux-connect-decorator';
+//import applyMiddleware from 'redux-thunk';
 import * as React from 'react';
 
 const { TextArea } = Input;
+const INITIAL_STATE = {
+    author: 'admin',
+    date: '01.01.01',
+    error: '',
+    placeholder: "What do you think?",
+    text: '',
+
+}
 
 export default class AddForm extends React.Component<{}, { author: string, placeholder: string, text: string, date: string, error: string }>{
     constructor(props: string) {
         super(props);
-        this.state = {
-            author: '',
-            date: '',
-            error: '',
-            placeholder: "What do you think?",
-            text: '',           
-        };
+        this.state = INITIAL_STATE;
         this.handleSubmit = this.handleSubmit.bind(this);
         this.onTextChange = this.onTextChange.bind(this);
     }
@@ -25,7 +29,7 @@ export default class AddForm extends React.Component<{}, { author: string, place
     public handleSubmit(event: any) {
         event.preventDefault();
         if (!this.state.text) {
-            this.setState(() => (alert('Nothing to add')));
+            this.setState(() => ({ error: 'Nothing to add' }));
         } else {
             this.setState(() => ({ error: '' }));
             console.log(this.state);
@@ -42,3 +46,4 @@ export default class AddForm extends React.Component<{}, { author: string, place
         );
     }
 }
+//export default connect((state, applyMiddleware) => console.log(state))(AddForm);

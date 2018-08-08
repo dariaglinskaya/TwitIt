@@ -1,9 +1,8 @@
 import * as _ from 'lodash';
 import {tweetsConstant} from '../constants/tweetsConst';
 
-export default function reducer(
-  state = {
-    error: null,
+const initialState = {
+  error: null,
     fetchedTweetReplies: false,
     fetchedTweets: false,
     fetchedUserTweets: false,
@@ -15,23 +14,24 @@ export default function reducer(
     tweetReplies: [],
     tweets: [],
     userTweets: [],
-  },
-  action: any
-) {
+}
+
+export default function reducer( state = initialState, action: any ) {
+  let newState = Object.assign({}, state);
   switch (action.type) {
     case tweetsConstant.FETCH_TWEETS_STARTED: {
-      return { ...state, fetchingTweets: true };
+      return { ...newState, fetchingTweets: true };
       break;
     }
     case tweetsConstant.FETCH_TWEETS_REJECTED: {
-      return { ...state, fetchingTweets: false, error: action.payload };
+      return { ...newState, fetchingTweets: false, error: action.payload };
       break;
     }
     case tweetsConstant.FETCH_TWEETS_FULFILLED: {
       const sortedTweets = _.orderBy(action.payload, ["time"], ["desc"]);
 
       return {
-        ...state,
+        ...newState,
         fetchedTweets: true,
         fetchingTweets: false,
         tweets: sortedTweets,
@@ -40,11 +40,11 @@ export default function reducer(
       break;
     }
     case tweetsConstant.FETCH_USER_TWEETS_STARTED: {
-      return { ...state, fetchingUserTweets: true };
+      return { ...newState, fetchingUserTweets: true };
       break;
     }
     case tweetsConstant.FETCH_USER_TWEETS_REJECTED: {
-      return { ...state, fetchingUserTweets: false, error: action.payload };
+      return { ...newState, fetchingUserTweets: false, error: action.payload };
       break;
     }
     case tweetsConstant.FETCH_USER_TWEETS_FULFILLED: {
@@ -58,15 +58,15 @@ export default function reducer(
       break;
     }
     case tweetsConstant.POST_TWEET_STARTED: {
-      return { ...state, tweetPosted: "ongoing" };
+      return { ...newState, tweetPosted: "ongoing" };
       break;
     }
     case tweetsConstant.POST_TWEET_SUCCESS: {
-      return { ...state, tweetPosted: "success" };
+      return { ...newState, tweetPosted: "success" };
       break;
     }
     case tweetsConstant.POST_TWEET_FAILED: {
-      return { ...state, tweetPosted: "failed" };
+      return { ...newState, tweetPosted: "failed" };
       break;
     }
 
