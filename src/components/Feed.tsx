@@ -41,17 +41,23 @@ export class Feed extends React.Component<IProps, IState>{
     }
     public render() {
         console.log(this.props);
-        if (this.props.hasErrored) {
+        if (this.props.tweets.hasErrored) {
             return <p>No items to show.</p>;
         }
-        if(this.props.isLoading) {
-            return <Spin />
-        }
-        return (
-
+        if(this.props.tweets.isLoading === true) {
             <div className="App-feed">
                 <Search placeholder="search user by login" enterButton="Search" className="search-input" />
-                {this.renderTweets()}
+                return <Spin />
+            </div>
+            
+        }
+        return (
+            <div className="App-feed">
+                <Search placeholder="search user by login" enterButton="Search" className="search-input" />
+                <div>
+                    {this.renderTweets()}
+                </div>
+                
             </div>
         );
     }

@@ -17,8 +17,17 @@ export function tweetsIsLoading(bool) {
 export function tweetsFetchDataSuccess(tweets) {
     return {
         type: tweetsConstant.TWEETS_FETCH_DATA_SUCCESS,
+        isLoading: false,
         tweets
     };
+}
+
+export function addTweet(newTweet) {
+    return {
+        type: tweetsConstant.TWEETS_ADD,
+        isLoading: false,
+        newTweet
+    }
 }
 
 export function tweetsFetchData(url) {
@@ -36,7 +45,7 @@ export function tweetsFetchData(url) {
                 return response;
             })
             .then((response) => response.json())
-            .then((items) => dispatch(tweetsFetchDataSuccess(items)))
+            .then((tweets) => dispatch(tweetsFetchDataSuccess(tweets)))
             .catch(() => dispatch(tweetsHasErrored(true)));
     };
 }

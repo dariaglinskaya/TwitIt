@@ -11,9 +11,9 @@ interface State { newTweetContent: string, }
 
 export interface IProps {
   tweets: {
-      author?: string,
-      date?: string,
-      text?: string
+    author?: string,
+    date?: string,
+    text?: string
   }[]
 }
 
@@ -25,12 +25,14 @@ export default class Body extends React.Component<IProps, State>{
     return (
       <div className='App-body' >
         <Header />
-        <Col span={17} push={7}>
-          <Feed/>
-        </Col>
-        <Col span={7} pull={17}>
-          <AddForm />
-        </Col>
+        <div>
+          <Col span={17} push={7}>
+            <Feed />
+          </Col>
+          <Col span={7} pull={17}>
+            <AddForm />
+          </Col>
+        </div>
         <Footer />
       </div>
     );

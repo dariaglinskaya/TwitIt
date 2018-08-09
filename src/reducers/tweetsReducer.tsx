@@ -16,7 +16,10 @@ export default function tweets(state = initialState, action: any) {
       break;
     }
     case tweetsConstant.TWEETS_FETCH_DATA_SUCCESS: {
-      return { ...state, tweets: action.tweets };
+      return { ...state, tweets: action.tweets, isLoading: false };
+    }
+    case tweetsConstant.TWEETS_ADD : {
+      return { ...state, tweets: [...state.tweets, action.newTweet] };
     }
     default: {
       return state;

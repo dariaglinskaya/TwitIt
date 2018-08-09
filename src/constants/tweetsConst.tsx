@@ -2,5 +2,7 @@ const tweetsConstant = {
     TWEETS_HAS_ERRORED: 'TWEETS_HAS_ERRORED',
     TWEETS_IS_LOADING: 'TWEETS_IS_LOADING',
     TWEETS_FETCH_DATA_SUCCESS: 'TWEETS_FETCH_DATA_SUCCESS',
+
+    TWEETS_ADD: 'TWEETS_ADD',    
 }
 export default tweetsConstant
