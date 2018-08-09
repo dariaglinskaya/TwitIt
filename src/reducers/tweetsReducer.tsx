@@ -19,7 +19,7 @@ export default function tweets(state = initialState, action: any) {
       return { ...state, tweets: action.tweets, isLoading: false };
     }
     case tweetsConstant.TWEETS_ADD : {
-      return { ...state, tweets: [...state.tweets, action.newTweet] };
+      return { ...state, tweets: [ action.newTweet, ...state.tweets] };
     }
     default: {
       return state;

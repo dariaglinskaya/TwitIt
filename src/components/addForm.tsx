@@ -38,25 +38,28 @@ export class AddForm extends React.Component<IProps, IState>{
         if (!this.state) {
             this.setState(() => (alert('Nothing to add')));
         } else {
-            console.log(store.getState)
             const newTweet = {
                 author: this.props.user,
                 date: new Date().toISOString().slice(0, 10),
                 text: this.state.newTweetContent,
                 id: Math.random().toString(36).substr(2, 9)
             }
-            console.log(newTweet)
             store.dispatch(addTweet(newTweet));
+                        
         }
+    }
+    private customStyle = {
+        display: 'inline',
     }
     public render() {
         return (
-            <div className="user-page">
+            <form className="user-page" onSubmit={this.handleSubmit.bind(this)}>
                 <Icon type="user" className="user-page-icon" />
+                <span className="author" style={this.customStyle}>@{this.props.user}</span>
                 <span className="user-page-author"></span>
-                <TextArea rows={4} className="add-tweet" placeholder='What do you think?' onChange={this.onTextChange} />
-                <Button type="primary" className="add-tweet-btn" onClick={this.handleSubmit.bind(this)}>Add</Button>
-            </div>
+                <TextArea rows={4}  ref='newTweet' className="add-tweet" placeholder='What do you think?' onChange={this.onTextChange} />
+                <Button type="primary"  htmlType="submit" className="add-tweet-btn" >Add</Button>
+            </form>
         );
     }
 }
