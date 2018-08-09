@@ -1,56 +1,39 @@
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import { Input } from 'antd';
 //import { isEmpty } from 'lodash';
-// import { Spin } from 'antd';
+import { Spin } from 'antd';
 import * as React from 'react';
+import tweetsFetchData from '../actions/tweetsActions';
 
 import Tweet from './Tweet';
 
 const Search = Input.Search;
 
-export interface IProps {    
+export interface IProps {
+    hasErrored: boolean,
+    isLoading: boolean,
+    fetchData: any,
+    tweets: any
 }
 
 export interface IState {
-    tweets: any;
 }
 
 export class Feed extends React.Component<IProps, IState>{
     constructor(props) {
         super(props);
-        this.state = {
-            tweets: [{
-                author: 'admin',
-                date: "01.01.2018",
-                text: "my first tweet",
-                id: 1
-            },
-            {
-                author: 'batman',
-                date: "02.01.2018",
-                text: "my second tweet",
-                id: 2
-            },
-            {
-                author: 'user1',
-                date: "03.01.2017",
-                text: "my third tweet",
-                id: 3
-            }
-            ]
-        }
+    }
+    componentDidMount() {
+        this.props.fetchData('http://5b6b3e39ad81cd0014d153c6.mockapi.io/tweets');
     }
 
     public renderTweets() {
-        const { tweets } = this.state;
-        return tweets.map((tweet, index) => {
-            return (
-                <Tweet
-                    key={index}
-                    {...tweet}
-                />
-            );
-        })
+        const arr = this.props.tweets.tweets.map((tweet, index) => {
+            return <Tweet key={index}
+                {...tweet}
+            />
+        });
+        return arr;
     }
 
     public renderEmpty() {
@@ -58,7 +41,14 @@ export class Feed extends React.Component<IProps, IState>{
     }
     public render() {
         console.log(this.props);
+        if (this.props.hasErrored) {
+            return <p>No items to show.</p>;
+        }
+        if(this.props.isLoading) {
+            return <Spin />
+        }
         return (
+
             <div className="App-feed">
                 <Search placeholder="search user by login" enterButton="Search" className="search-input" />
                 {this.renderTweets()}
@@ -69,17 +59,16 @@ export class Feed extends React.Component<IProps, IState>{
 
 const mapStateToProps = state => {
     return {
-      tweets: state.tweets.tweets,
+        tweets: state.tweets,
+        hasErrored: state.tweetsHasErrored,
+        isLoading: state.tweetsIsLoading,
     }
-  }
+}
 
-  const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = dispatch => {
     return {
-      addTweet: () =>
-        dispatch({
-          type: 'ADD_TWEET'
-        })
-    }
-  }
+        fetchData: (url) => dispatch(tweetsFetchData(url))
+    };
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(Feed);
