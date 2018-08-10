@@ -1,78 +1,84 @@
 import { Button, Input } from 'antd';
-import { userActions } from '../actions/userActions';
 import * as React from 'react';
-import connect from 'redux-connect-decorator';
-import { Dispatch } from 'redux';
-//import { applyMiddleware } from 'redux';
+import { connect } from 'react-redux';
+import store from '../store';
+import userActions from '../actions/userActions'
 
-const INITIAL_STATE_USER = {
-    username: '',
-    password: '',
-    submitted: false
+export interface IProps {
+    hasErrored: boolean,
+    isLoading: boolean,
+    authentication: any,
+    subscriptions: any
+}
+export interface IState {
+    error: any,
+    username: string,
+    password: string,
+    loggedIn: boolean,
 }
 
-interface ILogINProps {
-    dispatch?: Dispatch<any>;
-    loggingIn?: boolean;
-}
-interface ILogInState {
-    username?: string;
-    password?: string;
-    submitted?: boolean;
-}
-function mapStateToProps(state) {
-    const { loggingIn } = state.authentication;
-    return {
-        loggingIn
-    };
-}
-//@connect(mapStateToProps, applyMiddleware)
-export class LogIn extends React.Component<ILogINProps, ILogInState> {
+export class LogIn extends React.Component<IProps, IState> {
     constructor(props) {
         super(props);
-        this.state = INITIAL_STATE_USER;
         this.handleChangeUsername = this.handleChangeUsername.bind(this);
         this.handleChangePassword = this.handleChangePassword.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
-    public handleChangeUsername(e) {
-        const value = e.target.value;
-        this.setState({ 'username': value });
+    public handleChangeUsername(event) {
+        const username = event.target.value;
+        this.setState({ username });
     }
-    public handleChangePassword(e) {
-        const value = e.target.value;
-        this.setState({ 'password': value });
+    public handleChangePassword(event) {
+        const password = event.target.value;
+        this.setState({ password });
+    }
+    public resetInput(event) {
+        event.target.children.item(1).value = '';
+        event.target.children.item(3).value = '';
     }
     public handleSubmit(e) {
         e.preventDefault;
-        this.setState({ submitted: true });
         const { username, password } = this.state;
-        if (username === "admin" && password === "admin") {
-            this.props.dispatch(userActions.login(username, password));
-        }
+        const user = {
+            name: username,
+            password: password,
+            subscriptions: ['keenan'],
+        }      
+        this.setState({ loggedIn: true });
+        this.props.authentication.users.forEach(element => {
+            console.log(element.name)
+            console.log(element.password)
+            if (element.name == username && element.password == password) {
+                console.log(2)
+                user.subscriptions.push(element.name);
+                this.resetInput(event);
+                store.dispatch(userActions.login(user));
+            } else {
+                alert('invalid username or password')
+            }
+        });
     }
     render() {
-        //const{loggingIn} = this.props;
-        const { username, password, submitted } = this.state;
-
         return (
             <div className="log-in-col">
                 <span>Log In</span>
-                <form >
+                <form onSubmit={this.handleSubmit.bind(this)}>
                     <div>Login:</div>
                     <Input type="text" name="name" placeholder="username" onChange={this.handleChangeUsername} />
-                    {submitted && !username &&
-                        <div className="help-block">Username is required</div>
-                    }
                     <div>Password:</div>
                     <Input type="password" name="password" placeholder="password" onChange={this.handleChangePassword} />
-                    {submitted && !password &&
-                        <div className="help-block">Password is required</div>
-                    }
-                    <Button itemType="submit" onClick={this.handleSubmit}>Submit</Button>
+                    <Button htmlType="submit">Submit</Button>
                 </form>
             </div>
         );
+    }
+}
+
+const mapStateToProps = state => {
+    return {
+        hasErrored: state.tweetsHasErrored,
+        authentication: state.authentication,
+        subscriptions: state.authentication.user.subscriptions
     }
 }
 export default connect(mapStateToProps)(LogIn);

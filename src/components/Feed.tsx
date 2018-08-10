@@ -34,6 +34,7 @@ export class Feed extends React.Component<IProps, IState>{
         const tweets = this.props.tweets.tweets;
         const subscr = this.props.subscriptions;
         const res = [];
+
         subscr.forEach((subscr) => {
             tweets.forEach(tweet => {
                 if (tweet.author.toLowerCase() === subscr) {
@@ -46,17 +47,18 @@ export class Feed extends React.Component<IProps, IState>{
                 {...tweet}
             />
         });
+
     }
 
     public renderEmpty() {
         return <div>No tweets added yet.</div>;
     }
     public searchUser() {
-        
+
     }
     public render() {
         console.log(this.props);
-        if (this.props.tweets.hasErrored) {
+        if (!this.props.subscriptions) {
             return <p>No items to show.</p>;
         }
         if (this.props.tweets.isLoading === true) {
@@ -68,7 +70,7 @@ export class Feed extends React.Component<IProps, IState>{
         }
         return (
             <div className="App-feed">
-                <Search placeholder="search user by login" enterButton="Search" className="search-input" onClick={this.searchUser}/>
+                <Search placeholder="search user by login" enterButton="Search" className="search-input" onClick={this.searchUser} />
                 <div>
                     {this.renderTweets()}
                 </div>

@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import store from '../store';
 import userActions from '../actions/userActions'
 import * as React from 'react'
-//import register from '../registerServiceWorker';
 
 export interface IProps {
     hasErrored: boolean,
@@ -27,6 +26,7 @@ export class Register extends React.Component<IProps, IState> {
     public onUsernameChange(event) {
         const username = event.target.value;
         this.setState(() => ({ username }));
+        console.log(this.state)
     }
     public onPasswordChange(event) {
         const password = event.target.value;
@@ -40,7 +40,8 @@ export class Register extends React.Component<IProps, IState> {
         event.preventDefault();
         const newUser = {
             name: this.state.username,
-            password: this.state.password
+            password: this.state.password,
+            subscriptions: []
         }
         this.resetInput(event);
         store.dispatch(userActions.register(newUser));

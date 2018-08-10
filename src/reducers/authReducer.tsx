@@ -1,7 +1,7 @@
 import { userConstants } from '../constants/userConst';
 
 const initialState = {
-    loggedIn: true,
+    loggedIn: false,
     user: {
         name: 'admin',
         subscriptions: ['admin','rocky', 'jess', 'estrella']

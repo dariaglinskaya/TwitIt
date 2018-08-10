@@ -10,7 +10,7 @@ export default class Tweet extends React.Component<any, any>{
                 <time dateTime="2018-08-02" className="tweet-date">{this.props.date}</time>
                 <hr />
                 <div className="tweet-text">{this.props.text}</div>
-                <a href=''><Icon type="like" /></a>
+                <a href=''><Icon type="like-o" /></a>
                 <a href=''><Icon type="retweet" /></a>
             </div>
         );
