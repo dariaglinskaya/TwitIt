@@ -4,7 +4,16 @@ import { userService } from '../services/userService';
 export const userActions = {
     login,
     logout,
+    register
 };
+
+function register(newUser) {
+    return {
+        type: userConstants.REGISTER_SUCCESS,
+        loggedIn: true,
+        newUser
+    }
+}
 
 function login(username, password) {
     return dispatch => {
@@ -12,7 +21,7 @@ function login(username, password) {
 
         userService.login(username, password)
             .then(
-                user => { 
+                user => {
                     dispatch(success(user));
                 },
                 error => {
@@ -30,3 +39,4 @@ function logout() {
     userService.logout();
     return { type: userConstants.LOGOUT };
 }
+export default userActions;

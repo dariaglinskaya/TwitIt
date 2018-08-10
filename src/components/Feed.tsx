@@ -6,6 +6,7 @@ import * as React from 'react';
 import tweetsFetchData from '../actions/tweetsActions';
 
 import Tweet from './Tweet';
+//import authentication from '../reducers/authReducer';
 
 const Search = Input.Search;
 
@@ -13,7 +14,9 @@ export interface IProps {
     hasErrored: boolean,
     isLoading: boolean,
     fetchData: any,
-    tweets: any
+    tweets: any,
+    subscriptions: any,
+    authentication: any
 }
 
 export interface IState {
@@ -28,36 +31,48 @@ export class Feed extends React.Component<IProps, IState>{
     }
 
     public renderTweets() {
-        const arr = this.props.tweets.tweets.map((tweet, index) => {
+        const tweets = this.props.tweets.tweets;
+        const subscr = this.props.subscriptions;
+        const res = [];
+        subscr.forEach((subscr) => {
+            tweets.forEach(tweet => {
+                if (tweet.author.toLowerCase() === subscr) {
+                    res.push(tweet)
+                }
+            });
+        });
+        return res.map((tweet, index) => {
             return <Tweet key={index}
                 {...tweet}
             />
         });
-        return arr;
     }
 
     public renderEmpty() {
         return <div>No tweets added yet.</div>;
+    }
+    public searchUser() {
+        
     }
     public render() {
         console.log(this.props);
         if (this.props.tweets.hasErrored) {
             return <p>No items to show.</p>;
         }
-        if(this.props.tweets.isLoading === true) {
+        if (this.props.tweets.isLoading === true) {
             <div className="App-feed">
                 <Search placeholder="search user by login" enterButton="Search" className="search-input" />
                 return <Spin />
             </div>
-            
+
         }
         return (
             <div className="App-feed">
-                <Search placeholder="search user by login" enterButton="Search" className="search-input" />
+                <Search placeholder="search user by login" enterButton="Search" className="search-input" onClick={this.searchUser}/>
                 <div>
                     {this.renderTweets()}
                 </div>
-                
+
             </div>
         );
     }
@@ -68,6 +83,8 @@ const mapStateToProps = state => {
         tweets: state.tweets,
         hasErrored: state.tweetsHasErrored,
         isLoading: state.tweetsIsLoading,
+        subscriptions: state.authentication.user.subscriptions,
+        authentication: state.authentication
     }
 }
 

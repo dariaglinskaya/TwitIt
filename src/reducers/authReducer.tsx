@@ -2,7 +2,11 @@ import { userConstants } from '../constants/userConst';
 
 const initialState = {
     loggedIn: true,
-    user: 'admin'
+    user: {
+        name: 'admin',
+        subscriptions: ['admin','rocky', 'jess', 'estrella']
+    },
+    users: []
 }
 
 export default function authentication(state = initialState, action) {
@@ -23,6 +27,11 @@ export default function authentication(state = initialState, action) {
             return {};
         case userConstants.LOGOUT:
             return {};
+        case userConstants.REGISTER_SUCCESS:
+            return {
+                ...state,
+                users: [...state.users, action.newUser]
+            }
         default:
             return state
     }
