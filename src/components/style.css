@@ -186,3 +186,7 @@
 hr {
     opacity: 0.3;
 }
+
+ #root .login-form-button {
+    width: 100%;
+  }

@@ -1,14 +1,18 @@
-import { Button, Input } from 'antd';
+import { Form, Icon, Input, Button } from 'antd';
 import * as React from 'react';
 import { connect } from 'react-redux';
 import store from '../store';
-import userActions from '../actions/userActions'
+import userActions from '../actions/userActions';
+import { Link } from 'react-router-dom';
+
+const FormItem = Form.Item;
 
 export interface IProps {
     hasErrored: boolean,
     isLoading: boolean,
     authentication: any,
-    subscriptions: any
+    subscriptions: any,
+    form: any
 }
 export interface IState {
     error: any,
@@ -27,51 +31,71 @@ export class LogIn extends React.Component<IProps, IState> {
     public handleChangeUsername(event) {
         const username = event.target.value;
         this.setState({ username });
+
+        console.log(this.state)
     }
     public handleChangePassword(event) {
         const password = event.target.value;
         this.setState({ password });
-    }
-    public resetInput(event) {
-        event.target.children.item(1).value = '';
-        event.target.children.item(3).value = '';
+
+        console.log(this.state)
     }
     public handleSubmit(e) {
-        e.preventDefault;
+        e.preventDefault();
+        /*this.props.form.validateFields((err, values) => {
+            if (!err) {*/
         const { username, password } = this.state;
         const user = {
             name: username,
             password: password,
             subscriptions: ['keenan'],
-        }      
-        this.setState({ loggedIn: true });
-        this.props.authentication.users.forEach(element => {
-            console.log(element.name)
-            console.log(element.password)
-            if (element.name == username && element.password == password) {
-                console.log(2)
-                user.subscriptions.push(element.name);
-                this.resetInput(event);
-                store.dispatch(userActions.login(user));
-            } else {
-                alert('invalid username or password')
-            }
-        });
-    }
-    render() {
-        return (
-            <div className="log-in-col">
-                <span>Log In</span>
-                <form onSubmit={this.handleSubmit.bind(this)}>
-                    <div>Login:</div>
-                    <Input type="text" name="name" placeholder="username" onChange={this.handleChangeUsername} />
-                    <div>Password:</div>
-                    <Input type="password" name="password" placeholder="password" onChange={this.handleChangePassword} />
-                    <Button htmlType="submit">Submit</Button>
-                </form>
-            </div>
-        );
-    }
+        }
+        let users = this.props.authentication.users;
+        if (typeof users != "undefined" && users != null && users.length != null && users.length > 0) {
+            users.forEach(element => {
+                console.log(element.name)
+                console.log(element.password)
+                if (element.name == username && element.password == password) {
+                    user.subscriptions.push(element.name);
+                    store.dispatch(userActions.login(user));
+                } else {
+                    alert('invalid username or password');
+                }
+            });
+        } else {
+            alert('There is no users!');
+        }
+}
+
+render() {
+    const { getFieldDecorator } = this.props.form;
+    return (
+        <div className="logIn">
+            <Form onSubmit={this.handleSubmit.bind(this)} className="login-form">
+                <FormItem>
+                    {getFieldDecorator('userName', {
+                        rules: [{ required: true, message: 'Please input your username!' }],
+                    })(
+                        <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="Username" onChange={this.handleChangeUsername.bind(this)} />
+                    )}
+                </FormItem>
+                <FormItem>
+                    {getFieldDecorator('password', {
+                        rules: [{ required: true, message: 'Please input your Password!' }],
+                    })(
+                        <Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="Password" onChange={this.handleChangePassword.bind(this)} />
+                    )}
+                </FormItem>
+                <FormItem>
+                    <Button type="primary" htmlType="submit" className="login-form-button">
+                        Log in
+                            </Button>
+                    Or <Link to="/register">register now!</Link>
+                </FormItem>
+            </Form>
+        </div>
+    );
+}
 }
 
 const mapStateToProps = state => {
@@ -81,4 +105,5 @@ const mapStateToProps = state => {
         subscriptions: state.authentication.user.subscriptions
     }
 }
-export default connect(mapStateToProps)(LogIn);
+
+export default connect(mapStateToProps)(Form.create()(LogIn));

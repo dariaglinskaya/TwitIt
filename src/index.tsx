@@ -2,33 +2,26 @@ import './index.css';
 import './App.css';
 
 import { Provider, connect } from 'react-redux';
-// import { fetchTweets } from './actions/app';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
-import Body from './components/Body';
+//import Body from './components/Body';
+import Home from './components/Home';
+import Search from './components/Search';
+import User from './components/User';
+import RegistrationForm from './components/RegistrationForm'
+
 import registerServiceWorker from './registerServiceWorker';
 import store from "./store";
-
-const tweets = [{
-  author: 'admin',
-  date: "01.01.2018",
-  text: "my first tweet"
-},
-{
-  author: 'batman',
-  date: "02.01.2018",
-  text: "lorem"
-}
-];
 
 interface IStateProps {
   isUserAuthorized: boolean;
 }
-interface IActionProps {}
+interface IActionProps { }
 
-export interface IAppProps extends IStateProps,IActionProps{}
+export interface IAppProps extends IStateProps, IActionProps { }
 
 export default class App extends React.Component<IAppProps, {}> {
   constructor(props: any) {
@@ -40,7 +33,16 @@ export default class App extends React.Component<IAppProps, {}> {
 
   public render() {
     return (
-      <Body tweets={tweets}/>
+      <div className="App">
+        <Router>
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route path="/searchUser" component={Search} />
+            <Route path="/user/:username" component={User} />
+            <Route path="/register" component={RegistrationForm} />
+          </Switch>
+        </Router >
+      </div>
     );
   }
 }

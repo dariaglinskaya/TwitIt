@@ -3,8 +3,8 @@ import { userConstants } from '../constants/userConst';
 const initialState = {
     loggedIn: false,
     user: {
-        name: 'admin',
-        subscriptions: ['admin','rocky', 'jess', 'estrella']
+        name: '',
+        subscriptions: []
     },
     users: []
 }

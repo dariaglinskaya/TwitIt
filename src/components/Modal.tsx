@@ -1,7 +1,6 @@
 import { Icon } from 'antd';
 import * as React from 'react';
-import LogIn from './logIn';
-import Register from './registerForm';
+import Register from './RegistrationForm';
 
 
 export interface IAuthLogin {
@@ -14,7 +13,6 @@ export const Modal = ({ handleClose, show }: any) => {
     return (
         <div className={showHideClassName}>
             <section className="modal-main">
-                <LogIn />
                 <Register />
                 <Icon onClick={handleClose} className="hide-modal-button" type="close" />
             </section>
