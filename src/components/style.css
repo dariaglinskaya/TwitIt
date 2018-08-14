@@ -33,7 +33,7 @@
 .App-title {
     margin-left: 20px;
 }
-.App-feed{
+.App-feed, .search-list{
     background-color: #0000000a;
     min-height: 100vh;
     padding-left: 40px;
@@ -47,8 +47,10 @@
     bottom: 0;
     height: 50px;
 }
-
-.tweet-item{
+.search-list{
+    padding-top: 20px;
+}
+.tweet-item, .search-item{
     background-color: aliceblue;
     border-radius: 4px;
     padding: 10px;

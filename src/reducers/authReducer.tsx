@@ -39,7 +39,16 @@ export default function authentication(state = INITIAL_STATE, action) {
             return {
                 ...state,
                 users: [...state.users, action.newUser]
+            };
+        case userConstants.USER_SUBSCRIBE: 
+            return {
+                ...state,
+                user: {
+                    ...state.user,
+                    subscriptions: [...state.user.subscriptions, action.userName]
+                }                
             }
+
         default:
             return state
     }

@@ -3,6 +3,8 @@ const tweetsConstant = {
     TWEETS_IS_LOADING: 'TWEETS_IS_LOADING',
     TWEETS_FETCH_DATA_SUCCESS: 'TWEETS_FETCH_DATA_SUCCESS',
 
-    TWEETS_ADD: 'TWEETS_ADD',    
+    TWEETS_ADD: 'TWEETS_ADD', 
+    
+    SEARCH_USERS: 'SEARCH_USERS'
 }
 export default tweetsConstant

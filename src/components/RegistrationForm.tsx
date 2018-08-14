@@ -55,7 +55,6 @@ export class RegistrationForm extends React.Component<IProps, IState> {
         const value = e.target.value;
         this.setState({ confirmDirty: this.state.confirmDirty || !!value });
     }
-
     compareToFirstPassword = (rule, value, callback) => {
         const form = this.props.form;
         if (value && value !== form.getFieldValue('password')) {
@@ -78,7 +77,6 @@ export class RegistrationForm extends React.Component<IProps, IState> {
             <div>
                 <Header />
                 <div className="register">
-
                     <Form className="login-form">
                         <FormItem>
                             {getFieldDecorator('userName', {

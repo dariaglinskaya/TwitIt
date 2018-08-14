@@ -21,6 +21,9 @@ export default function tweets(state = initialState, action: any) {
     case tweetsConstant.TWEETS_ADD : {
       return { ...state, tweets: [ action.newTweet, ...state.tweets] };
     }
+    case tweetsConstant.SEARCH_USERS : {
+      return {...state, usersFound: [action.usersFound]}
+    }
     default: {
       return state;
     }

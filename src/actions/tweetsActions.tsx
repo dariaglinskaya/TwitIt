@@ -1,20 +1,28 @@
 import tweetsConstant from '../constants/tweetsConst';
 //import axios from 'axios';
-export function tweetsHasErrored(bool) {
+const tweetsActions = {
+    tweetsHasErrored,
+    tweetsIsLoading,
+    tweetsFetchDataSuccess,
+    addTweet,
+    searchUsers,
+    tweetsFetchData
+}
+function tweetsHasErrored(bool) {
     return {
         type: tweetsConstant.TWEETS_HAS_ERRORED,
         hasErrored: bool
     };
 }
 
-export function tweetsIsLoading(bool) {
+function tweetsIsLoading(bool) {
     return {
         type: tweetsConstant.TWEETS_IS_LOADING,
         isLoading: bool
     };
 }
 
-export function tweetsFetchDataSuccess(tweets) {
+function tweetsFetchDataSuccess(tweets) {
     return {
         type: tweetsConstant.TWEETS_FETCH_DATA_SUCCESS,
         isLoading: false,
@@ -22,15 +30,21 @@ export function tweetsFetchDataSuccess(tweets) {
     };
 }
 
-export function addTweet(newTweet) {
+function addTweet(newTweet) {
     return {
         type: tweetsConstant.TWEETS_ADD,
         isLoading: false,
         newTweet
     }
 }
+function searchUsers(usersFound) {
+    return {
+        type: tweetsConstant.SEARCH_USERS,
+        usersFound
+    }
+}
 
-export function tweetsFetchData(url) {
+function tweetsFetchData(url) {
     return (dispatch) => {
         dispatch(tweetsIsLoading(true));
 
@@ -49,4 +63,4 @@ export function tweetsFetchData(url) {
             .catch(() => dispatch(tweetsHasErrored(true)));
     };
 }
-export default tweetsFetchData;
+export default tweetsActions;

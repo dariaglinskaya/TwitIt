@@ -1,7 +1,7 @@
 import { Button, Icon, Input } from 'antd';
 import { connect } from 'react-redux';
 import * as React from 'react';
-import { addTweet } from '../actions/tweetsActions';
+import tweetsActions from '../actions/tweetsActions';
 import store from '../store';
 
 const { TextArea } = Input;
@@ -40,7 +40,7 @@ export class AddForm extends React.Component<IProps, IState>{
                 text: this.state.newTweetContent,
                 id: Math.random().toString(36).substr(2, 9)
             }
-            store.dispatch(addTweet(newTweet));
+            store.dispatch(tweetsActions.addTweet(newTweet));
         }
     }
     private customStyle = {

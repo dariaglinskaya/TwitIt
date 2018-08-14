@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import './style.css';
 import { Spin } from 'antd';
 import * as React from 'react';
-import tweetsFetchData from '../actions/tweetsActions';
+import tweetsActions from '../actions/tweetsActions';
 
 import Tweet from './Tweet';
 
@@ -50,7 +50,6 @@ export class Feed extends React.Component<IProps, IState>{
         return <div>No tweets added yet.</div>;
     }
     public render() {
-        console.log(this.props);
         if (!this.props.subscriptions) {
             return <p>No items to show.</p>;
         }
@@ -84,7 +83,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        fetchData: (url) => dispatch(tweetsFetchData(url))
+        fetchData: (url) => dispatch(tweetsActions.tweetsFetchData(url))
     };
 }
 

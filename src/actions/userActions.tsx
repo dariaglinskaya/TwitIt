@@ -3,7 +3,8 @@ import { userConstants } from '../constants/userConst';
 export const userActions = {
     login,
     logout,
-    register
+    register,
+    subscribe
 };
 
 function register(newUser) {
@@ -28,4 +29,11 @@ function logout() {
         loggedIn: false
     };
 }
+function subscribe(userName) {
+    return {
+        type: userConstants.USER_SUBSCRIBE,
+        userName
+    }
+}
+
 export default userActions;
