@@ -4,6 +4,7 @@ import store from '../store';
 import userActions from '../actions/userActions';
 import * as React from 'react';
 import { Link } from 'react-router-dom';
+import Header from './Header';
 
 const FormItem = Form.Item;
 
@@ -11,7 +12,8 @@ export interface IProps {
     hasErrored: boolean,
     isLoading: boolean,
     authentication: any,
-    form: any
+    form: any,
+    history: any
 }
 
 export interface IState {
@@ -41,7 +43,7 @@ export class RegistrationForm extends React.Component<IProps, IState> {
         this.setState(() => ({ password }));
     }
     public handleSubmit(event) {
-        event.preventDefault();
+        //event.preventDefault();
         const newUser = {
             name: this.state.username,
             password: this.state.password,
@@ -73,26 +75,32 @@ export class RegistrationForm extends React.Component<IProps, IState> {
     render() {
         const { getFieldDecorator } = this.props.form;
         return (
-            <div className="register">
-                <Form className="login-form">
-                    <FormItem>
-                        {getFieldDecorator('userName', {
-                            rules: [{ required: true, message: 'Please input your username!' }],
-                        })(
-                            <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="Username" onChange={this.onUsernameChange.bind(this)} />
-                        )}
-                    </FormItem>
-                    <FormItem>
-                        {getFieldDecorator('password', {
-                            rules: [{ required: true, message: 'Please input your Password!' }],
-                        })(
-                            <Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="Password" onChange={this.onPasswordChange.bind(this)} />
-                        )}
-                    </FormItem>
-                    <FormItem>
-                        <Link to='/' onClick={this.handleSubmit.bind(this)}><Button type="primary" htmlType="submit" className="login-form-button">Register</Button></Link>
-                    </FormItem>
-                </Form>
+            <div>
+                <Header />
+                <div className="register">
+
+                    <Form className="login-form">
+                        <FormItem>
+                            {getFieldDecorator('userName', {
+                                rules: [{ required: true, message: 'Please input your username!' }],
+                            })(
+                                <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="Username" onChange={this.onUsernameChange.bind(this)} />
+                            )}
+                        </FormItem>
+                        <FormItem>
+                            {getFieldDecorator('password', {
+                                rules: [{ required: true, message: 'Please input your Password!' }],
+                            })(
+                                <Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="Password" onChange={this.onPasswordChange.bind(this)} />
+                            )}
+                        </FormItem>
+                        <FormItem>
+                            <Link onClick={this.handleSubmit.bind(this)} to='/' replace>
+                                <Button type="primary" htmlType="submit" className="login-form-button">Register</Button>
+                            </Link>
+                        </FormItem>
+                    </Form>
+                </div>
             </div>
         );
     }

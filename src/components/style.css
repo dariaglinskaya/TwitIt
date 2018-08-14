@@ -190,3 +190,7 @@ hr {
  #root .login-form-button {
     width: 100%;
   }
+  .log-out {
+      float: right;
+      margin: 9px 0;
+  }

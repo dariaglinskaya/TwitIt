@@ -1,41 +1,41 @@
 import { Col } from 'antd';
 import * as React from 'react';
-import AddForm from './addForm';
+import AddForm from './AddForm';
 import Footer from './Footer';
 import Feed from './Feed';
 import Header from './Header';
+import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-interface State { newTweetContent: string, }
-
-//export interface IAppProps extends IStateProps,State{}
+export interface IState { }
 
 export interface IProps {
-  tweets: {
-    author?: string,
-    date?: string,
-    text?: string
-  }[]
+  authentication: any
 }
 
-export default class Body extends React.Component<IProps, State>{
-  constructor(props: any) {
-    super(props);
-  }
+export class Body extends React.Component<IProps, IState>{
   public render() {
     return (
-      <div className='App-body' >
-        <Header />
-        <div>
-          <Col span={17} push={7}>
-            <Feed />
-          </Col>
-          <Col span={7} pull={17}>
-            <AddForm />
-          </Col>
+      !this.props.authentication.loggedIn ? (<Redirect to="/" />) :
+        <div className='App-body' >
+          <Header />
+          <div>
+            <Col span={17} push={7}>
+              <Feed />
+            </Col>
+            <Col span={7} pull={17}>
+              <AddForm />
+            </Col>
+          </div>
+          <Footer />
         </div>
-        <Footer />
-      </div>
     );
   }
-
 }
+const mapStateToProps = state => {
+  return {
+    authentication: state.authentication,
+  }
+}
+
+export default connect(mapStateToProps)(Body);

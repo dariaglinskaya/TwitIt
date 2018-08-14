@@ -1,12 +1,9 @@
 import { connect } from 'react-redux';
-import { Input } from 'antd';
-//import { isEmpty } from 'lodash';
-import { Spin } from 'antd';
+import { Input, Spin } from 'antd';
 import * as React from 'react';
 import tweetsFetchData from '../actions/tweetsActions';
 
 import Tweet from './Tweet';
-//import authentication from '../reducers/authReducer';
 
 const Search = Input.Search;
 
@@ -63,18 +60,18 @@ export class Feed extends React.Component<IProps, IState>{
         }
         if (this.props.tweets.isLoading === true) {
             <div className="App-feed">
-                <Search placeholder="search user by login" enterButton="Search" className="search-input" />
                 return <Spin />
             </div>
 
         }
         return (
-            <div className="App-feed">
-                <Search placeholder="search user by login" enterButton="Search" className="search-input" onClick={this.searchUser} />
-                <div>
-                    {this.renderTweets()}
+            <div>
+                <div className="App-feed">
+                    <Search placeholder="search user by login" enterButton="Search" className="search-input" onClick={this.searchUser} />
+                    <div>
+                        {this.renderTweets()}
+                    </div>
                 </div>
-
             </div>
         );
     }

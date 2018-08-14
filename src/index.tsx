@@ -1,16 +1,15 @@
 import './index.css';
 import './App.css';
-
+import '../src/components/style.css';
 import { Provider, connect } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
-//import Body from './components/Body';
+import Body from './components/Body';
 import Home from './components/Home';
 import Search from './components/Search';
-import User from './components/User';
 import RegistrationForm from './components/RegistrationForm'
 
 import registerServiceWorker from './registerServiceWorker';
@@ -38,7 +37,7 @@ export default class App extends React.Component<IAppProps, {}> {
           <Switch>
             <Route exact path="/" component={Home} />
             <Route path="/searchUser" component={Search} />
-            <Route path="/user/:username" component={User} />
+            <Route path="/user/:name" component={Body} />
             <Route path="/register" component={RegistrationForm} />
           </Switch>
         </Router >
