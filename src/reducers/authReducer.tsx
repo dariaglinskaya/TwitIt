@@ -1,6 +1,6 @@
 import { userConstants } from '../constants/userConst';
 
-const initialState = {
+const INITIAL_STATE = {
     loggedIn: false,
     user: {
         name: '',
@@ -9,7 +9,8 @@ const initialState = {
     users: []
 }
 
-export default function authentication(state = initialState, action) {
+
+export default function authentication(state = INITIAL_STATE, action) {
     switch (action.type) {
         case userConstants.LOGIN_REQUEST:
             return {
@@ -26,7 +27,14 @@ export default function authentication(state = initialState, action) {
         case userConstants.LOGIN_FAILURE:
             return {};
         case userConstants.LOGOUT:
-            return {};
+            return {
+                ...state,
+                loggedIn: false,
+                user: {
+                    name: '',
+                    subscriptions: []
+                },
+            };
         case userConstants.REGISTER_SUCCESS:
             return {
                 ...state,

@@ -30,6 +30,9 @@
     font-size: 30px;
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
+.App-title {
+    margin-left: 20px;
+}
 .App-feed{
     background-color: #0000000a;
     min-height: 100vh;
@@ -190,7 +193,15 @@ hr {
  #root .login-form-button {
     width: 100%;
   }
-  .log-out {
+ 
+ .search-input {
+      width: 43%;      
+      margin: 9px 0;
+} 
+.App-title {
+    float: left;
+}
+.log-out {
       float: right;
       margin: 9px 0;
   }

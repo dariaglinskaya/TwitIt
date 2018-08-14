@@ -1,11 +1,10 @@
 import { connect } from 'react-redux';
-import { Input, Spin } from 'antd';
+import './style.css';
+import { Spin } from 'antd';
 import * as React from 'react';
 import tweetsFetchData from '../actions/tweetsActions';
 
 import Tweet from './Tweet';
-
-const Search = Input.Search;
 
 export interface IProps {
     hasErrored: boolean,
@@ -50,9 +49,6 @@ export class Feed extends React.Component<IProps, IState>{
     public renderEmpty() {
         return <div>No tweets added yet.</div>;
     }
-    public searchUser() {
-
-    }
     public render() {
         console.log(this.props);
         if (!this.props.subscriptions) {
@@ -67,7 +63,6 @@ export class Feed extends React.Component<IProps, IState>{
         return (
             <div>
                 <div className="App-feed">
-                    <Search placeholder="search user by login" enterButton="Search" className="search-input" onClick={this.searchUser} />
                     <div>
                         {this.renderTweets()}
                     </div>

@@ -97,9 +97,7 @@ export class LogIn extends React.Component<IProps, IState> {
 
 const mapStateToProps = state => {
     return {
-        hasErrored: state.tweetsHasErrored,
-        authentication: state.authentication,
-        subscriptions: state.authentication.user.subscriptions
+        authentication: state.authentication
     }
 }
 

@@ -23,6 +23,9 @@ function login(user) {
 }
 
 function logout() {
-    return { type: userConstants.LOGOUT };
+    return {
+        type: userConstants.LOGOUT,
+        loggedIn: false
+    };
 }
 export default userActions;
