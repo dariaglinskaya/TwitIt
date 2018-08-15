@@ -21,7 +21,7 @@ export class User extends React.Component<IProps, IState>{
             return this.props.match.params.username.substring(1) === tweet.author.toLowerCase()
         });
         return res.map((tweet, index) => {
-            return <Tweet key={index}
+            return <Tweet key={index+100}
                 {...tweet} />
         })
     }
@@ -40,8 +40,6 @@ export class User extends React.Component<IProps, IState>{
     public renderUserTweets() {
         let subscr = this.renderUserTweetsSubscr();
         let retweets = this.renderUserRetweets();
-        console.log(subscr);
-        console.log(retweets);
         return subscr.concat(retweets);
     }
     private customStyle = {
