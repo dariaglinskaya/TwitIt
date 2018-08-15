@@ -4,16 +4,26 @@ import * as React from 'react';
 import store from '../store';
 import userActions from '../actions/userActions';
 
-export class SearchItem extends React.Component<any, any>{
+export interface IState {
+    subscribed: boolean;
+}
+export class SearchItem extends React.Component<any, IState>{
+    constructor(props) {
+        super(props);
+        this.state = {
+            subscribed: false
+        }
+    }
     public subscribe(event) {
-        console.log(event.target)
-        store.dispatch(userActions.subscribe(this.props.name.toLowerCase()));
+        store.dispatch(userActions.subscribe(this.props.name.toLowerCase()))   
+        this.setState(() => ({ subscribed: true }));
+        event.target.children[0].innerHTML="Unsubscribe";
     }
     public render() {
         return (
             <div className="search-item">
                 <span className="author">@{this.props.name.toLowerCase()}</span>
-                <Button type="primary" onClick={value => this.subscribe(this.props.name)}>Subscribe</Button>
+                <Button type={this.state.subscribed ? "primary" : "default"} onClick={e => this.subscribe(e)}>Subscribe</Button>
             </div>
         );
     }
