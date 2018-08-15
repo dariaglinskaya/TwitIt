@@ -45,7 +45,7 @@ export class LogIn extends React.Component<IProps, IState> {
         const { username, password } = this.state;
         const user = {
             name: username,
-            subscriptions: ['keenan'],
+            subscriptions: ['edwin'],
         }
         let users = this.props.authentication.users;
         if (typeof users != "undefined" && users != null && users.length != null && users.length > 0) {
@@ -65,7 +65,7 @@ export class LogIn extends React.Component<IProps, IState> {
     render() {
         const { getFieldDecorator } = this.props.form;
         return (
-            this.props.authentication.loggedIn ? (<Redirect to={"/user/:" + this.props.authentication.user.name} />) :
+            this.props.authentication.loggedIn ? (<Redirect to="/newsFeed" />) :
                 <div className="logIn">
                     <Form onSubmit={this.handleSubmit.bind(this)} className="login-form">
                         <FormItem>

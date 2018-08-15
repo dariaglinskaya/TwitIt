@@ -78,6 +78,7 @@
     font-size: 30px;
 }
 .tweet-date{
+    color: #000000d6;
     opacity: 0.5;
     font-size: 13px;
 }
@@ -160,7 +161,7 @@
 .search-input{
     margin-bottom: 10px;
 }
-.anticon-like, .anticon-retweet, .tweet-date{
+.anticon-like, .anticon-retweet{
     color: #1890ff;
 }
 .ant-input{

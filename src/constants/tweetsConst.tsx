@@ -5,6 +5,10 @@ const tweetsConstant = {
 
     TWEETS_ADD: 'TWEETS_ADD', 
     
-    SEARCH_USERS: 'SEARCH_USERS'
+    SEARCH_USERS: 'SEARCH_USERS',
+
+    LIKE_TWEET: 'LIKE_TWEET',
+
+    RETWEET_TWEET: 'RETWEET_TWEET'
 }
 export default tweetsConstant

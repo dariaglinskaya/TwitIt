@@ -10,7 +10,8 @@ import * as ReactDOM from 'react-dom';
 import Body from './components/Body';
 import Home from './components/Home';
 import Search from './components/Search';
-import RegistrationForm from './components/RegistrationForm'
+import RegistrationForm from './components/RegistrationForm';
+import User from './components/User';
 
 import registerServiceWorker from './registerServiceWorker';
 import store from "./store";
@@ -37,8 +38,9 @@ export default class App extends React.Component<IAppProps, {}> {
           <Switch>
             <Route exact path="/" component={Home} />
             <Route path="/searchUser" component={Search} />
-            <Route path="/user/:name" component={Body} />
+            <Route path="/newsFeed" component={Body} />
             <Route path="/register" component={RegistrationForm} />
+            <Route path="/user/:username" component={User} />
           </Switch>
         </Router >
       </div>

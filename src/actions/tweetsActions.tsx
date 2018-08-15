@@ -6,7 +6,9 @@ const tweetsActions = {
     tweetsFetchDataSuccess,
     addTweet,
     searchUsers,
-    tweetsFetchData
+    tweetsFetchData,
+    likeTweet,
+    retweetTweet
 }
 function tweetsHasErrored(bool) {
     return {
@@ -43,7 +45,18 @@ function searchUsers(usersFound) {
         usersFound
     }
 }
-
+function likeTweet(tweet) {
+    return {
+        type: tweetsConstant.LIKE_TWEET,
+        tweet
+    }
+}
+function retweetTweet(tweet) {
+    return {
+        type: tweetsConstant.RETWEET_TWEET,
+        tweet
+    }
+}
 function tweetsFetchData(url) {
     return (dispatch) => {
         dispatch(tweetsIsLoading(true));

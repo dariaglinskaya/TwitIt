@@ -9,7 +9,7 @@ import { connect } from 'react-redux';
 export class Home extends React.Component<any, any> {
     render() {
         return (
-            this.props.authentication.loggedIn ? (<Redirect to={"/user/:"+this.props.authentication.user.name}/>)
+            this.props.authentication.loggedIn ? (<Redirect to="/newsFeed"/>)
             :
             <div>
                 <Header />
