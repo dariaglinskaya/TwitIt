@@ -15,7 +15,8 @@ export interface IProps {
 }
 
 export class User extends React.Component<IProps, IState>{
-    public renderUserTweets() {
+    public renderUserTweetsSubscr() {
+        console.log()
         const res = this.props.tweets.filter((tweet) => {
             return this.props.match.params.username.substring(1) === tweet.author.toLowerCase()
         });
@@ -23,6 +24,25 @@ export class User extends React.Component<IProps, IState>{
             return <Tweet key={index}
                 {...tweet} />
         })
+    }
+    public renderUserRetweets() {
+        let subscrID = this.props.authentication.user.retweets;
+        let tweets = this.props.tweets;
+        let res = [];
+        subscrID.forEach((id) => {
+            res.push(tweets.find((tweet) => { return tweet.id === id }));
+        });
+        return res.map((tweet, index) => {
+            return <Tweet key={index}
+                {...tweet} retweeted={true}/>
+        })
+    }
+    public renderUserTweets() {
+        let subscr = this.renderUserTweetsSubscr();
+        let retweets = this.renderUserRetweets();
+        console.log(subscr);
+        console.log(retweets);
+        return subscr.concat(retweets);
     }
     private customStyle = {
         display: 'inline',

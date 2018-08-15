@@ -40,8 +40,9 @@ export class Tweet extends React.Component<any, IState>{
                 </a>
                 <span>{this.props.countLikes ? this.props.countLikes : ""}</span>
                 <a href='' onClick={this.handleClickRetweet.bind(this)}>
-                    <Icon type="retweet" style={this.state.retweeted ? { color: "#1890ff" } : { color: "grey" }} />
+                    <Icon type="retweet" style={(this.state.retweeted || this.props.retweeted) ? { color: "#1890ff" } : { color: "grey" }} />
                 </a>
+                {console.log(this.props)}
             </div>
         );
     }
