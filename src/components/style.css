@@ -65,7 +65,12 @@
 }
 .anticon{
     font-size: 20px;
+}
+.anticon-heart-o{
     margin-right: 10px;
+}
+.anticon-retweet {
+    margin-left: 10px; 
 }
 .tweet-text{
     margin-bottom: 10px;

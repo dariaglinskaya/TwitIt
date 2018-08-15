@@ -14,14 +14,16 @@ export interface IProps {
 }
 
 export interface IState {
-    error: any,
-    newTweetContent: any,
+    newTweetContent: string,
 }
 
 
 export class AddForm extends React.Component<IProps, IState>{
     constructor(props) {
         super(props);
+        this.state = {
+            newTweetContent: "",
+        }
         this.handleSubmit = this.handleSubmit.bind(this);
         this.onTextChange = this.onTextChange.bind(this);
     }
@@ -42,6 +44,7 @@ export class AddForm extends React.Component<IProps, IState>{
                 id: Math.random().toString(36).substr(2, 9),
                 countLikes: 0
             }
+            this.setState(() => ({ newTweetContent: "" }));
             store.dispatch(tweetsActions.addTweet(newTweet));
         }
     }
@@ -52,9 +55,9 @@ export class AddForm extends React.Component<IProps, IState>{
         return (
             <form className="user-page" onSubmit={this.handleSubmit.bind(this)}>
                 <Icon type="user" className="user-page-icon" />
-                <Link to={"/user/:"+this.props.authentication.user.name} className="author" style={this.customStyle}>@{this.props.authentication.user.name}</Link>
+                <Link to={"/user/:" + this.props.authentication.user.name} className="author" style={this.customStyle}>@{this.props.authentication.user.name}</Link>
                 <span className="user-page-author"></span>
-                <TextArea rows={4} ref='newTweet' className="add-tweet" placeholder='What do you think?' onChange={this.onTextChange} />
+                <TextArea rows={4} ref='newTweet' className="add-tweet" placeholder='What do you think?' onChange={this.onTextChange} value={this.state.newTweetContent} />
                 <Button type="primary" htmlType="submit" className="add-tweet-btn" >Add</Button>
             </form>
         );
