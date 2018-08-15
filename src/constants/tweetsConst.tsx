@@ -8,7 +8,5 @@ const tweetsConstant = {
     SEARCH_USERS: 'SEARCH_USERS',
 
     LIKE_TWEET: 'LIKE_TWEET',
-
-    RETWEET_TWEET: 'RETWEET_TWEET'
 }
 export default tweetsConstant

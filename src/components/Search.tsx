@@ -4,7 +4,7 @@ import AddForm from './AddForm';
 import Footer from './Footer';
 import Header from './Header';
 import SearchItem from './SearchItem';
-import { Redirect } from 'react-router-dom';
+import { Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 
@@ -18,7 +18,6 @@ export interface IProps {
 export class Search extends React.Component<IProps, IState>{
     public renderUsers() {
         return this.props.tweets.usersFound[0].map((item, index) => {
-            console.log(item);
             return <SearchItem key={index} {...item} />
         })
     }
@@ -49,4 +48,6 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps)(Search);
+export default withRouter(
+    connect(mapStateToProps)(Search)
+);

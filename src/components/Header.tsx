@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import userActions from '../actions/userActions';
 import tweetsActions from '../actions/tweetsActions';
 import store from '../store';
-import { Redirect, Link } from 'react-router-dom';
+import { Redirect, Link, withRouter } from 'react-router-dom';
 
 const Search = Input.Search;
 
@@ -14,7 +14,8 @@ export interface IState {}
 
 export interface IProps {
     authentication: any,
-    tweets: any
+    tweets: any,
+    history: any
 }
 
 export class Header extends React.Component<IProps, IState>{
@@ -26,8 +27,16 @@ export class Header extends React.Component<IProps, IState>{
     }
     public searchUser(value) {
         let users = this.props.authentication.users;
+        console.log(this.props)
         const usersFound = users.filter(user => user.name.includes(value));
-        store.dispatch(tweetsActions.searchUsers(usersFound));  
+        console.log(usersFound)
+        if(usersFound && usersFound.length > 0) {
+            this.props.history.push("/searchUser");
+            store.dispatch(tweetsActions.searchUsers(usersFound));
+        } else {
+            alert("No users found")
+        }
+          
     } 
     public logOut(event) {
         event.preventDefault();
@@ -47,7 +56,6 @@ export class Header extends React.Component<IProps, IState>{
                     <Link to="/newsFeed" style={{color:'white'}} className="App-title">TwitIt</Link>
                     <Search placeholder="search user by login" className="search-input" onSearch={value => this.searchUser(value)} />
                     <Button type="primary" className="log-out" onClick={this.logOut}>Log out</Button>
-                    {this.props.tweets.usersFound && this.props.tweets.usersFound.length > 0 && <Redirect to={"/searchUser"}/>}
                 </header>
         );
     }
@@ -59,4 +67,6 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps)(Header);
+export default withRouter(
+    connect(mapStateToProps)(Header)
+);

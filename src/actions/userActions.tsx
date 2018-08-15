@@ -4,7 +4,8 @@ export const userActions = {
     login,
     logout,
     register,
-    subscribe
+    subscribe,
+    retweet
 };
 
 function register(newUser) {
@@ -33,6 +34,12 @@ function subscribe(userName) {
     return {
         type: userConstants.USER_SUBSCRIBE,
         userName
+    }
+}
+function retweet(userID) {
+    return {
+        type: userConstants.USER_RETWEETED,
+        userID
     }
 }
 

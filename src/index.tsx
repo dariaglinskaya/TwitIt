@@ -2,7 +2,7 @@ import './index.css';
 import './App.css';
 import '../src/components/style.css';
 import { Provider, connect } from 'react-redux';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, } from 'react-router-dom';
 
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
@@ -37,10 +37,10 @@ export default class App extends React.Component<IAppProps, {}> {
         <Router>
           <Switch>
             <Route exact path="/" component={Home} />
-            <Route path="/searchUser" component={Search} />
             <Route path="/newsFeed" component={Body} />
             <Route path="/register" component={RegistrationForm} />
             <Route path="/user/:username" component={User} />
+            <Route path="/searchUser" component={Search} />
           </Switch>
         </Router >
       </div>

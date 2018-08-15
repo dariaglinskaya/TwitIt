@@ -8,7 +8,6 @@ const tweetsActions = {
     searchUsers,
     tweetsFetchData,
     likeTweet,
-    retweetTweet
 }
 function tweetsHasErrored(bool) {
     return {
@@ -51,12 +50,7 @@ function likeTweet(tweet) {
         tweet
     }
 }
-function retweetTweet(tweet) {
-    return {
-        type: tweetsConstant.RETWEET_TWEET,
-        tweet
-    }
-}
+
 function tweetsFetchData(url) {
     return (dispatch) => {
         dispatch(tweetsIsLoading(true));

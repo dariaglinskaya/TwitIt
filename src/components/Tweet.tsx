@@ -3,6 +3,7 @@ import * as React from 'react';
 import store from '../store';
 import { connect } from 'react-redux';
 import tweetsActions from '../actions/tweetsActions';
+import userActions from '../actions/userActions';
 import { Link } from 'react-router-dom';
 
 export interface IState {
@@ -24,18 +25,23 @@ export class Tweet extends React.Component<any, IState>{
     }
     public handleClickRetweet(event) {
         event.preventDefault();
-        store.dispatch(tweetsActions.likeTweet(this.props));
-        this.setState(() => ({ liked: true }));
+        store.dispatch(userActions.retweet(this.props.id));
+        this.setState(() => ({ retweeted: true }));
     }
     public render() {
         return (
             <div className="tweet-item">
-                <Link to={"/user/:"+this.props.author.toLowerCase()} className="author">@{this.props.author.toLowerCase()}</Link>
+                <Link to={"/user/:" + this.props.author.toLowerCase()} className="author">@{this.props.author.toLowerCase()}</Link>
                 <time className="tweet-date">{this.props.date}</time>
                 <hr />
                 <div className="tweet-text">{this.props.text}</div>
-                <a href='' onClick={this.handleClickLike.bind(this)}><Icon type={this.state.liked ? "heart" : "heart-o"} /></a><span>{this.props.countLikes ? this.props.countLikes : ""}</span>
-                <a href='' onClick={this.handleClickRetweet.bind(this)}><Icon type="retweet" style={this.state.retweeted ? {fontSize: "30px"} : {}}/></a>
+                <a href='' onClick={this.handleClickLike.bind(this)}>
+                    <Icon type="heart-o" style={this.state.liked ? { color: "#1890ff" } : { color: "grey" }} />
+                </a>
+                <span>{this.props.countLikes ? this.props.countLikes : ""}</span>
+                <a href='' onClick={this.handleClickRetweet.bind(this)}>
+                    <Icon type="retweet" style={this.state.retweeted ? { color: "#1890ff" } : { color: "grey" }} />
+                </a>
             </div>
         );
     }

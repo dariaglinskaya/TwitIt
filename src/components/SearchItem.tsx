@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import * as React from 'react';
 import store from '../store';
 import userActions from '../actions/userActions';
+import { Link } from 'react-router-dom';
 
 export interface IState {
     subscribed: boolean;
@@ -15,6 +16,7 @@ export class SearchItem extends React.Component<any, IState>{
         }
     }
     public subscribe(event) {
+        event.preventDefault();
         store.dispatch(userActions.subscribe(this.props.name.toLowerCase()))   
         this.setState(() => ({ subscribed: true }));
         event.target.children[0].innerHTML="Unsubscribe";
@@ -22,7 +24,7 @@ export class SearchItem extends React.Component<any, IState>{
     public render() {
         return (
             <div className="search-item">
-                <span className="author">@{this.props.name.toLowerCase()}</span>
+                <Link to={'/user/:'+this.props.name.toLowerCase()} className="author">@{this.props.name.toLowerCase()}</Link>
                 <Button type={this.state.subscribed ? "primary" : "default"} onClick={e => this.subscribe(e)}>Subscribe</Button>
             </div>
         );

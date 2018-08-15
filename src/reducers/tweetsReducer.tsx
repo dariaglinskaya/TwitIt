@@ -39,23 +39,6 @@ export default function tweets(state = initialState, action: any) {
         })
       }
     }
-    case tweetsConstant.RETWEET_TWEET: {
-      return {
-        ...state,
-        tweets: state.tweets.map(tweet => {
-          if (tweet.id === action.tweet.id) {
-            return {
-              ...tweet,
-              tweet: {
-                countLikes: tweet.countLikes++
-              }
-            }
-          } else {
-            return { ...tweet }
-          }
-        })
-      }
-    }
     default: {
       return state;
     }

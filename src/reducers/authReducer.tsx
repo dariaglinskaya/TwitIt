@@ -4,7 +4,8 @@ const INITIAL_STATE = {
     loggedIn: false,
     user: {
         name: '',
-        subscriptions: []
+        subscriptions: [],
+        retweets: [],
     },
     users: []
 }
@@ -40,13 +41,21 @@ export default function authentication(state = INITIAL_STATE, action) {
                 ...state,
                 users: [...state.users, action.newUser]
             };
-        case userConstants.USER_SUBSCRIBE: {
-            
+        case userConstants.USER_SUBSCRIBE: {            
             return {
                 ...state,
                 user: {
                     ...state.user,
                     subscriptions: [...state.user.subscriptions, action.userName]
+                }
+            }
+        }
+        case userConstants.USER_RETWEETED: {            
+            return {
+                ...state,
+                user: {
+                    ...state.user,
+                    retweets: [...state.user.retweets, action.userID]
                 }
             }
         }
