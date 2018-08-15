@@ -38,9 +38,14 @@ export class User extends React.Component<IProps, IState>{
         })
     }
     public renderUserTweets() {
-        let subscr = this.renderUserTweetsSubscr();
-        let retweets = this.renderUserRetweets();
-        return subscr.concat(retweets);
+        let subscr = this.renderUserTweetsSubscr();        
+        if(this.props.match.params.username.substring(1) === this.props.authentication.user.name) {
+            let retweets = this.renderUserRetweets();
+            return subscr.concat(retweets);
+        } else {
+            return subscr;
+        }
+        
     }
     private customStyle = {
         display: 'inline',
