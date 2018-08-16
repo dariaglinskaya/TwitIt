@@ -1,132 +1,157 @@
 @font-face {
     font-family: "Helvetica";
     src: url(./fonts/texgyreheros-bold.otf),
-         url(./fonts/texgyreheros-bolditalic.otf),
-         url(./fonts/texgyreheros-italic.otf),
-         url(./fonts/texgyreheros-regular.otf),
-         url(./fonts/texgyreheroscn-bold.otf),
-         url(./fonts/texgyreheroscn-bolditalic.otf),
-         url(./fonts/texgyreheroscn-italic.otf),
-         url(./fonts/texgyreheroscn-regular.otf)
-        }
-.html{
+           url(./fonts/texgyreheros-bolditalic.otf),
+           url(./fonts/texgyreheros-italic.otf),
+           url(./fonts/texgyreheros-regular.otf),
+           url(./fonts/texgyreheroscn-bold.otf),
+           url(./fonts/texgyreheroscn-bolditalic.otf),
+           url(./fonts/texgyreheroscn-italic.otf),
+           url(./fonts/texgyreheroscn-regular.otf);
+  }
+  
+  .html {
     font-family: "Helvetica";
-}
-.ant-btn-ghost{
+  }
+  
+  .ant-btn-ghost {
     color: white;
-}
-.ant-avatar{
+  }
+  
+  .ant-avatar {
     margin-right: 5px;
-}
-.authorization-field{
+  }
+  
+  .authorization-field {
     float: right;
-}
-.App-header{
-   clear: both;
-   text-align:  center;
-
-}
-.App-title, .App-footer{
-    font-size: 30px;
-    font-family: Georgia, 'Times New Roman', Times, serif;
-}
-.App-title {
+  }
+  
+  .App-header {
+    clear: both;
+    text-align: center;
+  }
+  
+  .App-title,
+  .App-footer {
+    font: 30px Georgia, 'Times New Roman', Times, serif;
+  }
+  
+  .App-title {
     margin-left: 20px;
-}
-.App-feed, .search-list{
-    background-color: #0000000a;
+  }
+  
+  .App-feed,
+  .search-list {
+    background: #0000000a;
     min-height: 100vh;
     padding-left: 40px;
     padding-right: 40px;
-}
-.App-footer{
-    background-color: black;
+  }
+  
+  .App-footer {
+    background: black;
     position: fixed;
     font-size: 15px;
     width: 100%;
     bottom: 0;
     height: 50px;
-}
-.search-list{
+  }
+  
+  .search-list {
     padding-top: 20px;
-}
-.tweet-item, .search-item{
-    background-color: aliceblue;
+  }
+  
+  .tweet-item,
+  .search-item {
+    background: aliceblue;
     border-radius: 4px;
     padding: 10px;
     margin-bottom: 10px;
     font-size: 15px;
-    box-shadow:  0 1px 2px rgba(0,0,0,0.24);
-}
-.author{
+    box-shadow: 0 1px 2px rgba(0,0,0,0.24);
+  }
+  
+  .author {
     font-weight: bold;
     font-size: 17px;
     display: block;
-}
-.anticon{
+  }
+  
+  .anticon {
     font-size: 20px;
-}
-.anticon-heart-o{
+  }
+  
+  .anticon-heart-o {
     margin-right: 10px;
-}
-.anticon-retweet {
-    margin-left: 10px; 
-}
-.tweet-text{
+  }
+  
+  .anticon-retweet {
+    margin-left: 10px;
+  }
+  
+  .tweet-text {
     margin-bottom: 10px;
     font-family: "Helvetica";
-}
-.anticon-like{
+  }
+  
+  .anticon-like {
     margin-right: 10px;
-}
-.anticon-twitter{
+  }
+  
+  .anticon-twitter {
     font-size: 30px;
-}
-.tweet-date{
+  }
+  
+  .tweet-date {
     color: #000000d6;
     opacity: 0.5;
     font-size: 13px;
-}
-.App-footer{
+  }
+  
+  .App-footer {
     color: white;
     padding-left: 15%;
     padding-right: 15%;
     text-align: center;
-    padding-top: 10px; 
-}
-.auth-form{
+    padding-top: 10px;
+  }
+  
+  .auth-form {
+    background: gray;
     position: fixed;
     top: 0;
     left: 0;
     z-index: 9000;
     width: 100%;
     height: 100%;
-    background-color: gray;
-    opacity: 0.3;      
-}
-.modal {
+    opacity: 0.3;
+  }
+  
+  .modal {
+    background: gainsboro;
     position: fixed;
     top: 0;
     left: 0;
     z-index: 8000;
     width: 100%;
     height: 100%;
-    background-color: gainsboro;
     background: rgba(0, 0, 0, 0.6);
   }
   
   .modal-main {
-    position:fixed;
+    position: fixed;
     background: white;
-    top:50%;
-    left:50%;
+    top: 50%;
+    left: 50%;
     transform: translate(-50%,-50%);
-    clear: both;    
+    clear: both;
     display: flex;
   }
-  .modal-main > div{
-      flex: 1;
+  
+  .modal-main > div {
+    flex: 1;
   }
+  
   .display-block {
     display: block;
   }
@@ -134,82 +159,103 @@
   .display-none {
     display: none;
   }
-  .hide-modal-button{
-      float: right;
-      color: black;
-      font-size: 25px;
+  
+  .hide-modal-button {
+    float: right;
+    color: black;
+    font-size: 25px;
   }
-  .hide-modal-button:hover{
-      opacity: 0.5;
+  
+  .hide-modal-button:hover {
+    opacity: 0.5;
   }
-  .log-in-col, .register-col{
-      color: black;
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
+  
+  .log-in-col,
+  .register-col {
+    color: black;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
-  .log-in-col span, .register-col span{
-      font-size: 25px;
-      top: 0;
-
+  
+  .log-in-col span,
+  .register-col span {
+    font-size: 25px;
+    top: 0;
   }
-  .register-col form button.ant-btn span, .log-in-col form button.ant-btn span{
-      font-size: 17px;
-      padding: 0 15px;
+  
+  .register-col form button.ant-btn span,
+  .log-in-col form button.ant-btn span {
+    font-size: 17px;
+    padding: 0 15px;
   }
-.modal-main input{
+  
+  .modal-main input {
     width: 100%;
     height: 30px;
     margin: 10px 0;
-}
-.search-input{
+  }
+  
+  .search-input {
     margin-bottom: 10px;
-}
-.anticon-like, .anticon-retweet{
+  }
+  
+  .anticon-like,
+  .anticon-retweet {
     color: #1890ff;
-}
-.ant-input{
+  }
+  
+  .ant-input {
     margin-left: 0;
-}
-.ant-col-7{
+  }
+  
+  .ant-col-7 {
     height: 100vh;
-    border-right: 1px solid #00000045; 
-}
-.user-page-icon{
+    border-right: 1px solid #00000045;
+  }
+  
+  .user-page-icon {
     font-size: 50px;
-}
-.user-page{
-    margin: 20px; 
+  }
+  
+  .user-page {
+    margin: 20px;
     clear: both;
-}
-.user-page-author{
+  }
+  
+  .user-page-author {
     font-size: 17px;
     font-weight: bold;
-}
-.add-tweet{
+  }
+  
+  .add-tweet {
     margin-top: 20px;
-}
-.add-tweet-btn{
+  }
+  
+  .add-tweet-btn {
     margin-top: 20px;
     float: right;
-}
-hr {
+  }
+  
+  hr {
     opacity: 0.3;
-}
-
- #root .login-form-button {
+  }
+  
+  #root .login-form-button {
     width: 100%;
   }
- 
- .search-input {
-      width: 43%;      
-      margin: 9px 0;
-} 
-.App-title {
+  
+  .search-input {
+    width: 43%;
+    margin: 9px 0;
+  }
+  
+  .App-title {
     float: left;
-}
-.log-out {
-      float: right;
-      margin: 9px 0;
+  }
+  
+  .log-out {
+    float: right;
+    margin: 9px 0;
   }

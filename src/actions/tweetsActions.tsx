@@ -60,9 +60,7 @@ function tweetsFetchData(url) {
                 if (!response.ok) {
                     throw Error(response.statusText);
                 }
-
-                dispatch(tweetsIsLoading(false));
-
+                dispatch(tweetsIsLoading(true));
                 return response;
             })
             .then((response) => response.json())

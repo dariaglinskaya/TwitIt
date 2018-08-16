@@ -54,8 +54,8 @@ export class Feed extends React.Component<IProps, IState>{
             return <p>No items to show.</p>;
         }
         if (this.props.tweets.isLoading === true) {
-            <div className="App-feed">
-                return <Spin />
+            return <div className="App-feed">
+                <Spin />
             </div>
 
         }
