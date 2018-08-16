@@ -1,0 +1,229 @@
+//colors
+$color_log_cabin_approx: #222;
+$white: white;
+$black: black;
+$alice_blue: aliceblue;
+$black_24: rgba(0,0,0,0.24);
+$gray: gray;
+$color_alto_approx: gainsboro;
+$black_60: rgba(0, 0, 0, 0.6);
+$color_dodger_blue_approx: #1890ff;
+
+//fonts
+$font_0: Helvetica;
+$font_1: Georgia;
+$font_2: 'Times New Roman';
+$font_3: Times;
+$font_4: serif;
+
+//urls
+$url_0: url(./fonts/texgyreheros-bold.otf);
+$url_1: url(./fonts/texgyreheros-bolditalic.otf);
+$url_2: url(./fonts/texgyreheros-italic.otf);
+$url_3: url(./fonts/texgyreheros-regular.otf);
+$url_4: url(./fonts/texgyreheroscn-bold.otf);
+$url_5: url(./fonts/texgyreheroscn-bolditalic.otf);
+$url_6: url(./fonts/texgyreheroscn-italic.otf);
+$url_7: url(./fonts/texgyreheroscn-regular.otf);
+
+$title: 17px;
+$screen: 100%;
+
+//sizes
+$xs: 5px;
+$s: 10px;
+$m: 20px;
+$l: 40px;
+
+%feed-item {
+  background: $alice_blue;
+	border-radius: 4px;
+	padding: $s;
+	margin-bottom: $s;
+	font-size: 15px;
+  box-shadow: 0 1px 2px $black_24;
+}
+
+@import ' ~antd/dist/antd.css';
+.App-logo {
+	animation: App-logo-spin infinite 10s linear;
+	height: $l;
+	float: left;
+	margin-top: $xs;
+	margin-left: $s;
+}
+.App-header {
+	background-color: $color_log_cabin_approx;
+	height: 90px;
+	padding: $m $l;
+	color: $white;
+	width: $screen;
+	clear: both;
+	text-align: center;
+}
+.App-feed {
+	padding-top: $m;
+	background: #0000000a;
+	min-height: 100vh;
+	padding-left: $l;
+	padding-right: $l;
+}
+.App-title {
+	font-size: 1.5em;
+	margin-left: $m;
+	float: left;
+	font: 30px $font_1, $font_2, $font_3, $font_4;
+}
+.App-intro {
+	font-size: large;
+}
+@keyframes App-logo-spin {
+	from {
+    transform: rotate(0deg);
+	}
+	to {
+    transform: rotate(360deg);
+	}
+}
+@font-face {
+	font-family: $font_0;
+	src: $url_0, $url_1, $url_2, $url_3, $url_4, $url_5, $url_6, $url_7;
+}
+.html {
+	font-family: $font_0;
+}
+.ant-btn-ghost {
+	color: $white;
+}
+.ant-avatar {
+	margin-right: $xs;
+}
+.authorization-field {
+	float: right;
+}
+.App-footer {
+	font: 30px $font_1, $font_2, $font_3, $font_4;
+	background: $black;
+	position: fixed;
+	font-size: 15px;
+	width: $screen;
+	bottom: 0;
+	height: 50px;
+	color: $white;
+	padding-left: 15%;
+	padding-right: 15%;
+	text-align: center;
+	padding-top: $s;
+}
+.search-list {
+	background: #0000000a;
+	min-height: 100vh;
+	padding-left: $l;
+	padding-right: $l;
+	padding-top: $m;
+}
+.tweet-item {
+	@extend %feed-item;
+	font-size: 1$xs;
+}
+.search-item {
+	@extend %feed-item
+}
+.author {
+	font-weight: bold;
+	font-size: $title;
+	display: block;
+}
+.anticon {
+	font-size: $m;
+}
+.anticon-heart-o {
+	margin-right: $s;
+}
+.anticon-retweet {
+	margin-left: $s;
+	color: $color_dodger_blue_approx;
+}
+.tweet-text {
+	margin-bottom: $s;
+	font-family: $font_0;
+}
+.anticon-like {
+	margin-right: $s;
+	color: $color_dodger_blue_approx;
+}
+.anticon-twitter {
+	font-size: 30px;
+}
+.tweet-date {
+	color: #000000d6;
+	opacity: 0.5;
+	font-size: 13px;
+}
+.log-in-col {
+	color: $black;
+	padding: $m;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	span {
+		font-size: 25px;
+		top: 0;
+	}
+	form button.ant-btn span {
+		font-size: $title;
+		padding: 0 15px;
+	}
+}
+.register-col {
+	color: $black;
+	padding: $m;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	span {
+		font-size: 25px;
+		top: 0;
+	}
+	form button.ant-btn span {
+		font-size: $title;
+		padding: 0 15px;
+	}
+}
+.search-input {
+	margin-bottom: $s;
+	width: 43%;
+	margin: 9px 0;
+}
+.ant-col-7 {
+	height: 100vh;
+	border-right: 1px solid #00000045;
+}
+.user-page-icon {
+	font-size: 50px;
+}
+.user-page {
+	margin: $m;
+	clear: both;
+}
+.user-page-author {
+	font-size: $title;
+	font-weight: bold;
+}
+.add-tweet {
+	margin-top: $m;
+}
+.add-tweet-btn {
+	margin-top: $m;
+	float: right;
+}
+hr {
+	opacity: 0.3;
+}
+.log-out {
+	float: right;
+	margin: 9px 0;
+}
+#root .login-form-button {
+	width: $screen;
+}

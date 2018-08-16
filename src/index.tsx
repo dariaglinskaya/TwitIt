@@ -1,6 +1,5 @@
 import './index.css';
 import './App.css';
-import '../src/components/style.css';
 import { Provider, connect } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch, } from 'react-router-dom';
 

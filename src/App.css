@@ -1,11 +1,18 @@
-@import '~antd/dist/antd.css';
+@import url( ~antd/dist/antd.css);
+.tweet-item, .search-item {
+  background: aliceblue;
+  border-radius: 4px;
+  padding: 10px;
+  margin-bottom: 10px;
+  font-size: 15px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.24); }
+
 .App-logo {
   animation: App-logo-spin infinite 10s linear;
   height: 40px;
   float: left;
   margin-top: 5px;
-  margin-left: 10px;
-}
+  margin-left: 10px; }
 
 .App-header {
   background-color: #222;
@@ -13,19 +20,161 @@
   padding: 20px 40px;
   color: white;
   width: 100%;
-}
-.App-feed{
+  clear: both;
+  text-align: center; }
+
+.App-feed {
   padding-top: 20px;
-}
+  background: #0000000a;
+  min-height: 100vh;
+  padding-left: 40px;
+  padding-right: 40px; }
+
 .App-title {
   font-size: 1.5em;
-}
+  margin-left: 20px;
+  float: left;
+  font: 30px Georgia, "Times New Roman", Times, serif; }
 
 .App-intro {
-  font-size: large;
-}
+  font-size: large; }
 
 @keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
+  from {
+    transform: rotate(0deg); }
+  to {
+    transform: rotate(360deg); } }
+
+@font-face {
+  font-family: Helvetica;
+  src: url(./fonts/texgyreheros-bold.otf), url(./fonts/texgyreheros-bolditalic.otf), url(./fonts/texgyreheros-italic.otf), url(./fonts/texgyreheros-regular.otf), url(./fonts/texgyreheroscn-bold.otf), url(./fonts/texgyreheroscn-bolditalic.otf), url(./fonts/texgyreheroscn-italic.otf), url(./fonts/texgyreheroscn-regular.otf); }
+
+.html {
+  font-family: Helvetica; }
+
+.ant-btn-ghost {
+  color: white; }
+
+.ant-avatar {
+  margin-right: 5px; }
+
+.authorization-field {
+  float: right; }
+
+.App-footer {
+  font: 30px Georgia, "Times New Roman", Times, serif;
+  background: black;
+  position: fixed;
+  font-size: 15px;
+  width: 100%;
+  bottom: 0;
+  height: 50px;
+  color: white;
+  padding-left: 15%;
+  padding-right: 15%;
+  text-align: center;
+  padding-top: 10px; }
+
+.search-list {
+  background: #0000000a;
+  min-height: 100vh;
+  padding-left: 40px;
+  padding-right: 40px;
+  padding-top: 20px; }
+
+.tweet-item {
+  font-size: 1 5px; }
+
+.author {
+  font-weight: bold;
+  font-size: 17px;
+  display: block; }
+
+.anticon {
+  font-size: 20px; }
+
+.anticon-heart-o {
+  margin-right: 10px; }
+
+.anticon-retweet {
+  margin-left: 10px;
+  color: #1890ff; }
+
+.tweet-text {
+  margin-bottom: 10px;
+  font-family: Helvetica; }
+
+.anticon-like {
+  margin-right: 10px;
+  color: #1890ff; }
+
+.anticon-twitter {
+  font-size: 30px; }
+
+.tweet-date {
+  color: #000000d6;
+  opacity: 0.5;
+  font-size: 13px; }
+
+.log-in-col {
+  color: black;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; }
+  .log-in-col span {
+    font-size: 25px;
+    top: 0; }
+  .log-in-col form button.ant-btn span {
+    font-size: 17px;
+    padding: 0 15px; }
+
+.register-col {
+  color: black;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; }
+  .register-col span {
+    font-size: 25px;
+    top: 0; }
+  .register-col form button.ant-btn span {
+    font-size: 17px;
+    padding: 0 15px; }
+
+.search-input {
+  margin-bottom: 10px;
+  width: 43%;
+  margin: 9px 0; }
+
+.ant-col-7 {
+  height: 100vh;
+  border-right: 1px solid #00000045; }
+
+.user-page-icon {
+  font-size: 50px; }
+
+.user-page {
+  margin: 20px;
+  clear: both; }
+
+.user-page-author {
+  font-size: 17px;
+  font-weight: bold; }
+
+.add-tweet {
+  margin-top: 20px; }
+
+.add-tweet-btn {
+  margin-top: 20px;
+  float: right; }
+
+hr {
+  opacity: 0.3; }
+
+.log-out {
+  float: right;
+  margin: 9px 0; }
+
+#root .login-form-button {
+  width: 100%; }

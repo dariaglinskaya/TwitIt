@@ -1,5 +1,4 @@
 import { connect } from 'react-redux';
-import './style.css';
 import { Spin } from 'antd';
 import * as React from 'react';
 import tweetsActions from '../actions/tweetsActions';

@@ -1,7 +1,5 @@
 import { Icon, Button, Input } from 'antd';
-import './style.css';
 import * as React from 'react';
-import './style.css';
 import { connect } from 'react-redux';
 import userActions from '../actions/userActions';
 import tweetsActions from '../actions/tweetsActions';
