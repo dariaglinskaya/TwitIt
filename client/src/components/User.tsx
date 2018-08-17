@@ -40,6 +40,8 @@ export class User extends React.Component<IProps, IState>{
     public renderUserTweets() {
         let subscr = this.renderUserTweetsSubscr();        
         if(this.props.match.params.username.substring(1) === this.props.authentication.user.name) {
+            console.log(this.props.match.params.username.substring(1));
+            console.log(this.props.authentication.user.name)
             let retweets = this.renderUserRetweets();
             return subscr.concat(retweets);
         } else {
@@ -64,7 +66,7 @@ export class User extends React.Component<IProps, IState>{
                         <Col span={7} pull={17}>
                             <div className="user-page">
                                 <Icon type="user" className="user-page-icon" />
-                                <span className="author" style={this.customStyle}>@{this.props.match.params.username.substring(1)}</span>
+                                <span className="author" style={this.customStyle}>@{this.props.match.params.username}</span>
                             </div>
                         </Col>
                     </div>

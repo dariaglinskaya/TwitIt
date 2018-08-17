@@ -67,8 +67,8 @@ const mapStateToProps = state => {
     }
 }
 const mapDispatchToProps = dispatch => {
-    let searchUsers = (users) => dispatch(tweetsActions.searchUsers(users));
-    let logOut = () => dispatch(userActions.logout());
+    let searchUsers = (users) => tweetsActions.searchUsers(users);
+    let logOut = () => userActions.logout();
     return {
         ...bindActionCreators({ searchUsers, logOut }, dispatch)
     };

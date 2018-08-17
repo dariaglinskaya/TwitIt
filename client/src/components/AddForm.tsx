@@ -55,7 +55,7 @@ export class AddForm extends React.Component<IProps, IState>{
         return (
             <form className="user-page" onSubmit={this.handleSubmit.bind(this)}>
                 <Icon type="user" className="user-page-icon" />
-                <Link to={"/user/" + this.props.authentication.user.name} className="author" style={this.customStyle}>@{this.props.authentication.user.name}</Link>
+                <Link to={"/user/:" + this.props.authentication.user.name} className="author" style={this.customStyle}>@{this.props.authentication.user.name}</Link>
                 <span className="user-page-author"></span>
                 <TextArea rows={4} ref='newTweet' className="add-tweet" placeholder='What do you think?' onChange={this.onTextChange} value={this.state.newTweetContent} />
                 <Button type="primary" htmlType="submit" className="add-tweet-btn" >Add</Button>

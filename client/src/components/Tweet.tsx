@@ -31,7 +31,7 @@ export class Tweet extends React.Component<any, IState>{
     public render() {
         return (
             <div className="tweet-item">
-                <Link to={"/user/" + this.props.author.toLowerCase()} className="author">@{this.props.author.toLowerCase()}</Link>
+                <Link to={"/user/:" + this.props.author.toLowerCase()} className="author">@{this.props.author.toLowerCase()}</Link>
                 <time className="tweet-date">{this.props.date}</time>
                 <hr />
                 <div className="tweet-text">{this.props.text}</div>
@@ -55,8 +55,8 @@ const mapStateToProps = state => {
     }
 }
 const mapDispatchToProps = dispatch => {
-    let likeTweet = (tweet) => dispatch(tweetsActions.likeTweet(tweet));
-    let retweet = (id) => dispatch(userActions.retweet(id));
+    let likeTweet = (tweet) => tweetsActions.likeTweet(tweet);
+    let retweet = (id) => userActions.retweet(id);
     return {
         ...bindActionCreators({ likeTweet, retweet }, dispatch)
     };

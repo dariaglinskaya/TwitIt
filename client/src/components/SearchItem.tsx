@@ -27,7 +27,7 @@ export class SearchItem extends React.Component<IProps, IState>{
     public render() {
         return (
             <div className="search-item">
-                <Link to={'/user/'+this.props.name.toLowerCase()} className="author">@{this.props.name.toLowerCase()}</Link>
+                <Link to={'/user/:'+this.props.name.toLowerCase()} className="author">@{this.props.name.toLowerCase()}</Link>
                 <Button type={this.state.subscribed ? "primary" : "default"} onClick={e => this.subscribe(e)}>Subscribe</Button>
             </div>
         );
