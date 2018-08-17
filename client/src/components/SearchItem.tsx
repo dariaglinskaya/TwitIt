@@ -7,7 +7,11 @@ import { Link } from 'react-router-dom';
 export interface IState {
     subscribed: boolean;
 }
-export class SearchItem extends React.Component<any, IState>{
+export interface IProps {
+    subscribe: any,
+    name: String
+}
+export class SearchItem extends React.Component<IProps, IState>{
     constructor(props) {
         super(props);
         this.state = {
@@ -37,7 +41,7 @@ const mapStateToProps = state => {
 }
 const mapDispatchToProps = dispatch => {
     return {
-        subscrime: (name) => dispatch(userActions.subscribe(name))
+        subscribe: (name) => dispatch(userActions.subscribe(name))
     };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(SearchItem);
