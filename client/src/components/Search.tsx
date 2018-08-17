@@ -6,6 +6,7 @@ import Header from './Header';
 import SearchItem from './SearchItem';
 import { Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { compose } from 'redux';
 
 
 export interface IState { }
@@ -47,7 +48,7 @@ const mapStateToProps = state => {
         tweets: state.tweets
     }
 }
-
-export default withRouter(
-    connect(mapStateToProps)(Search)
-);
+export default compose<React.ComponentType>(
+    withRouter,
+    connect(mapStateToProps),
+)(Search);
