@@ -1,6 +1,5 @@
 import { Form, Input, Icon, Button, } from 'antd';
 import { connect } from 'react-redux';
-import store from '../store';
 import userActions from '../actions/userActions';
 import * as React from 'react';
 import { Link } from 'react-router-dom';
@@ -13,7 +12,8 @@ export interface IProps {
     isLoading: boolean,
     authentication: any,
     form: any,
-    history: any
+    history: any,
+    register: any
 }
 
 export interface IState {
@@ -49,7 +49,7 @@ export class RegistrationForm extends React.Component<IProps, IState> {
             password: this.state.password,
             subscriptions: []
         }
-        store.dispatch(userActions.register(newUser));
+        this.props.register(newUser);
     }
     handleConfirmBlur = (e) => {
         const value = e.target.value;
@@ -110,5 +110,9 @@ const mapStateToProps = state => {
         authentication: state.authentication
     }
 }
-
-export default connect(mapStateToProps)(Form.create()(RegistrationForm));
+const mapDispatchToProps = dispatch => {
+    return {
+        register: (newUser) => dispatch(userActions.register(newUser))
+    };
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Form.create()(RegistrationForm));

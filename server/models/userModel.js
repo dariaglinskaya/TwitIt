@@ -10,8 +10,14 @@ const UserSchema = new Schema({
     type: String,
     required: [true, 'password field is required']
   },
-  retweets: [String],
-  subscriptions: [String],
+  retweets: {
+    type: [String],
+    default: []
+  },
+  subscriptions: {
+    type: [String],
+    default: []
+  },
 });
 
 const User = mongoose.model('user', UserSchema);

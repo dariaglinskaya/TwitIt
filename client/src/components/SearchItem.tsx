@@ -1,7 +1,6 @@
 import { Button } from 'antd';
 import { connect } from 'react-redux';
 import * as React from 'react';
-import store from '../store';
 import userActions from '../actions/userActions';
 import { Link } from 'react-router-dom';
 
@@ -17,7 +16,7 @@ export class SearchItem extends React.Component<any, IState>{
     }
     public subscribe(event) {
         event.preventDefault();
-        store.dispatch(userActions.subscribe(this.props.name.toLowerCase()))   
+        this.props.subscribe(this.props.name.toLowerCase());   
         this.setState(() => ({ subscribed: true }));
         event.target.children[0].innerHTML="Unsubscribe";
     }
@@ -36,5 +35,9 @@ const mapStateToProps = state => {
         tweets: state.tweets
     }
 }
-
-export default connect(mapStateToProps)(SearchItem);
+const mapDispatchToProps = dispatch => {
+    return {
+        subscrime: (name) => dispatch(userActions.subscribe(name))
+    };
+}
+export default connect(mapStateToProps, mapDispatchToProps)(SearchItem);

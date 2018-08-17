@@ -12,4 +12,3 @@ tweetModel.find({countLikes: 90}, function (err, doc) {
 
 db.on('error', err => console.log('connection error to DB.', err.message));
 db.once('open', () => console.log('connected to DB'));
-

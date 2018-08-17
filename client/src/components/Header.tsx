@@ -3,17 +3,19 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import userActions from '../actions/userActions';
 import tweetsActions from '../actions/tweetsActions';
-import store from '../store';
 import { Redirect, Link, withRouter } from 'react-router-dom';
+import { bindActionCreators } from 'redux';
 
 const Search = Input.Search;
 
-export interface IState {}
+export interface IState { }
 
 export interface IProps {
     authentication: any,
     tweets: any,
-    history: any
+    history: any,
+    searchUsers: any,
+    logOut: any
 }
 
 export class Header extends React.Component<IProps, IState>{
@@ -28,20 +30,20 @@ export class Header extends React.Component<IProps, IState>{
         console.log(this.props)
         const usersFound = users.filter(user => user.name.includes(value));
         console.log(usersFound)
-        if(usersFound && usersFound.length > 0) {
+        if (usersFound && usersFound.length > 0) {
             this.props.history.push("/searchUser");
-            store.dispatch(tweetsActions.searchUsers(usersFound));
+            this.props.searchUsers(usersFound);
         } else {
             alert("No users found")
         }
-          
-    } 
+
+    }
     public logOut(event) {
         event.preventDefault();
-        store.dispatch(userActions.logout());
-        return <Redirect to="/"/>
+        this.props.logOut();
+        return <Redirect to="/" />
     }
-    
+
     public render() {
         return (
             !this.props.authentication.loggedIn
@@ -51,9 +53,9 @@ export class Header extends React.Component<IProps, IState>{
                 </header>
                 : <header className="App-header">
                     <Icon type="twitter" className="App-logo" />
-                    <Link to="/newsFeed" style={{color:'white'}} className="App-title">TwitIt</Link>
+                    <Link to="/newsFeed" style={{ color: 'white' }} className="App-title">TwitIt</Link>
                     <Search placeholder="search user by login" className="search-input" onSearch={value => this.searchUser(value)} />
-                    <Button type="primary" className="log-out" onClick={this.logOut}>Log out</Button>
+                    <Button type="primary" className="log-out" onClick={this.logOut.bind(this)}>Log out</Button>
                 </header>
         );
     }
@@ -64,7 +66,13 @@ const mapStateToProps = state => {
         tweets: state.tweets
     }
 }
-
+const mapDispatchToProps = dispatch => {
+    let searchUsers = (users) => dispatch(tweetsActions.searchUsers(users));
+    let logOut = () => dispatch(userActions.logout());
+    return {
+        ...bindActionCreators({ searchUsers, logOut }, dispatch)
+    };
+}
 export default withRouter(
-    connect(mapStateToProps)(Header)
+    connect(mapStateToProps, mapDispatchToProps)(Header)
 );

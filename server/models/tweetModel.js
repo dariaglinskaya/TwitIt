@@ -8,8 +8,14 @@ const TweetSchema = new Schema({
     },
     author: String,
     text: String,
-    countLikes: Number,
-    countRetweets: Number,
+    countLikes: {
+        type: Number, 
+        default: 0
+    },
+    countRetweets: {
+        type: Number, 
+        default: 0
+    },
     });
 const Tweet = mongoose.model('tweets', TweetSchema);
 

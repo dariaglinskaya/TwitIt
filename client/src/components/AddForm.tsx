@@ -2,7 +2,6 @@ import { Button, Icon, Input } from 'antd';
 import { connect } from 'react-redux';
 import * as React from 'react';
 import tweetsActions from '../actions/tweetsActions';
-import store from '../store';
 import { Link } from 'react-router-dom';
 
 const { TextArea } = Input;
@@ -10,7 +9,8 @@ const { TextArea } = Input;
 export interface IProps {
     hasErrored: boolean,
     isLoading: boolean,
-    authentication: any
+    authentication: any,
+    addTweet: any
 }
 
 export interface IState {
@@ -45,7 +45,7 @@ export class AddForm extends React.Component<IProps, IState>{
                 countLikes: 0
             }
             this.setState(() => ({ newTweetContent: "" }));
-            store.dispatch(tweetsActions.addTweet(newTweet));
+            this.props.addTweet(newTweet);
         }
     }
     private customStyle = {
@@ -72,4 +72,9 @@ const mapStateToProps = state => {
         authentication: state.authentication
     }
 }
-export default connect(mapStateToProps)(AddForm);
+const mapDispatchToProps = dispatch => {
+    return {
+        addTweet: (newTweet) => dispatch(tweetsActions.addTweet(newTweet))
+    };
+}
+export default connect(mapStateToProps, mapDispatchToProps)(AddForm);

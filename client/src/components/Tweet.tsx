@@ -1,10 +1,10 @@
 import { Icon } from 'antd';
 import * as React from 'react';
-import store from '../store';
 import { connect } from 'react-redux';
 import tweetsActions from '../actions/tweetsActions';
 import userActions from '../actions/userActions';
 import { Link } from 'react-router-dom';
+import { bindActionCreators } from 'redux';
 
 export interface IState {
     liked: boolean;
@@ -20,12 +20,12 @@ export class Tweet extends React.Component<any, IState>{
     }
     public handleClickLike(event) {
         event.preventDefault();
-        store.dispatch(tweetsActions.likeTweet(this.props));
+        this.props.likeTweet(this.props);
         this.setState(() => ({ liked: true }));
     }
     public handleClickRetweet(event) {
         event.preventDefault();
-        store.dispatch(userActions.retweet(this.props.id));
+        this.props.retweet(this.props.id);
         this.setState(() => ({ retweeted: true }));
     }
     public render() {
@@ -54,4 +54,11 @@ const mapStateToProps = state => {
         authentication: state.authentication
     }
 }
-export default connect(mapStateToProps)(Tweet);
+const mapDispatchToProps = dispatch => {
+    let likeTweet = (tweet) => dispatch(tweetsActions.likeTweet(tweet));
+    let retweet = (id) => dispatch(userActions.retweet(id));
+    return {
+        ...bindActionCreators({ likeTweet, retweet }, dispatch)
+    };
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Tweet);

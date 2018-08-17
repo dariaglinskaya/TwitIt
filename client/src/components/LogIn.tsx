@@ -1,7 +1,6 @@
 import { Form, Icon, Input, Button } from 'antd';
 import * as React from 'react';
 import { connect } from 'react-redux';
-import store from '../store';
 import userActions from '../actions/userActions';
 import { Link, Redirect } from 'react-router-dom';
 import * as _ from 'lodash';
@@ -12,7 +11,8 @@ export interface IProps {
     isLoading: boolean,
     authentication: any,
     subscriptions: any,
-    form: any
+    form: any,
+    logIn: any
 }
 export interface IState {
     error: any,
@@ -54,7 +54,7 @@ export class LogIn extends React.Component<IProps, IState> {
             console.log(res);
             if (!_.isEmpty(res)) {
                 user.subscriptions.push(username);
-                store.dispatch(userActions.login(user));
+                this.props.logIn(user);
             } else {
                 alert('invalid username or password');
             }
@@ -100,5 +100,9 @@ const mapStateToProps = state => {
         authentication: state.authentication
     }
 }
-
-export default connect(mapStateToProps)(Form.create()(LogIn));
+const mapDispatchToProps = dispatch => {
+    return {
+        logIn: (user) => dispatch(userActions.login(user))
+    };
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Form.create()(LogIn));
