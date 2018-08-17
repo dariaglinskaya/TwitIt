@@ -31,7 +31,7 @@ export class Tweet extends React.Component<any, IState>{
     public render() {
         return (
             <div className="tweet-item">
-                <Link to={"/user/:" + this.props.author.toLowerCase()} className="author">@{this.props.author.toLowerCase()}</Link>
+                <Link to={"/user/" + this.props.author.toLowerCase()} className="author">@{this.props.author.toLowerCase()}</Link>
                 <time className="tweet-date">{this.props.date}</time>
                 <hr />
                 <div className="tweet-text">{this.props.text}</div>

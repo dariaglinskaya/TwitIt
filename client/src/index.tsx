@@ -30,7 +30,7 @@ export default class App extends React.Component<IAppProps, {}> {
             <Route exact path="/" component={Home} />
             <Route path="/newsFeed" component={Body} />
             <Route path="/register" component={RegistrationForm} />
-            <Route path="/user/:username" component={User} />
+            <Route path="/user/username" component={User} />
             <Route path="/searchUser" component={Search} />
           </Switch>
         </Router >
