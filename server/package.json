@@ -1,5 +1,5 @@
 {
-  "name": "TwitIt",
+  "name": "twit",
   "version": "1.0.0",
   "scripts": {
     "client": "cd client && yarn start",
@@ -7,7 +7,9 @@
     "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\""
   },
   "dependencies": {
-    "express": "^4.16.2"
+    "body-parser": "^1.18.3",
+    "express": "^4.16.2",
+    "mongoose": "^5.2.8"
   },
   "devDependencies": {
     "concurrently": "^3.5.0"
