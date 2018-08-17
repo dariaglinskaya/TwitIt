@@ -6,18 +6,15 @@ import tweetsActions from '../actions/tweetsActions';
 import Tweet from './Tweet';
 
 export interface IProps {
-    hasErrored: boolean,
-    isLoading: boolean,
-    fetchData: any,
-    tweets: any,
-    subscriptions: any,
-    authentication: any
+    hasErrored: boolean;
+    isLoading: boolean;
+    fetchData: any;
+    tweets: any;
+    subscriptions: any;
+    authentication: any;
 }
 
-export interface IState {
-}
-
-export class Feed extends React.Component<IProps, IState>{
+export class Feed extends React.Component<IProps, {}>{
     constructor(props) {
         super(props);
     }
@@ -33,14 +30,14 @@ export class Feed extends React.Component<IProps, IState>{
         subscr.forEach((subscr) => {
             tweets.forEach(tweet => {
                 if (tweet.author.toLowerCase() === subscr) {
-                    res.push(tweet)
+                    res.push(tweet);
                 }
             });
         });
         return res.map((tweet, index) => {
             return <Tweet key={index}
                 {...tweet}
-            />
+            />;
         });
 
     }
@@ -55,8 +52,7 @@ export class Feed extends React.Component<IProps, IState>{
         if (this.props.tweets.isLoading === true) {
             return <div className="App-feed">
                 <Spin />
-            </div>
-
+            </div>;
         }
         return (
             <div>
@@ -77,13 +73,13 @@ const mapStateToProps = state => {
         isLoading: state.tweetsIsLoading,
         subscriptions: state.authentication.user.subscriptions,
         authentication: state.authentication
-    }
-}
+    };
+};
 
 const mapDispatchToProps = dispatch => {
     return {
         fetchData: (url) => dispatch(tweetsActions.tweetsFetchData(url))
     };
-}
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Feed);

@@ -1,5 +1,4 @@
 import tweetsConstant from '../constants/tweetsConst';
-//import axios from 'axios';
 const tweetsActions = {
     tweetsHasErrored,
     tweetsIsLoading,
@@ -8,7 +7,7 @@ const tweetsActions = {
     searchUsers,
     tweetsFetchData,
     likeTweet,
-}
+};
 function tweetsHasErrored(bool) {
     return {
         type: tweetsConstant.TWEETS_HAS_ERRORED,
@@ -36,19 +35,19 @@ function addTweet(newTweet) {
         type: tweetsConstant.TWEETS_ADD,
         isLoading: false,
         newTweet
-    }
+    };
 }
 function searchUsers(usersFound) {
     return {
         type: tweetsConstant.SEARCH_USERS,
         usersFound
-    }
+    };
 }
 function likeTweet(tweet) {
     return {
         type: tweetsConstant.LIKE_TWEET,
         tweet
-    }
+    };
 }
 
 function tweetsFetchData(url) {

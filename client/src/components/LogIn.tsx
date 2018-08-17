@@ -7,18 +7,18 @@ import * as _ from 'lodash';
 const FormItem = Form.Item;
 
 export interface IProps {
-    hasErrored: boolean,
-    isLoading: boolean,
-    authentication: any,
-    subscriptions: any,
-    form: any,
-    logIn: any
+    hasErrored: boolean;
+    isLoading: boolean;
+    authentication: any;
+    subscriptions: any;
+    form: any;
+    logIn: any;
 }
 export interface IState {
-    error: any,
-    username: string,
-    password: string,
-    loggedIn: boolean,
+    error: any;
+    username: string;
+    password: string;
+    loggedIn: boolean;
 }
 
 export class LogIn extends React.Component<IProps, IState> {
@@ -31,14 +31,10 @@ export class LogIn extends React.Component<IProps, IState> {
     public handleChangeUsername(event) {
         const username = event.target.value;
         this.setState({ username });
-
-        console.log(this.state)
     }
     public handleChangePassword(event) {
         const password = event.target.value;
         this.setState({ password });
-
-        console.log(this.state)
     }
     public handleSubmit(e) {
         e.preventDefault();
@@ -47,11 +43,10 @@ export class LogIn extends React.Component<IProps, IState> {
             name: username,
             subscriptions: ['edwin'],
             retweets: ['10']
-        }
-        let users = this.props.authentication.users;
-        if (typeof users != "undefined" && users != null && users.length != null && users.length > 0) {
-            const res = users.filter(element => (element.name == username && element.password == password));
-            console.log(res);
+        };
+        const users = this.props.authentication.users;
+        if (typeof users !== "undefined" && users !== null && users.length !== null && users.length > 0) {
+            const res = users.filter(element => (element.name === username && element.password === password));
             if (!_.isEmpty(res)) {
                 user.subscriptions.push(username);
                 this.props.logIn(user);
@@ -68,19 +63,19 @@ export class LogIn extends React.Component<IProps, IState> {
         return (
             this.props.authentication.loggedIn ? (<Redirect to="/newsFeed" />) :
                 <div className="logIn">
-                    <Form onSubmit={this.handleSubmit.bind(this)} className="login-form">
+                    <Form onSubmit={this.handleSubmit} className="login-form">
                         <FormItem>
                             {getFieldDecorator('userName', {
                                 rules: [{ required: true, message: 'Please input your username!' }],
                             })(
-                                <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="Username" onChange={this.handleChangeUsername.bind(this)} />
+                                <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="Username" onChange={this.handleChangeUsername} />
                             )}
                         </FormItem>
                         <FormItem>
                             {getFieldDecorator('password', {
                                 rules: [{ required: true, message: 'Please input your Password!' }],
                             })(
-                                <Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="Password" onChange={this.handleChangePassword.bind(this)} />
+                                <Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="Password" onChange={this.handleChangePassword} />
                             )}
                         </FormItem>
                         <FormItem>
@@ -98,11 +93,11 @@ export class LogIn extends React.Component<IProps, IState> {
 const mapStateToProps = state => {
     return {
         authentication: state.authentication
-    }
-}
+    };
+};
 const mapDispatchToProps = dispatch => {
     return {
         logIn: (user) => dispatch(userActions.login(user))
     };
-}
+};
 export default connect(mapStateToProps, mapDispatchToProps)(Form.create()(LogIn));

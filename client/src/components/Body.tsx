@@ -7,13 +7,11 @@ import Header from './Header';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-export interface IState { }
-
 export interface IProps {
-  authentication: any
+  authentication: any;
 }
 
-export class Body extends React.Component<IProps, IState>{
+export class Body extends React.Component<IProps, {}>{
   public render() {
     return (
       !this.props.authentication.loggedIn ? (<Redirect to="/" />) :
@@ -35,7 +33,7 @@ export class Body extends React.Component<IProps, IState>{
 const mapStateToProps = state => {
   return {
     authentication: state.authentication,
-  }
-}
+  };
+};
 
 export default connect(mapStateToProps)(Body);

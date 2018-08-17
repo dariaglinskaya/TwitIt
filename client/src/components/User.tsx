@@ -6,52 +6,46 @@ import Tweet from './Tweet';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-export interface IState { }
-
 export interface IProps {
-    authentication: any,
-    tweets: any,
-    match: any
+    authentication: any;
+    tweets: any;
+    match: any;
 }
 
-export class User extends React.Component<IProps, IState>{
+export class User extends React.Component<IProps, {}>{
+    private customStyle = {
+        display: 'inline',
+    };
     public renderUserTweetsSubscr() {
-        console.log()
         const res = this.props.tweets.filter((tweet) => {
-            return this.props.match.params.username.substring(1) === tweet.author.toLowerCase()
+            return this.props.match.params.username.substring(1) === tweet.author.toLowerCase();
         });
         return res.map((tweet, index) => {
             return <Tweet key={index+100}
-                {...tweet} />
-        })
+                {...tweet} />;
+        });
     }
     public renderUserRetweets() {
-        let subscrID = this.props.authentication.user.retweets;
-        let tweets = this.props.tweets;
-        let res = [];
+        const subscrID = this.props.authentication.user.retweets;
+        const tweets = this.props.tweets;
+        const res = [];
         subscrID.forEach((id) => {
-            res.push(tweets.find((tweet) => { return tweet.id === id }));
+            res.push(tweets.find((tweet) => tweet.id === id ));
         });
         return res.map((tweet, index) => {
             return <Tweet key={index}
-                {...tweet} retweeted={true}/>
-        })
+                {...tweet} retweeted={true}/>;
+        });
     }
     public renderUserTweets() {
-        let subscr = this.renderUserTweetsSubscr();        
+        const subscr = this.renderUserTweetsSubscr();        
         if(this.props.match.params.username.substring(1) === this.props.authentication.user.name) {
-            console.log(this.props.match.params.username.substring(1));
-            console.log(this.props.authentication.user.name)
-            let retweets = this.renderUserRetweets();
+            const retweets = this.renderUserRetweets();
             return subscr.concat(retweets);
         } else {
             return subscr;
-        }
-        
-    }
-    private customStyle = {
-        display: 'inline',
-    }
+        }        
+    }    
     public render() {
         return (
             !this.props.authentication.loggedIn ? (<Redirect to="/" />) :
@@ -66,7 +60,7 @@ export class User extends React.Component<IProps, IState>{
                         <Col span={7} pull={17}>
                             <div className="user-page">
                                 <Icon type="user" className="user-page-icon" />
-                                <span className="author" style={this.customStyle}>@{this.props.match.params.username}</span>
+                                <span className="author" style={this.customStyle}>@{this.props.match.params.username.substring(1)}</span>
                             </div>
                         </Col>
                     </div>
@@ -79,7 +73,7 @@ const mapStateToProps = state => {
     return {
         authentication: state.authentication,
         tweets: state.tweets.tweets
-    }
-}
+    };
+};
 
 export default connect(mapStateToProps)(User);

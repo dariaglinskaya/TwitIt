@@ -8,19 +8,16 @@ import { Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 
-
-export interface IState { }
-
 export interface IProps {
-    authentication: any,
-    tweets: any
+    authentication: any;
+    tweets: any;
 }
 
-export class Search extends React.Component<IProps, IState>{
+export class Search extends React.Component<IProps, {}>{
     public renderUsers() {
         return this.props.tweets.usersFound[0].map((item, index) => {
-            return <SearchItem key={index} {...item} />
-        })
+            return <SearchItem key={index} {...item} />;
+        });
     }
     public render() {
         return (
@@ -46,8 +43,8 @@ const mapStateToProps = state => {
     return {
         authentication: state.authentication,
         tweets: state.tweets
-    }
-}
+    };
+};
 export default compose<React.ComponentType>(
     withRouter,
     connect(mapStateToProps),

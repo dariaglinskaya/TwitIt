@@ -13,7 +13,7 @@ function register(newUser) {
         type: userConstants.REGISTER_SUCCESS,
         loggedIn: true,
         newUser
-    }
+    };
 }
 
 function login(user) {
@@ -21,7 +21,7 @@ function login(user) {
         type: userConstants.LOGIN_SUCCESS,
         loggedIn: true,
         user
-    }
+    };
 }
 
 function logout() {
@@ -34,13 +34,13 @@ function subscribe(userName) {
     return {
         type: userConstants.USER_SUBSCRIBE,
         userName
-    }
+    };
 }
 function retweet(userID) {
     return {
         type: userConstants.USER_RETWEETED,
         userID
-    }
+    };
 }
 
 export default userActions;

@@ -15,8 +15,7 @@ import User from './components/User';
 import registerServiceWorker from './registerServiceWorker';
 import store from "./store";
 
-interface IStateProps {
-}
+interface IStateProps { }
 interface IActionProps { }
 
 export interface IAppProps extends IStateProps, IActionProps { }

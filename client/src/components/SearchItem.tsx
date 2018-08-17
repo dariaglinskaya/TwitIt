@@ -8,15 +8,15 @@ export interface IState {
     subscribed: boolean;
 }
 export interface IProps {
-    subscribe: any,
-    name: String
+    subscribe: any;
+    name: string;
 }
 export class SearchItem extends React.Component<IProps, IState>{
     constructor(props) {
         super(props);
         this.state = {
-            subscribed: false
-        }
+            subscribed: false,
+        };
     }
     public subscribe(event) {
         event.preventDefault();
@@ -37,11 +37,11 @@ const mapStateToProps = state => {
     return {
         authentication: state.authentication,
         tweets: state.tweets
-    }
-}
+    };
+};
 const mapDispatchToProps = dispatch => {
     return {
         subscribe: (name) => dispatch(userActions.subscribe(name))
     };
-}
+};
 export default connect(mapStateToProps, mapDispatchToProps)(SearchItem);

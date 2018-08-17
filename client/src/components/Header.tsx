@@ -8,40 +8,37 @@ import { bindActionCreators } from 'redux';
 
 const Search = Input.Search;
 
-export interface IState { }
 
 export interface IProps {
-    authentication: any,
-    tweets: any,
-    history: any,
-    searchUsers: any,
-    logOut: any
+    authentication: any;
+    tweets: any;
+    history: any;
+    searchUsers: any;
+    logOut: any;
 }
 
-export class Header extends React.Component<IProps, IState>{
+export class Header extends React.Component<IProps, {}>{
     constructor(props) {
         super(props);
         this.state = {
             result: []
-        }
+        };
     }
     public searchUser(value) {
-        let users = this.props.authentication.users;
-        console.log(this.props)
+        const users = this.props.authentication.users;
         const usersFound = users.filter(user => user.name.includes(value));
-        console.log(usersFound)
         if (usersFound && usersFound.length > 0) {
             this.props.history.push("/searchUser");
             this.props.searchUsers(usersFound);
         } else {
-            alert("No users found")
+            alert("No users found");
         }
 
     }
     public logOut(event) {
         event.preventDefault();
         this.props.logOut();
-        return <Redirect to="/" />
+        return <Redirect to="/" />;
     }
 
     public render() {
@@ -64,15 +61,15 @@ const mapStateToProps = state => {
     return {
         authentication: state.authentication,
         tweets: state.tweets
-    }
-}
+    };
+};
 const mapDispatchToProps = dispatch => {
-    let searchUsers = (users) => tweetsActions.searchUsers(users);
-    let logOut = () => userActions.logout();
+    const searchUsers = (users) => tweetsActions.searchUsers(users);
+    const logOut = () => userActions.logout();
     return {
         ...bindActionCreators({ searchUsers, logOut }, dispatch)
     };
-}
+};
 export default withRouter(
     connect(mapStateToProps, mapDispatchToProps)(Header)
 );

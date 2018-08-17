@@ -1,5 +1,5 @@
 import * as React from 'react';
-import '../index.css'
+import '../index.css';
 import Header from './Header';
 import LogIn from './LogIn';
 import { Redirect } from 'react-router-dom';
@@ -20,7 +20,7 @@ export class Home extends React.Component<any, any> {
 const mapStateToProps = state => {
     return {
         authentication: state.authentication,
-    }
-}
+    };
+};
 
 export default connect(mapStateToProps)(Home);

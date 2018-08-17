@@ -8,20 +8,20 @@ import Header from './Header';
 const FormItem = Form.Item;
 
 export interface IProps {
-    hasErrored: boolean,
-    isLoading: boolean,
-    authentication: any,
-    form: any,
-    history: any,
-    register: any
+    hasErrored: boolean;
+    isLoading: boolean;
+    authentication: any;
+    form: any;
+    history: any;
+    register: any;
 }
 
 export interface IState {
-    error: any,
-    username: string,
-    password: string,
-    confirmDirty: boolean,
-    autoCompleteResult: any,
+    error: any;
+    username: string;
+    password: string;
+    confirmDirty: boolean;
+    autoCompleteResult: any;
 }
 
 export class RegistrationForm extends React.Component<IProps, IState> {
@@ -36,19 +36,17 @@ export class RegistrationForm extends React.Component<IProps, IState> {
     public onUsernameChange(event) {
         const username = event.target.value;
         this.setState(() => ({ username }));
-        console.log(this.state)
     }
     public onPasswordChange(event) {
         const password = event.target.value;
         this.setState(() => ({ password }));
     }
     public handleSubmit(event) {
-        //event.preventDefault();
         const newUser = {
             name: this.state.username,
             password: this.state.password,
             subscriptions: []
-        }
+        };
         this.props.register(newUser);
     }
     handleConfirmBlur = (e) => {
@@ -82,18 +80,18 @@ export class RegistrationForm extends React.Component<IProps, IState> {
                             {getFieldDecorator('userName', {
                                 rules: [{ required: true, message: 'Please input your username!' }],
                             })(
-                                <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="Username" onChange={this.onUsernameChange.bind(this)} />
+                                <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="Username" onChange={this.onUsernameChange} />
                             )}
                         </FormItem>
                         <FormItem>
                             {getFieldDecorator('password', {
                                 rules: [{ required: true, message: 'Please input your Password!' }],
                             })(
-                                <Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="Password" onChange={this.onPasswordChange.bind(this)} />
+                                <Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="Password" onChange={this.onPasswordChange} />
                             )}
                         </FormItem>
                         <FormItem>
-                            <Link onClick={this.handleSubmit.bind(this)} to='/' replace>
+                            <Link onClick={this.handleSubmit} to='/' replace>
                                 <Button type="primary" htmlType="submit" className="login-form-button">Register</Button>
                             </Link>
                         </FormItem>
@@ -108,11 +106,11 @@ const mapStateToProps = state => {
     return {
         hasErrored: state.tweetsHasErrored,
         authentication: state.authentication
-    }
-}
+    };
+};
 const mapDispatchToProps = dispatch => {
     return {
         register: (newUser) => dispatch(userActions.register(newUser))
     };
-}
+};
 export default connect(mapStateToProps, mapDispatchToProps)(Form.create()(RegistrationForm));
