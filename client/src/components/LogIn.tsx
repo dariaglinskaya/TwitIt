@@ -42,7 +42,7 @@ export class LogIn extends React.Component<IProps, IState> {
         const user = {
             name: username,
             subscriptions: ['edwin'],
-            retweets: ['10']
+            retweets: ['5b768c974f0f18075a7f7e67']
         };
         const users = this.props.authentication.users;
         if (typeof users !== "undefined" && users !== null && users.length !== null && users.length > 0) {

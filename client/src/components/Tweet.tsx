@@ -31,18 +31,20 @@ export class Tweet extends React.Component<any, IState>{
     public handleClickRetweet(event) {
         event.preventDefault();
         if (this.state.retweeted) {
-            this.props.unRetweet(this.props.id);
+            this.props.unRetweet(this.props._id);
             this.setState(() => ({ retweeted: false }));
         } else {
-            this.props.retweet(this.props.id);
+            this.props.retweet(this.props._id);
             this.setState(() => ({ retweeted: true }));
         }
 
     }
     public render() {
+        let k = 1;
         return (
             <div className="tweet-item">
                 <Link to={"/user/:" + this.props.author.toLowerCase()} className="author">@{this.props.author.toLowerCase()}</Link>
+                {k = k+1}
                 <time className="tweet-date">{this.props.date}</time>
                 <hr />
                 <div className="tweet-text">{this.props.text}</div>

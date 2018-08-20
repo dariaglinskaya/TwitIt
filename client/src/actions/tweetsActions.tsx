@@ -60,7 +60,6 @@ function unLikeTweet(tweet) {
 function tweetsFetchData(url) {
     return (dispatch) => {
         dispatch(tweetsIsLoading(true));
-
         fetch(url)
             .then((response) => {
                 if (!response.ok) {

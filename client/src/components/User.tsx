@@ -16,36 +16,52 @@ export class User extends React.Component<IProps, {}>{
     private customStyle = {
         display: 'inline',
     };
-    public renderUserTweetsSubscr() {
+    public renderOwnTweets() {
         const res = this.props.tweets.filter((tweet) => {
+            console.log(tweet.author.toLowerCase() + '---------' + this.props.match.params.username.substring(1));
             return this.props.match.params.username.substring(1) === tweet.author.toLowerCase();
         });
-        return res.map((tweet, index) => {
-            return <Tweet key={index+100}
-                {...tweet} />;
-        });
+        console.log(res)
+        if (res.length !== 0) {
+            return res.map((tweet, index) => {
+                return <Tweet key={index + 100}
+                    {...tweet} />;
+            });
+        } else {
+            console.log("no admin tweets")
+            return false;
+        }
     }
     public renderUserRetweets() {
         const subscrID = this.props.authentication.user.retweets;
+        console.log(subscrID)
         const tweets = this.props.tweets;
         const res = [];
         subscrID.forEach((id) => {
-            res.push(tweets.find((tweet) => tweet.id === id ));
+            res.push(tweets.find((tweet) => tweet._id == id));
         });
-        return res.map((tweet, index) => {
-            return <Tweet key={index}
-                {...tweet} retweeted={true}/>;
-        });
+        console.log(res)
+        if (subscrID.length !== 0) {
+            return res.map((tweet, index) => {
+                return <Tweet key={index}
+                    {...tweet} retweeted={true} />;
+            });
+        } else {
+            console.log('no retweets')
+            return false;
+        }
     }
     public renderUserTweets() {
-        const subscr = this.renderUserTweetsSubscr();        
-        if(this.props.match.params.username.substring(1) === this.props.authentication.user.name) {
+        const subscr = this.renderOwnTweets();
+        if (this.props.match.params.username.substring(1) === this.props.authentication.user.name) {
             const retweets = this.renderUserRetweets();
-            return subscr.concat(retweets);
-        } else {
-            return subscr;
-        }        
-    }    
+            if (subscr && retweets) {
+                return subscr.concat(retweets);
+            } else if (subscr) { return subscr } else {
+                if (retweets) { return retweets }
+            }
+        }
+    }
     public render() {
         return (
             !this.props.authentication.loggedIn ? (<Redirect to="/" />) :

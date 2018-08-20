@@ -45,7 +45,7 @@ export class AddForm extends React.Component<IProps, IState>{
                 author: this.props.authentication.user.name,
                 date: new Date().toISOString().slice(0, 10),
                 text: this.state.newTweetContent,
-                id: Math.random().toString(36).substr(2, 9),
+                _id: Math.random().toString(36).substr(2, 9),
                 countLikes: 0
             };
             this.setState(() => ({ newTweetContent: "" }));
