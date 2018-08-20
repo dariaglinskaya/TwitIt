@@ -20,8 +20,13 @@ export class Tweet extends React.Component<any, IState>{
     }
     public handleClickLike(event) {
         event.preventDefault();
-        this.props.likeTweet(this.props);
-        this.setState(() => ({ liked: true }));
+        if (this.state.liked) {
+            this.props.unLikeTweet(this.props);
+            this.setState(() => ({ liked: false }));
+        } else {
+            this.props.likeTweet(this.props);
+            this.setState(() => ({ liked: true }));
+        }
     }
     public handleClickRetweet(event) {
         event.preventDefault();
@@ -56,9 +61,10 @@ const mapStateToProps = state => {
 };
 const mapDispatchToProps = dispatch => {
     const likeTweet = (tweet) => tweetsActions.likeTweet(tweet);
+    const unLikeTweet = (tweet) => tweetsActions.unLikeTweet(tweet);
     const retweet = (id) => userActions.retweet(id);
     return {
-        ...bindActionCreators({ likeTweet, retweet }, dispatch)
+        ...bindActionCreators({ likeTweet, unLikeTweet, retweet }, dispatch)
     };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Tweet);

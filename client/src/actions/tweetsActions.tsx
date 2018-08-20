@@ -7,6 +7,7 @@ const tweetsActions = {
     searchUsers,
     tweetsFetchData,
     likeTweet,
+    unLikeTweet
 };
 function tweetsHasErrored(bool) {
     return {
@@ -46,6 +47,12 @@ function searchUsers(usersFound) {
 function likeTweet(tweet) {
     return {
         type: tweetsConstant.LIKE_TWEET,
+        tweet
+    };
+}
+function unLikeTweet(tweet) {
+    return {
+        type: tweetsConstant.UNLIKE_TWEET,
         tweet
     };
 }

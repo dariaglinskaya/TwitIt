@@ -8,5 +8,6 @@ export enum tweetsConstant {
     SEARCH_USERS = 'SEARCH_USERS',
 
     LIKE_TWEET = 'LIKE_TWEET',
+    UNLIKE_TWEET = 'UNLIKE_TWEET'
 }
 export default tweetsConstant;

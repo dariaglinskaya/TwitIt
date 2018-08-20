@@ -39,6 +39,21 @@ export default function tweets(state = initialState, action: any) {
         })
       }
     }
+    case tweetsConstant.UNLIKE_TWEET: {
+      return {
+        ...state,
+        tweets: state.tweets.map(tweet => {
+          if (tweet.id === action.tweet.id) {
+            return {
+              ...tweet,
+              countLikes: tweet.countLikes - 1
+            }
+          } else {
+            return { ...tweet }
+          }
+        })
+      }
+    }
     default: {
       return state;
     }
