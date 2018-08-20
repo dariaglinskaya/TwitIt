@@ -34,6 +34,7 @@ $xs: 5px;
 $s: 10px;
 $m: 20px;
 $l: 40px;
+$xl: 50px;
 
 %feed-item {
   background: $alice_blue;
@@ -64,9 +65,9 @@ $l: 40px;
 .App-feed {
 	padding-top: $m;
 	background: #0000000a;
+	border-left: 1px solid #00000045;
 	min-height: 100vh;
-	padding-left: $l;
-	padding-right: $l;
+	padding: $m $l $xl $l;
 }
 .App-title {
 	font-size: 1.5em;
@@ -197,7 +198,6 @@ $l: 40px;
 }
 .ant-col-7 {
 	height: 100vh;
-	border-right: 1px solid #00000045;
 }
 .user-page-icon {
 	font-size: 50px;

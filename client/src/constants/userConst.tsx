@@ -11,6 +11,7 @@ export enum userConstants {
 
     USER_SUBSCRIBE = 'USER_SUBSCRIBE',
 
-    USER_RETWEETED = 'USER_RETWEETED'
+    USER_RETWEETED = 'USER_RETWEETED',
+    USER_UNRETWEETED = 'USER_UNRETWEETED',
 }
 export default userConstants;

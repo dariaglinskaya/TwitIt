@@ -59,6 +59,15 @@ export default function authentication(state = INITIAL_STATE, action) {
                 }
             }
         }
+        case userConstants.USER_UNRETWEETED: {            
+            return {
+                ...state,
+                user: {
+                    ...state.user,
+                    retweets: [...state.user.retweets].slice(0,-1)
+                }
+            }
+        }
 
         default:
             return state
