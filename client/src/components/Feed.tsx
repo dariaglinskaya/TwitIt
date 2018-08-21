@@ -19,7 +19,7 @@ export class Feed extends React.Component<IProps, {}>{
         super(props);
     }
     componentDidMount() {
-        this.props.fetchData('http://localhost:5000/');
+        this.props.fetchData('http://localhost:5000/feed');
     }
 
     public renderTweets() {

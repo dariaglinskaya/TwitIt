@@ -1,7 +1,7 @@
-const mongoose = require('mongoose');
+import * as mongoose from 'mongoose';
+mongoose.connect('mongodb://localhost:27017/TwitIt');
 const Schema = mongoose.Schema;
 const TweetSchema = new Schema({
-    _id: Schema.Types.ObjectId,
     date: {
         type: Date, 
         default: Date.now
@@ -17,6 +17,5 @@ const TweetSchema = new Schema({
         default: 0
     },
     });
-const Tweet = mongoose.model('tweets', TweetSchema);
-
-module.exports.tweetModel = Tweet;
+const tweetModel = mongoose.model('tweets', TweetSchema);
+export default tweetModel;

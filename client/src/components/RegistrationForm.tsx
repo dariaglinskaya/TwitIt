@@ -2,7 +2,7 @@ import { Form, Input, Icon, Button, } from 'antd';
 import { connect } from 'react-redux';
 import userActions from '../actions/userActions';
 import * as React from 'react';
-import { Link } from 'react-router-dom';
+//import { Redirect } from 'react-router-dom';
 import Header from './Header';
 
 const FormItem = Form.Item;
@@ -14,6 +14,7 @@ export interface IProps {
     form: any;
     history: any;
     register: any;
+    create: any;
 }
 
 export interface IState {
@@ -22,23 +23,33 @@ export interface IState {
     password: string;
     confirmDirty: boolean;
     autoCompleteResult: any;
+    registerSuccess?: boolean;
 }
 
 export class RegistrationForm extends React.Component<IProps, IState> {
+    
     constructor(props) {
         super(props);
         this.setState({ confirmDirty: false });
+        this.setState({ registerSuccess: false });
         this.setState({ autoCompleteResult: [] });
         this.handleSubmit = this.handleSubmit.bind(this);
         this.onUsernameChange = this.onUsernameChange.bind(this);
         this.onPasswordChange = this.onPasswordChange.bind(this);
     }
+    public createUser = () => {
+        this.props.create({
+            email: this.state.username,
+            password: this.state.password,
+        })
+            .then(() => this.setState({ registerSuccess: true }))
+    }
     public onUsernameChange(event) {
-        const username = event.target.value;
+        const username: string = event.target.value;
         this.setState(() => ({ username }));
     }
     public onPasswordChange(event) {
-        const password = event.target.value;
+        const password: string = event.target.value;
         this.setState(() => ({ password }));
     }
     public handleSubmit(event) {
@@ -71,6 +82,10 @@ export class RegistrationForm extends React.Component<IProps, IState> {
     }
     render() {
         const { getFieldDecorator } = this.props.form;
+        console.log(this.state)
+       /* if (this.state.registerSuccess) {
+            return <Redirect to='/login' />
+        }*/
         return (
             <div>
                 <Header />
@@ -91,9 +106,7 @@ export class RegistrationForm extends React.Component<IProps, IState> {
                             )}
                         </FormItem>
                         <FormItem>
-                            <Link onClick={this.handleSubmit} to='/' replace>
-                                <Button type="primary" htmlType="submit" className="login-form-button">Register</Button>
-                            </Link>
+                            <Button type="primary" htmlType="submit" className="login-form-button" onClick={() => this.createUser()}>Register</Button>
                         </FormItem>
                     </Form>
                 </div>
@@ -110,7 +123,8 @@ const mapStateToProps = state => {
 };
 const mapDispatchToProps = dispatch => {
     return {
-        register: (newUser) => dispatch(userActions.register(newUser))
+        register: (newUser) => dispatch(userActions.register(newUser)),
+        create: (newUser) => dispatch(userActions.create(newUser)),
     };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Form.create()(RegistrationForm));

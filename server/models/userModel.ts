@@ -1,7 +1,7 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+import * as mongoose from 'mongoose';
+mongoose.connect('mongodb://localhost:27017/TwitIt');
 
-const UserSchema = new Schema({
+export const UserSchema = new mongoose.Schema({
   username: {
     type: String,
     required: [true, 'username field is required']
@@ -20,6 +20,5 @@ const UserSchema = new Schema({
   },
 });
 
-const User = mongoose.model('user', UserSchema);
-
-module.exports = User;
+const userModel = mongoose.model('users', UserSchema);
+export default userModel;

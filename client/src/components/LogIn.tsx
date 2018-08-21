@@ -40,22 +40,24 @@ export class LogIn extends React.Component<IProps, IState> {
         e.preventDefault();
         const { username, password } = this.state;
         const user = {
-            name: username,
+            username: username,
+            password: password,
             subscriptions: ['edwin'],
             retweets: ['5b768c974f0f18075a7f7e67']
         };
-        const users = this.props.authentication.users;
-        if (typeof users !== "undefined" && users !== null && users.length !== null && users.length > 0) {
+        user.subscriptions.push(username);
+                this.props.logIn(user);
+        /*const users = this.props.authentication.users;
+        /*if (typeof users !== "undefined" && users !== null && users.length !== null && users.length > 0) {
             const res = users.filter(element => (element.name === username && element.password === password));
             if (!_.isEmpty(res)) {
-                user.subscriptions.push(username);
-                this.props.logIn(user);
+                
             } else {
                 alert('invalid username or password');
             }
         } else {
             alert('There is no users!');
-        }
+        }*/
     }
 
     render() {
