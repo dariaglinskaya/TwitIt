@@ -1,4 +1,4 @@
-import { Form, Input, Icon, Button, } from 'antd';
+import { Form, Input, Icon, Button, Modal, } from 'antd';
 import { connect } from 'react-redux';
 import userActions from '../actions/userActions';
 import * as React from 'react';
@@ -27,7 +27,7 @@ export interface IState {
 }
 
 export class RegistrationForm extends React.Component<IProps, IState> {
-    
+
     constructor(props) {
         super(props);
         this.setState({ confirmDirty: false });
@@ -52,13 +52,20 @@ export class RegistrationForm extends React.Component<IProps, IState> {
         const password: string = event.target.value;
         this.setState(() => ({ password }));
     }
-    public handleSubmit(event) {
+    public handleSubmit() {
         const newUser = {
-            name: this.state.username,
+            username: this.state.username,
             password: this.state.password,
             subscriptions: []
         };
         this.props.register(newUser);
+    }
+    public modal() {
+        const modal = Modal.success({
+            title: 'Register failure!',
+            content: 'User with the same name was found.',
+        });
+        setTimeout(() => modal.destroy(), 5000);
     }
     handleConfirmBlur = (e) => {
         const value = e.target.value;
@@ -82,10 +89,10 @@ export class RegistrationForm extends React.Component<IProps, IState> {
     }
     render() {
         const { getFieldDecorator } = this.props.form;
-        console.log(this.state)
-       /* if (this.state.registerSuccess) {
-            return <Redirect to='/login' />
-        }*/
+        console.log(this.state);
+        if (this.props.authentication.registerFailure) {
+            this.modal();
+        }
         return (
             <div>
                 <Header />
@@ -106,7 +113,7 @@ export class RegistrationForm extends React.Component<IProps, IState> {
                             )}
                         </FormItem>
                         <FormItem>
-                            <Button type="primary" htmlType="submit" className="login-form-button" onClick={() => this.createUser()}>Register</Button>
+                            <Button type="primary" htmlType="submit" className="login-form-button" onClick={() => this.handleSubmit()}>Register</Button>
                         </FormItem>
                     </Form>
                 </div>
@@ -124,7 +131,6 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         register: (newUser) => dispatch(userActions.register(newUser)),
-        create: (newUser) => dispatch(userActions.create(newUser)),
     };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Form.create()(RegistrationForm));

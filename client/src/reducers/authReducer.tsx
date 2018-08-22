@@ -2,6 +2,7 @@ import { userConstants } from '../constants/userConst';
 
 const INITIAL_STATE = {
     loggedIn: false,
+    loginFailure: false,
     user: {
         name: '',
         subscriptions: [],
@@ -13,6 +14,11 @@ const INITIAL_STATE = {
 
 export default function authentication(state = INITIAL_STATE, action) {
     switch (action.type) {
+        case userConstants.AUTH_ISLOADING:
+            return {
+                ...state,
+                registerFailure: false,
+            }
         case userConstants.LOGIN_REQUEST:
             return {
                 ...state,
@@ -44,7 +50,12 @@ export default function authentication(state = INITIAL_STATE, action) {
                 ...state,
                 users: [...state.users, action.newUser]
             };
-        case userConstants.USER_SUBSCRIBE: {            
+        case userConstants.REGISTER_FAILURE:
+            return {
+                loggedIn: false,
+                registerFailure: true,
+            };
+        case userConstants.USER_SUBSCRIBE: {
             return {
                 ...state,
                 user: {
@@ -53,7 +64,7 @@ export default function authentication(state = INITIAL_STATE, action) {
                 }
             }
         }
-        case userConstants.USER_RETWEETED: {            
+        case userConstants.USER_RETWEETED: {
             return {
                 ...state,
                 user: {
@@ -62,12 +73,12 @@ export default function authentication(state = INITIAL_STATE, action) {
                 }
             }
         }
-        case userConstants.USER_UNRETWEETED: {            
+        case userConstants.USER_UNRETWEETED: {
             return {
                 ...state,
                 user: {
                     ...state.user,
-                    retweets: [...state.user.retweets].slice(0,-1)
+                    retweets: [...state.user.retweets].slice(0, -1)
                 }
             }
         }

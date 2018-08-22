@@ -19,30 +19,43 @@ export interface IState {
     username: string;
     password: string;
     loggedIn: boolean;
+    loginFailure: boolean;
+}
+const INITIAL_STATE = {
+    error: '',
+    username: '',
+    password: '',
+    loggedIn: false,
+    loginFailure: false
 }
 
 export class LogIn extends React.Component<IProps, IState> {
     constructor(props) {
         super(props);
+        this.state = INITIAL_STATE;
         this.handleChangeUsername = this.handleChangeUsername.bind(this);
         this.handleChangePassword = this.handleChangePassword.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
     public handleChangeUsername(event) {
         const username = event.target.value;
-        this.setState({ username });
+        console.log(this.state)
+        this.setState({ username, loginFailure: false });
     }
     public handleChangePassword(event) {
         const password = event.target.value;
-        this.setState({ password });
+        console.log(this.state)
+        this.setState({ password, loginFailure: false });
     }
-    public modal () {
-        console.log('modal');
-        const modal = Modal.success({
-            title: 'Login failure!',
-            content: 'You entered incorrect password or user has not found.',
-          });
-          setTimeout(() => modal.destroy(), 5000);
+    public modal() {
+        if (this.props.authentication.loginFailure) {
+            
+            const modal = Modal.success({
+                title: 'Login failure!',
+                content: 'You entered incorrect password or user has not found.',
+            });
+            setTimeout(() => modal.destroy(), 5000);
+        }
     }
     public handleSubmit(e) {
         e.preventDefault();
@@ -55,27 +68,11 @@ export class LogIn extends React.Component<IProps, IState> {
         };
         user.subscriptions.push(username);
         this.props.logIn(user);
-        if(this.props.authentication.loginFailure) {
-            this.modal();
-        }
-        /*const users = this.props.authentication.users;
-        /*if (typeof users !== "undefined" && users !== null && users.length !== null && users.length > 0) {
-            const res = users.filter(element => (element.name === username && element.password === password));
-            if (!_.isEmpty(res)) {
-                
-            } else {
-                alert('invalid username or password');
-            }
-        } else {
-            alert('There is no users!');
-        }*/
     }
-
     render() {
+        console.log(this.state);
+        this.modal();
         const { getFieldDecorator } = this.props.form;
-        if(this.props.authentication.loginFailure) {
-            this.modal();
-        }
         return (
             this.props.authentication.loggedIn ? (<Redirect to="/newsFeed" />) :
                 <div className="logIn">

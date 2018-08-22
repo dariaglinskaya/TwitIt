@@ -5,6 +5,7 @@ const passport = require('passport');
 const expressSession = require('express-session');
 const sessionStore = require('../passport/store')(expressSession);
 const store = new sessionStore({ url: 'mongodb://127.0.0.1/TwitIt' });
+import register from '../controllers/dbController';
 
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({ extended: true }));
@@ -30,6 +31,16 @@ router.post('/login', passport.authenticate('login'), (req, res) => {
     } else {
         return res.sendStatus(401);
     }
+});
+router.post('/register', (req, res) => {
+    register(req.body).then((response)=>{
+        res.send(req.user);
+        console.log('successful registration');
+        res.status(200).end();
+    })
+    .catch(() => {
+        res.sendStatus(400);
+    });
 });
 router.get('/loggedin', (req, res) => req.user ? res.status(200).send(req.user) : res.sendStatus(401));
 router.get('/logout', (req, res) => {

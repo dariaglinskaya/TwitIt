@@ -1,5 +1,4 @@
 import { userConstants } from '../constants/userConst';
-import axios, { AxiosPromise } from 'axios'
 
 export const userActions = {
     login,
@@ -8,20 +7,49 @@ export const userActions = {
     subscribe,
     retweet,
     unretweet,
-    create
 };
 
 function register(newUser) {
+    return (dispatch) => {
+        dispatch(authIsLoading(true));
+        fetch('http://localhost:5000/users/register', {
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            method: "POST",
+            body: JSON.stringify(newUser)
+        })
+            .then((response) => {
+                if (!response.ok) {
+                    throw Error(response.statusText);
+                } else {
+                    console.log(response)
+                    dispatch(registerSuccess());
+                    return response;
+                }
+            })
+            .catch(() => dispatch(registerFailure()));
+    };
+
+}
+function registerFailure() {
+    return {
+        type: userConstants.REGISTER_FAILURE,
+        registerFailure: true,
+    };
+}
+function registerSuccess() {
     return {
         type: userConstants.REGISTER_SUCCESS,
-        loggedIn: true,
-        newUser
+        loggedIn: false,
+        registerSuccess: true,
     };
 }
 function authIsLoading(bool) {
     return {
         type: userConstants.AUTH_ISLOADING,
-        isLoading: bool
+        isLoading: bool,
+        registerFailure: false,
     };
 }
 function loginSuccess(bool, user) {
@@ -86,10 +114,6 @@ function unretweet(userID) {
         type: userConstants.USER_UNRETWEETED,
         userID
     };
-}
-function create(user: { username: string, password: string }): AxiosPromise<string> {
-    return axios.post('/api/user', user)
-        .then(res => res.data)
 }
 
 export default userActions;

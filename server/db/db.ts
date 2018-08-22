@@ -1,5 +1,6 @@
 import * as mongoose from 'mongoose';
 import DBInit from './init';
+import userModel from '../models/userModel';
 
 DBInit();
 const db = mongoose.connection;
@@ -11,29 +12,32 @@ class DB {
     constructor(collectionName) {
         this.collectionName = collectionName;
     }
-    public insert() {
+    public insert(newItem) {
+        const item = new userModel(newItem);
         return new Promise((resolve, reject) => {
-
-            let newItem = JSON.parse(this.toJSON());            
+            item.save((err) => {
+                if (!err) {
+                    resolve(this._id);
+                } else {
+                    reject(err);
+                }
+            })
+        });
+    };
+    public findOne(item) {
+        return new Promise((resolve, reject) => {
             db
                 .collection(this.collectionName)
-                .insertOne(newItem, { w: 1 }, (err, result) => {
-                    if (!err) {
-                        this._id = result.insertedId;
-                        resolve(this._id);
+                .findOne({ username: item.username }, (err, result) => {
+                    console.log(result)
+                    if (result) {
+                        resolve(result);
                     } else {
                         reject(err);
                     }
                 });
         });
-    }
-
-    public getDataObject() {
-        return JSON.parse(this.toJSON());
-    }
-    public toJSON(): string {
-        return JSON.stringify(this.getDataObject())
-    }
+    };
 }
 
 export default DB;
