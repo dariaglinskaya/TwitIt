@@ -1,4 +1,4 @@
-const login = require('./login');
+import onLogin from './login';
 
 module.exports = (passport) => {
     passport.serializeUser((user, done) => {
@@ -9,5 +9,5 @@ module.exports = (passport) => {
         const err = user ? null : new Error('deserializing error');
         done(err, user.username);
     });
-    login(passport);
+    onLogin(passport);
 };

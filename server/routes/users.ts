@@ -33,14 +33,17 @@ router.post('/login', passport.authenticate('login'), (req, res) => {
     }
 });
 router.post('/register', (req, res) => {
-    register(req.body).then((response)=>{
-        res.send(req.user);
-        console.log('successful registration');
-        res.status(200).end();
+    register(req.body).then((response) => {
+        console.log('response: '+response);
+        if (!response) {
+            res.sendStatus(400);
+        } else {
+            res.send(req.user);
+            console.log('successful registration');
+            res.status(200).end();
+        }
     })
-    .catch(() => {
-        res.sendStatus(400);
-    });
+        .catch(() => new Error());
 });
 router.get('/loggedin', (req, res) => req.user ? res.status(200).send(req.user) : res.sendStatus(401));
 router.get('/logout', (req, res) => {

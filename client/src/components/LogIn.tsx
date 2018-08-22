@@ -39,16 +39,23 @@ export class LogIn extends React.Component<IProps, IState> {
     }
     public handleChangeUsername(event) {
         const username = event.target.value;
-        console.log(this.state)
-        this.setState({ username, loginFailure: false });
+        console.log(this.state);
+        if (this.props.authentication.loginFailure) {
+            this.setState({ loginFailure: false });
+        }
+        this.setState({ username });
     }
     public handleChangePassword(event) {
         const password = event.target.value;
         console.log(this.state)
+        if (this.props.authentication.loginFailure) {
+            this.setState({ loginFailure: false });
+        }
         this.setState({ password, loginFailure: false });
     }
     public modal() {
-        if (this.props.authentication.loginFailure) {
+        console.log(this.state)
+        if (this.state.loginFailure) {
             
             const modal = Modal.success({
                 title: 'Login failure!',
@@ -67,10 +74,10 @@ export class LogIn extends React.Component<IProps, IState> {
             retweets: ['5b768c974f0f18075a7f7e67']
         };
         user.subscriptions.push(username);
-        this.props.logIn(user);
+        this.props.form.resetFields();
+        this.props.logIn(user);        
     }
     render() {
-        console.log(this.state);
         this.modal();
         const { getFieldDecorator } = this.props.form;
         return (

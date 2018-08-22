@@ -79,11 +79,12 @@ function login(user) {
             .then((response) => {
                 console.log(response)
                 if (!response.ok) {
-                    console.log(response.status)
                     throw Error(response.statusText);
                 } else {
                     console.log(response);
-                    response.json().then(data => dispatch(loginSuccess(true, data)));
+                    response.json().then(data => {
+                        dispatch(loginSuccess(true, data))
+                    });
                     return response;
                 }
             })

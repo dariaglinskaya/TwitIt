@@ -1,7 +1,7 @@
 const LocalStrategy = require('passport-local').Strategy;
 import userModel from '../models/userModel';
 
-module.exports = (passport) => {
+const onLogin = (passport) => {
     passport.use('login', new LocalStrategy({
         passReqToCallback: true
     },
@@ -23,3 +23,4 @@ module.exports = (passport) => {
             });
         }));
 };
+export default onLogin;

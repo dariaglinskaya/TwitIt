@@ -2,7 +2,7 @@ import { Form, Input, Icon, Button, Modal, } from 'antd';
 import { connect } from 'react-redux';
 import userActions from '../actions/userActions';
 import * as React from 'react';
-//import { Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import Header from './Header';
 
 const FormItem = Form.Item;
@@ -46,6 +46,7 @@ export class RegistrationForm extends React.Component<IProps, IState> {
     }
     public onUsernameChange(event) {
         const username: string = event.target.value;
+        console.log(this);
         this.setState(() => ({ username }));
     }
     public onPasswordChange(event) {
@@ -58,6 +59,8 @@ export class RegistrationForm extends React.Component<IProps, IState> {
             password: this.state.password,
             subscriptions: []
         };
+        console.log(this);        
+        this.props.form.resetFields();
         this.props.register(newUser);
     }
     public modal() {
@@ -89,9 +92,11 @@ export class RegistrationForm extends React.Component<IProps, IState> {
     }
     render() {
         const { getFieldDecorator } = this.props.form;
-        console.log(this.state);
         if (this.props.authentication.registerFailure) {
             this.modal();
+        }
+        if(this.props.authentication.registerSuccess) {
+            return <Redirect to='/' />
         }
         return (
             <div>
