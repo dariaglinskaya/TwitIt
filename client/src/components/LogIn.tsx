@@ -1,4 +1,4 @@
-import { Form, Icon, Input, Button } from 'antd';
+import { Form, Icon, Input, Button, Modal } from 'antd';
 import * as React from 'react';
 import { connect } from 'react-redux';
 import userActions from '../actions/userActions';
@@ -36,6 +36,14 @@ export class LogIn extends React.Component<IProps, IState> {
         const password = event.target.value;
         this.setState({ password });
     }
+    public modal () {
+        console.log('modal');
+        const modal = Modal.success({
+            title: 'Login failure!',
+            content: 'You entered incorrect password or user has not found.',
+          });
+          setTimeout(() => modal.destroy(), 5000);
+    }
     public handleSubmit(e) {
         e.preventDefault();
         const { username, password } = this.state;
@@ -46,7 +54,10 @@ export class LogIn extends React.Component<IProps, IState> {
             retweets: ['5b768c974f0f18075a7f7e67']
         };
         user.subscriptions.push(username);
-                this.props.logIn(user);
+        this.props.logIn(user);
+        if(this.props.authentication.loginFailure) {
+            this.modal();
+        }
         /*const users = this.props.authentication.users;
         /*if (typeof users !== "undefined" && users !== null && users.length !== null && users.length > 0) {
             const res = users.filter(element => (element.name === username && element.password === password));
@@ -62,6 +73,9 @@ export class LogIn extends React.Component<IProps, IState> {
 
     render() {
         const { getFieldDecorator } = this.props.form;
+        if(this.props.authentication.loginFailure) {
+            this.modal();
+        }
         return (
             this.props.authentication.loggedIn ? (<Redirect to="/newsFeed" />) :
                 <div className="logIn">

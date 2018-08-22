@@ -33,8 +33,9 @@ function loginSuccess(bool, user) {
 }
 function loginFailure(bool) {
     return {
-        type: userConstants.LOGIN_SUCCESS,
-        loggedIn: bool,
+        type: userConstants.LOGIN_FAILURE,
+        loggedIn: !bool,
+        loginFailure: true,
     };
 }
 function login(user) {
@@ -50,10 +51,12 @@ function login(user) {
             .then((response) => {
                 console.log(response)
                 if (!response.ok) {
+                    console.log(response.status)
                     throw Error(response.statusText);
                 } else {
                     console.log(response);
-                    dispatch(loginSuccess(true, user));
+                    response.json().then(data => dispatch(loginSuccess(true, data)));
+                    return response;
                 }
             })
             .catch(() => dispatch(loginFailure(true)));
