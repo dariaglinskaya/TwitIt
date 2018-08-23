@@ -14,6 +14,10 @@ const INITIAL_STATE = {
 
 export default function authentication(state = INITIAL_STATE, action) {
     switch (action.type) {
+        case userConstants.INITIAL_STATE:
+        return {
+            INITIAL_STATE
+        }
         case userConstants.AUTH_ISLOADING:
             return {
                 ...state,

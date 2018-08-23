@@ -1,6 +1,7 @@
 import { Form, Icon, Input, Button, Modal } from 'antd';
 import * as React from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import userActions from '../actions/userActions';
 import { Link, Redirect } from 'react-router-dom';
 import * as _ from 'lodash';
@@ -13,6 +14,7 @@ export interface IProps {
     subscriptions: any;
     form: any;
     logIn: any;
+    initialState: any;
 }
 export interface IState {
     error: any;
@@ -37,32 +39,35 @@ export class LogIn extends React.Component<IProps, IState> {
         this.handleChangePassword = this.handleChangePassword.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
+
     public handleChangeUsername(event) {
         const username = event.target.value;
         console.log(this.state);
         if (this.props.authentication.loginFailure) {
             this.setState({ loginFailure: false });
-        }
-        this.setState({ username });
+        };
+        this.setState({ username, loginFailure: false });
     }
     public handleChangePassword(event) {
         const password = event.target.value;
-        console.log(this.state)
-        if (this.props.authentication.loginFailure) {
-            this.setState({ loginFailure: false });
-        }
+        console.log(this.state);
         this.setState({ password, loginFailure: false });
     }
+    shouldComponentUpdate(nextProps, nextState) {
+        return !this.state.loginFailure;
+    }
     public modal() {
-        console.log(this.state)
-        if (this.state.loginFailure) {
-            
-            const modal = Modal.success({
+        const that = this;
+        if (this.props.authentication.loginFailure) {
+            Modal.error({
                 title: 'Login failure!',
                 content: 'You entered incorrect password or user has not found.',
+                onOk() {
+                    that.props.initialState();
+                },
             });
-            setTimeout(() => modal.destroy(), 5000);
         }
+        return <Redirect to='/' />
     }
     public handleSubmit(e) {
         e.preventDefault();
@@ -75,8 +80,9 @@ export class LogIn extends React.Component<IProps, IState> {
         };
         user.subscriptions.push(username);
         this.props.form.resetFields();
-        this.props.logIn(user);        
+        this.props.logIn(user);
     }
+
     render() {
         this.modal();
         const { getFieldDecorator } = this.props.form;
@@ -116,8 +122,8 @@ const mapStateToProps = state => {
     };
 };
 const mapDispatchToProps = dispatch => {
-    return {
-        logIn: (user) => dispatch(userActions.login(user))
-    };
+    const logIn = (user) => userActions.login(user);
+    const initialState = () => userActions.initialState();
+    return { ...bindActionCreators({ logIn, initialState }, dispatch) };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Form.create()(LogIn));

@@ -7,8 +7,13 @@ export const userActions = {
     subscribe,
     retweet,
     unretweet,
+    initialState,
 };
-
+function initialState() {
+    return {
+        type: userConstants.INITIAL_STATE,
+    };
+}
 function register(newUser) {
     return (dispatch) => {
         dispatch(authIsLoading(true));
