@@ -2,7 +2,8 @@ import { Form, Input, Icon, Button, Modal, } from 'antd';
 import { connect } from 'react-redux';
 import userActions from '../actions/userActions';
 import * as React from 'react';
-import { Redirect } from 'react-router-dom';
+import { bindActionCreators } from 'redux';
+import { Redirect, Link } from 'react-router-dom';
 import Header from './Header';
 
 const FormItem = Form.Item;
@@ -14,44 +15,42 @@ export interface IProps {
     form: any;
     history: any;
     register: any;
-    create: any;
+    initialState: any;
 }
 
 export interface IState {
     error: any;
     username: string;
     password: string;
-    confirmDirty: boolean;
-    autoCompleteResult: any;
-    registerSuccess?: boolean;
+    registerFailure: boolean;
+}
+const INITIAL_STATE = {
+    error: '',
+    username: '',
+    password: '',
+    registerFailure: false,
 }
 
 export class RegistrationForm extends React.Component<IProps, IState> {
 
     constructor(props) {
         super(props);
-        this.setState({ confirmDirty: false });
-        this.setState({ registerSuccess: false });
-        this.setState({ autoCompleteResult: [] });
+        this.state = INITIAL_STATE;
         this.handleSubmit = this.handleSubmit.bind(this);
         this.onUsernameChange = this.onUsernameChange.bind(this);
         this.onPasswordChange = this.onPasswordChange.bind(this);
     }
-    public createUser = () => {
-        this.props.create({
-            email: this.state.username,
-            password: this.state.password,
-        })
-            .then(() => this.setState({ registerSuccess: true }))
+    shouldComponentUpdate(nextProps, nextState) {
+        return !this.state.registerFailure;
     }
     public onUsernameChange(event) {
         const username: string = event.target.value;
         console.log(this);
-        this.setState(() => ({ username }));
+        this.setState(() => ({ username, registerFailure: false }));
     }
     public onPasswordChange(event) {
         const password: string = event.target.value;
-        this.setState(() => ({ password }));
+        this.setState(() => ({ password, registerFailure: false }));
     }
     public handleSubmit() {
         const newUser = {
@@ -59,43 +58,26 @@ export class RegistrationForm extends React.Component<IProps, IState> {
             password: this.state.password,
             subscriptions: []
         };
-        console.log(this);        
         this.props.form.resetFields();
         this.props.register(newUser);
     }
     public modal() {
-        const modal = Modal.success({
-            title: 'Register failure!',
-            content: 'User with the same name was found.',
-        });
-        setTimeout(() => modal.destroy(), 5000);
-    }
-    handleConfirmBlur = (e) => {
-        const value = e.target.value;
-        this.setState({ confirmDirty: this.state.confirmDirty || !!value });
-    }
-    compareToFirstPassword = (rule, value, callback) => {
-        const form = this.props.form;
-        if (value && value !== form.getFieldValue('password')) {
-            callback('Two passwords that you enter is inconsistent!');
-        } else {
-            callback();
+        const that = this;
+        if (this.props.authentication.registerFailure) {
+            Modal.error({
+                title: 'Register failure!',
+                content: 'User is already registered.',
+                onOk() {
+                    that.props.initialState();
+                },
+            });
         }
-    }
 
-    validateToNextPassword = (rule, value, callback) => {
-        const form = this.props.form;
-        if (value && this.state.confirmDirty) {
-            form.validateFields(['confirm'], { force: true });
-        }
-        callback();
     }
     render() {
         const { getFieldDecorator } = this.props.form;
-        if (this.props.authentication.registerFailure) {
-            this.modal();
-        }
-        if(this.props.authentication.registerSuccess) {
+        this.modal();
+        if (this.props.authentication.registerSuccess) {
             return <Redirect to='/' />
         }
         return (
@@ -119,7 +101,9 @@ export class RegistrationForm extends React.Component<IProps, IState> {
                         </FormItem>
                         <FormItem>
                             <Button type="primary" htmlType="submit" className="login-form-button" onClick={() => this.handleSubmit()}>Register</Button>
+                            Or <Link to="/">log in now!</Link>
                         </FormItem>
+
                     </Form>
                 </div>
             </div>
@@ -134,8 +118,8 @@ const mapStateToProps = state => {
     };
 };
 const mapDispatchToProps = dispatch => {
-    return {
-        register: (newUser) => dispatch(userActions.register(newUser)),
-    };
+    const register = (newUser) => userActions.register(newUser);
+    const initialState = () => userActions.initialState();
+    return { ...bindActionCreators({ register, initialState }, dispatch) };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Form.create()(RegistrationForm));

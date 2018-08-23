@@ -27,18 +27,22 @@ module.exports = (connect) => {
         }
 
         get(sid, callback) {
+            console.log('get passport', sid)
             this.sessionModel.findOne({ sessId: sid }, (err, session) => callback(err, session));
         }
 
         set(sid, session, callback) {
+            console.log('set passport', sid);
             const sess = session;
             sess.sessId = sid;
-            this.sessionModel.findOneAndUpdate({ sessId: sid }, { $set: sess }, { upsert: true }, err => {
+            this.sessionModel.findOneAndUpdate({ sessId: sid }, { $set: sess }, { upsert: true }, (err, doc) => {
                 callback(err, { updated: 1 });
             });
         }
         destroy(sid) {
             console.log('destroying by SID:', sid);
+            console.log('----------------');
+            this.sessionModel.findOne({ sessId: sid }, (err, doc) => console.log(doc));
             this.sessionModel.findOneAndRemove({ sessId: sid }, err => !err ? console.log('deleted') : console.log(err));
         }
     }

@@ -38,6 +38,19 @@ class DB {
                 });
         });
     };
+    public findByAuthor(username) {
+        return new Promise((resolve, reject) => {
+            db
+                .collection(this.collectionName)
+                .find({ author: username }).toArray((err, result) => {
+                    if (result) {
+                        resolve(result);
+                    } else {
+                        reject(err);
+                    }
+                });
+        });
+    }
 }
 
 export default DB;

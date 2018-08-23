@@ -43,9 +43,6 @@ export class LogIn extends React.Component<IProps, IState> {
     public handleChangeUsername(event) {
         const username = event.target.value;
         console.log(this.state);
-        if (this.props.authentication.loginFailure) {
-            this.setState({ loginFailure: false });
-        };
         this.setState({ username, loginFailure: false });
     }
     public handleChangePassword(event) {
@@ -67,7 +64,6 @@ export class LogIn extends React.Component<IProps, IState> {
                 },
             });
         }
-        return <Redirect to='/' />
     }
     public handleSubmit(e) {
         e.preventDefault();

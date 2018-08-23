@@ -19,7 +19,7 @@ export class Feed extends React.Component<IProps, {}>{
         super(props);
     }
     componentDidMount() {
-        this.props.fetchData('http://localhost:5000/feed');
+        this.props.fetchData(this.props.authentication.user);
     }
 
     public renderTweets() {
@@ -78,7 +78,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        fetchData: (url) => dispatch(tweetsActions.tweetsFetchData(url))
+        fetchData: (user) => dispatch(tweetsActions.tweetsFetchData(user))
     };
 };
 

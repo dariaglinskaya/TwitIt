@@ -5,6 +5,7 @@ import tweetsActions from '../actions/tweetsActions';
 import userActions from '../actions/userActions';
 import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
+import Moment from 'react-moment';
 
 export interface IState {
     liked: boolean;
@@ -43,7 +44,7 @@ export class Tweet extends React.Component<any, IState>{
         return (
             <div className="tweet-item">
                 <Link to={"/user/:" + this.props.author.toLowerCase()} className="author">@{this.props.author.toLowerCase()}</Link>
-                <time className="tweet-date">{this.props.date}</time>
+                <time className="tweet-date"><Moment format='YYYY-MM-DD HH:mm'>{this.props.date}</Moment></time>
                 <hr />
                 <div className="tweet-text">{this.props.text}</div>
                 <a href='' onClick={this.handleClickLike.bind(this)}>

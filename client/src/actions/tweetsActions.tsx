@@ -57,10 +57,17 @@ function unLikeTweet(tweet) {
     };
 }
 
-function tweetsFetchData(url) {
+function tweetsFetchData(user) {
     return (dispatch) => {
+        console.log(user);
         dispatch(tweetsIsLoading(true));
-        fetch(url)
+        fetch('http://localhost:5000/feed', {
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            method: "POST",
+            body: JSON.stringify(user)
+        })
             .then((response) => {
                 console.log(response)
                 if (!response.ok) {

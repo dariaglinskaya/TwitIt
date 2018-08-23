@@ -98,9 +98,18 @@ function login(user) {
 }
 
 function logout() {
-    return {
-        type: userConstants.LOGOUT,
-        loggedIn: false
+    return (dispatch) => {
+        dispatch(authIsLoading(true))
+        fetch('http://localhost:5000/users/logout')
+            .then((response) => {
+                console.log(response)
+                if (!response.ok) {
+                    throw Error(response.statusText);
+                } else {
+                    dispatch(initialState());
+                }
+            })
+            .catch(() => new Error());
     };
 }
 function subscribe(userName) {

@@ -42,12 +42,7 @@ export default function authentication(state = INITIAL_STATE, action) {
             };
         case userConstants.LOGOUT:
             return {
-                ...state,
-                loggedIn: false,
-                user: {
-                    name: '',
-                    subscriptions: []
-                },
+                INITIAL_STATE
             };
         case userConstants.REGISTER_SUCCESS:
             return {
