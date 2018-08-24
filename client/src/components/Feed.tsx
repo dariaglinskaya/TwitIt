@@ -24,17 +24,7 @@ export class Feed extends React.Component<IProps, {}>{
 
     public renderTweets() {
         const tweets = this.props.tweets.tweets;
-        const subscr = this.props.subscriptions;
-        const res = [];
-
-        subscr.forEach((subscr) => {
-            tweets.forEach(tweet => {
-                if (tweet.author.toLowerCase() === subscr) {
-                    res.push(tweet);
-                }
-            });
-        });
-        return res.map((tweet, index) => {
+        return tweets.map((tweet, index) => {
             return <Tweet key={index}
                 {...tweet}
             />;

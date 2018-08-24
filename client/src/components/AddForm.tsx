@@ -42,11 +42,11 @@ export class AddForm extends React.Component<IProps, IState>{
             this.setState(() => (alert('Nothing to add')));
         } else {
             const newTweet = {
-                author: this.props.authentication.user.name,
-                date: new Date().toISOString().slice(0, 10),
+                author: this.props.authentication.user.username,
+                date: new Date(),
                 text: this.state.newTweetContent,
-                _id: Math.random().toString(36).substr(2, 9),
-                countLikes: 0
+                countLikes: 0,
+                countRepost: 0,
             };
             this.setState(() => ({ newTweetContent: "" }));
             this.props.addTweet(newTweet);

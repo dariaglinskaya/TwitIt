@@ -78,7 +78,6 @@ export class LogIn extends React.Component<IProps, IState> {
         this.props.form.resetFields();
         this.props.logIn(user);
     }
-
     render() {
         this.modal();
         const { getFieldDecorator } = this.props.form;

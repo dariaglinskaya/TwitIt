@@ -1,4 +1,4 @@
-import { Col } from 'antd';
+import { Col, Spin } from 'antd';
 import * as React from 'react';
 import AddForm from './AddForm';
 import Footer from './Footer';
@@ -15,9 +15,14 @@ export interface IProps {
 
 export class Search extends React.Component<IProps, {}>{
     public renderUsers() {
-        return this.props.tweets.usersFound[0].map((item, index) => {
-            return <SearchItem key={index} {...item} />;
-        });
+        if (this.props.tweets.usersFound !== undefined) {
+            return this.props.tweets.usersFound.map((item, index) => {
+                return <SearchItem key={index} {...item} />;
+            });
+        }
+    }
+    public showSpinner() {
+        return <Spin />;
     }
     public render() {
         return (
@@ -27,7 +32,7 @@ export class Search extends React.Component<IProps, {}>{
                     <div>
                         <Col span={17} push={7}>
                             <ul className="search-list">
-                                {this.renderUsers()}
+                                {!this.props.tweets.searchSuccess ? this.showSpinner() : this.renderUsers()}
                             </ul>
                         </Col>
                         <Col span={7} pull={17}>

@@ -30,18 +30,62 @@ function tweetsFetchDataSuccess(tweets) {
         tweets
     };
 }
-
-function addTweet(newTweet) {
+function usersFetchDataSuccess(users) {
     return {
-        type: tweetsConstant.TWEETS_ADD,
+        type: tweetsConstant.USERS_FETCH_DATA_SUCCESS,
         isLoading: false,
+        searchSuccess: true,
+        users
+    };
+}
+function addTweetSuccess(newTweet) {
+    return {
+        type: tweetsConstant.ADD_TWEET_SUCCESS,
+        isLoading: false,
+        addTweetSuccess: true,
         newTweet
     };
 }
-function searchUsers(usersFound) {
+function addTweetFailure() {
     return {
-        type: tweetsConstant.SEARCH_USERS,
-        usersFound
+        type: tweetsConstant.ADD_TWEET_FAILURE,
+        addTweetFailure: true,
+    };
+}
+function addTweet(newTweet) {
+    return (dispatch) => {
+        console.log(newTweet)
+        dispatch(tweetsIsLoading(true));
+        fetch('http://localhost:5000/addTweet', {
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            method: "POST",
+            body: JSON.stringify(newTweet)
+        })
+            .then((response) => response.json())
+            .then((response) => {
+                console.log(response);
+                dispatch(addTweetSuccess(response));
+            })
+            .catch(() => dispatch(addTweetFailure()));
+    };
+}
+function searchUsers(user) {
+    return (dispatch) => {
+        dispatch(tweetsIsLoading(true));
+        fetch('http://localhost:5000/search', {
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            method: "POST",
+            body: JSON.stringify(user)
+        })
+            .then((response) => response.json())
+            .then((users) => {
+                dispatch(usersFetchDataSuccess(users));
+            })
+            .catch(() => dispatch(tweetsHasErrored(true)));
     };
 }
 function likeTweet(tweet) {
@@ -59,7 +103,6 @@ function unLikeTweet(tweet) {
 
 function tweetsFetchData(user) {
     return (dispatch) => {
-        console.log(user);
         dispatch(tweetsIsLoading(true));
         fetch('http://localhost:5000/feed', {
             headers: {
@@ -69,7 +112,6 @@ function tweetsFetchData(user) {
             body: JSON.stringify(user)
         })
             .then((response) => {
-                console.log(response)
                 if (!response.ok) {
                     throw Error(response.statusText);
                 }

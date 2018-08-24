@@ -25,20 +25,19 @@ export class Header extends React.Component<IProps, {}>{
         };
     }
     public searchUser(value) {
-        const users = this.props.authentication.users;
-        const usersFound = users.filter(user => user.name.includes(value));
-        if (usersFound && usersFound.length > 0) {
-            this.props.history.push("/searchUser");
-            this.props.searchUsers(usersFound);
-        } else {
-            alert("No users found");
-        }
-
+        const user = { user: value };
+        this.props.history.push("/searchUser");
+        this.props.searchUsers(user);
     }
     public logOut(event) {
         event.preventDefault();
         this.props.logOut();
         return <Redirect to="/" />;
+    }
+    public onSearchChange(e) {
+        /*this.setState({
+            searchText: e.target.value
+        });*/
     }
 
     public render() {
@@ -48,12 +47,13 @@ export class Header extends React.Component<IProps, {}>{
                     <Icon type="twitter" className="App-logo" />
                     <span className="App-title">TwitIt</span>
                 </header>
-                : <header className="App-header">
+                :
+                (<header className="App-header">
                     <Icon type="twitter" className="App-logo" />
                     <Link to="/newsFeed" style={{ color: 'white' }} className="App-title">TwitIt</Link>
-                    <Search placeholder="search user by login" className="search-input" onSearch={value => this.searchUser(value)} />
+                    <Search placeholder="search user by login" className="search-input" onChange={this.onSearchChange} onSearch={value => this.searchUser(value)} />
                     <Button type="primary" className="log-out" onClick={this.logOut.bind(this)}>Log out</Button>
-                </header>
+                </header>)
         );
     }
 }

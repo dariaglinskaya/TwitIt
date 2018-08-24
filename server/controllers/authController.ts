@@ -7,7 +7,7 @@ export default function register(user) {
             return false;
         })
         .catch(() => {
-            db.insert(user);
+            db.insertUser(user);
             return true;
         });
 }

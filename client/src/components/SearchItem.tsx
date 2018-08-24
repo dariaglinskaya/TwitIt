@@ -9,7 +9,7 @@ export interface IState {
 }
 export interface IProps {
     subscribe: any;
-    name: string;
+    username: string;
 }
 export class SearchItem extends React.Component<IProps, IState>{
     constructor(props) {
@@ -20,14 +20,15 @@ export class SearchItem extends React.Component<IProps, IState>{
     }
     public subscribe(event) {
         event.preventDefault();
-        this.props.subscribe(this.props.name.toLowerCase());   
+        this.props.subscribe(this.props.username.toLowerCase());   
         this.setState(() => ({ subscribed: true }));
         event.target.children[0].innerHTML="Unsubscribe";
     }
     public render() {
         return (
             <div className="search-item">
-                <Link to={'/user/:'+this.props.name.toLowerCase()} className="author">@{this.props.name.toLowerCase()}</Link>
+            {console.log(this.props)}
+                <Link to={'/user/:'+this.props.username.toLowerCase()} className="author">@{this.props.username.toLowerCase()}</Link>
                 <Button type={this.state.subscribed ? "primary" : "default"} onClick={e => this.subscribe(e)}>Subscribe</Button>
             </div>
         );

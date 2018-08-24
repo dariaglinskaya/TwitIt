@@ -21,8 +21,14 @@ export default function tweets(state = initialState, action: any) {
     case tweetsConstant.TWEETS_ADD: {
       return { ...state, tweets: [action.newTweet, ...state.tweets] };
     }
+    case tweetsConstant.ADD_TWEET_SUCCESS: {
+      return { ...state, tweets: [action.newTweet, ...state.tweets], isLoading: false, addTweetSuccess: true };
+    }
     case tweetsConstant.SEARCH_USERS: {
       return { ...state, usersFound: [action.usersFound] }
+    }
+    case tweetsConstant.USERS_FETCH_DATA_SUCCESS: {
+      return { ...state, usersFound: action.users, isLoading: false, searchSuccess: true }
     }
     case tweetsConstant.LIKE_TWEET: {
       return {
