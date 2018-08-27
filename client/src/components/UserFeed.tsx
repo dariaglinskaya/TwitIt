@@ -1,57 +1,61 @@
 import { connect } from 'react-redux';
 import { Spin } from 'antd';
 import * as React from 'react';
-import tweetsActions from '../actions/tweetsActions';
 
 import Tweet from './Tweet';
 
 export interface IProps {
-    hasErrored: boolean;
-    isLoading: boolean;
-    fetchData: any;
-    tweets: any;
-    subscriptions: any;
     authentication: any;
+    tweets: any;
+    match: any;
+    renderUserTweets: any;
+    name: string;
+    renderSuccess: boolean;
 }
 
-export class Feed extends React.Component<IProps, {}>{
+export class UserFeed extends React.Component<IProps, {}>{
     constructor(props) {
         super(props);
     }
-    componentDidMount() {
-        this.props.fetchData(this.props.authentication.user);
-    }
-
     public renderTweets() {
-        const tweets = this.props.tweets.tweets;
+        const tweets = this.props.tweets.usersTweets;
+        tweets.sort(function (a, b) {
+            return +new Date(b.date) - +new Date(a.date);
+        });
+        console.log(tweets);
         return tweets.map((tweet, index) => {
+            console.log(tweet);
             return <Tweet key={index}
                 {...tweet}
             />;
         });
     }
-
+    public showSpin() {
+        console.log('show spinner')
+        return <Spin />
+    }
     public renderEmpty() {
         return <div>No tweets added yet.</div>;
     }
     public render() {
-        if (!this.props.subscriptions) {
-            return <p>No items to show.</p>;
-        }
         if (this.props.tweets.isLoading === true) {
             return <div className="App-feed">
+                {console.log('spin')}
                 <Spin />
             </div>;
-        }
-        return (
-            <div>
-                <div className="App-feed">
-                    <div>
-                        {this.renderTweets()}
+        } else {
+            return (
+                <div>
+                    <div className="App-feed">
+                        <div>
+                            {console.log(this.props.tweets.renderSuccess)}
+                            {this.props.tweets.renderSuccess ? this.renderTweets() : this.showSpin()}
+                        </div>
                     </div>
                 </div>
-            </div>
-        );
+            );
+        }
+
     }
 }
 
@@ -64,11 +68,4 @@ const mapStateToProps = state => {
         authentication: state.authentication
     };
 };
-
-const mapDispatchToProps = dispatch => {
-    return {
-        fetchData: (user) => dispatch(tweetsActions.tweetsFetchData(user))
-    };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Feed);
+export default connect(mapStateToProps)(UserFeed);

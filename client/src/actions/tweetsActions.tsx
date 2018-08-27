@@ -7,8 +7,77 @@ const tweetsActions = {
     searchUsers,
     tweetsFetchData,
     likeTweet,
-    unLikeTweet
+    unlikeTweet,
+    renderUserTweets
 };
+function renderUserTweets(user, admin) {
+    const newUser = { name: user };
+    return (dispatch) => {
+        console.log(newUser);
+        dispatch(tweetsIsLoading(true));
+        if (user === admin.username) {
+            const info = {
+                name: user,
+                admin: admin
+            }            
+            fetch('http://localhost:5000/personal', {
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                method: "POST",
+                body: JSON.stringify(info)
+            })
+                .then((response) => {
+                    if (!response.ok) {
+                        throw Error(response.statusText);
+                    }
+                    dispatch(tweetsIsLoading(true));
+                    return response;
+                })
+                .then((response) => response.json())
+                .then((response) => {
+                    console.log(response);
+                    dispatch(renderTweetSuccess(response));
+                })
+                .catch(() => dispatch(renderTweetFailure()));
+        } else {
+            fetch('http://localhost:5000/userpage', {
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                method: "POST",
+                body: JSON.stringify(newUser)
+            })
+                .then((response) => {
+                    if (!response.ok) {
+                        throw Error(response.statusText);
+                    }
+                    dispatch(tweetsIsLoading(true));
+                    return response;
+                })
+                .then((response) => response.json())
+                .then((response) => {
+                    console.log(response);
+                    dispatch(renderTweetSuccess(response));
+                })
+                .catch(() => dispatch(renderTweetFailure()));
+        }
+    };
+}
+function renderTweetSuccess(tweets) {
+    return {
+        type: tweetsConstant.RENDER_TWEET_SUCCESS,
+        userTweets: tweets,
+        renderSuccess: true
+    };
+}
+
+function renderTweetFailure() {
+    return {
+        type: tweetsConstant.RENDER_TWEET_FAILURE,
+        hasErrored: true
+    };
+}
 function tweetsHasErrored(bool) {
     return {
         type: tweetsConstant.TWEETS_HAS_ERRORED,
@@ -89,15 +158,57 @@ function searchUsers(user) {
     };
 }
 function likeTweet(tweet) {
+    return (dispatch) => {
+        dispatch(tweetsIsLoading(true));
+        fetch('http://localhost:5000/like', {
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            method: "POST",
+            body: JSON.stringify(tweet)
+        })
+            .then(dispatch(likeSuccess(tweet)))
+            .catch(() => dispatch(likeFailure()));
+    };
+}
+
+function likeSuccess(tweet) {
     return {
-        type: tweetsConstant.LIKE_TWEET,
+        type: tweetsConstant.LIKE_SUCCESS,
+        isLoading: false,
         tweet
     };
 }
-function unLikeTweet(tweet) {
+function likeFailure() {
     return {
-        type: tweetsConstant.UNLIKE_TWEET,
+        type: tweetsConstant.LIKE_FAILURE,
+        hasErrored: true,
+    };
+}
+function unlikeTweet(tweet) {
+    return (dispatch) => {
+        dispatch(tweetsIsLoading(true));
+        fetch('http://localhost:5000/unlike', {
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            method: "POST",
+            body: JSON.stringify(tweet)
+        })
+            .then(dispatch(unlikeSuccess(tweet)))
+            .catch(() => dispatch(unlikeFailure()));
+    };
+}
+function unlikeSuccess(tweet) {
+    return {
+        type: tweetsConstant.UNLIKE_SUCCESS,
         tweet
+    };
+}
+function unlikeFailure() {
+    return {
+        type: tweetsConstant.UNLIKE_FAILURE,
+        hasErrored: true
     };
 }
 

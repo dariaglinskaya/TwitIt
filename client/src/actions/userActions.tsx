@@ -5,6 +5,7 @@ export const userActions = {
     logout,
     register,
     subscribe,
+    unsubscribe,
     retweet,
     unretweet,
     initialState,
@@ -112,22 +113,130 @@ function logout() {
             .catch(() => new Error());
     };
 }
-function subscribe(userName) {
-    return {
-        type: userConstants.USER_SUBSCRIBE,
-        userName
+function subscribe(userName, admin) {
+    const user = { username: userName, admin: admin };
+    return (dispatch) => {
+        dispatch(authIsLoading(true))
+        fetch('http://localhost:5000/users/subscribe', {
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            method: "POST",
+            body: JSON.stringify(user)
+        })
+            .then((response) => {
+                console.log(response)
+                if (!response.ok) {
+                    throw Error(response.statusText);
+                } else {
+                    dispatch(subscribeSuccess(user));
+                }
+            })
+            .catch(() => dispatch(subscribeFailure()));
     };
 }
-function retweet(userID) {
+function unsubscribe(userName, admin) {
+    const user = { username: userName, admin: admin };
+    return (dispatch) => {
+        dispatch(authIsLoading(true))
+        fetch('http://localhost:5000/users/unsubscribe', {
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            method: "POST",
+            body: JSON.stringify(user)
+        })
+            .then((response) => {
+                console.log(response)
+                if (!response.ok) {
+                    throw Error(response.statusText);
+                } else {
+                    dispatch(unsubscribeSuccess(user));
+                }
+            })
+            .catch(() => dispatch(unsubscribeFailure()));
+    };
+}
+function subscribeSuccess(user) {
+    return {
+        type: userConstants.SUBSCRIBE_SUCCESS,
+        user
+    };
+}
+function unsubscribeSuccess(user) {
+    return {
+        type: userConstants.UNSUBSCRIBE_SUCCESS,
+        user
+    };
+}
+function subscribeFailure() {
+    return {
+        type: userConstants.SUBSCRIBE_FAILURE,
+        subscribed: false,
+    };
+}
+function unsubscribeFailure() {
+    return {
+        type: userConstants.UNSUBSCRIBE_FAILURE,
+        unsubscribed: false,
+    };
+}
+function retweet(userID, admin) {
+    const user = {id: userID, admin: admin};
+    return (dispatch) => {
+        dispatch(isLoading());
+        fetch('http://localhost:5000/retweet', {
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            method: "POST",
+            body: JSON.stringify(user)
+        })
+            .then(dispatch(retweetSuccess(userID)))
+            .catch(() => dispatch(retweetFailure()));
+    };    
+}
+function isLoading() {
+    return {
+        type: userConstants.IS_LOADING,
+        isLoading: true
+    };
+}
+function retweetSuccess(userID) {
     return {
         type: userConstants.USER_RETWEETED,
         userID
     };
 }
-function unretweet(userID) {
+function retweetFailure() {
+    return {
+        type: userConstants.RETWEET_FAILURE,
+    };
+}
+function unretweet(userID, admin) {
+    const user = {id: userID, admin: admin};
+    return (dispatch) => {
+        dispatch(isLoading());
+        fetch('http://localhost:5000/unretweet', {
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            method: "POST",
+            body: JSON.stringify(user)
+        })
+            .then(dispatch(unretweetSuccess(userID)))
+            .catch(() => dispatch(unretweetFailure()));
+    }; 
+}
+function unretweetSuccess(userID) {
     return {
         type: userConstants.USER_UNRETWEETED,
         userID
+    };
+}
+function unretweetFailure() {
+    return {
+        type: userConstants.UNRETWEET_FAILURE,
     };
 }
 

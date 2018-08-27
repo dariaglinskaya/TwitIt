@@ -56,7 +56,7 @@ export class RegistrationForm extends React.Component<IProps, IState> {
         const newUser = {
             username: this.state.username,
             password: this.state.password,
-            subscriptions: []
+            subscriptions: [this.state.username]
         };
         this.props.form.resetFields();
         this.props.register(newUser);

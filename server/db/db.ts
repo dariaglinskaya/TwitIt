@@ -2,6 +2,7 @@ import * as mongoose from 'mongoose';
 import DBInit from './init';
 import userModel from '../models/userModel';
 import tweetModel from '../models/tweetModel';
+const ObjectID = require('mongodb').ObjectID;
 
 DBInit();
 const db = mongoose.connection;
@@ -12,6 +13,101 @@ class DB {
     public _id: string = '';
     constructor(collectionName) {
         this.collectionName = collectionName;
+    }
+    public addSubscription(user) {
+        console.log(user);
+        return new Promise((resolve, reject) => {
+            db
+                .collection(this.collectionName)
+                .update({ username: user.admin }, { $push: {subscriptions: user.username}}, (err, result) => {
+                    if (result) {
+                        resolve(result);
+                    } else {
+                        reject(err);
+                    }
+                });
+        });
+    }
+    public addRetweet(user) {
+        console.log(user);
+        return new Promise((resolve, reject) => {
+            db
+                .collection(this.collectionName)
+                .update({ username: user.admin }, { $push: {retweets: user.id}}, (err, result) => {
+                    if (result) {
+                        resolve(result);
+                    } else {
+                        reject(err);
+                    }
+                });
+        });
+    }
+    public likeTweet(tweet) {
+        console.log(tweet.text);
+        return new Promise((resolve, reject) => {
+            db
+                .collection(this.collectionName)
+                .update({ _id:  ObjectID(tweet._id)}, { $inc: {countLikes: 1}}, (err, result) => {
+                    if (result) {
+                        resolve(result);
+                    } else {
+                        reject(err);
+                    }
+                });
+        });
+    }
+    public unlikeTweet(tweet) {
+        return new Promise((resolve, reject) => {
+            db
+                .collection(this.collectionName)
+                .update({ _id: ObjectID(tweet._id) }, { $inc: {countLikes: -1}}, (err, result) => {
+                    if (result) {
+                        resolve(result);
+                    } else {
+                        reject(err);
+                    }
+                });
+        });
+    }
+    public retweetTweet(tweet) {
+        return new Promise((resolve, reject) => {
+            db
+                .collection(this.collectionName)
+                .update({ _id:  ObjectID(tweet.id)}, { $inc: {countRetweets: 1}}, (err, result) => {
+                    if (result) {
+                        resolve(result);
+                    } else {
+                        reject(err);
+                    }
+                });
+        });
+    }
+    public unretweetTweet(tweet) {
+        return new Promise((resolve, reject) => {
+            db
+                .collection(this.collectionName)
+                .update({ _id: ObjectID(tweet.id) }, { $inc: {countRetweets: -1}}, (err, result) => {
+                    if (result) {
+                        resolve(result);
+                    } else {
+                        reject(err);
+                    }
+                });
+        });
+    }
+    public removeSubscription(user) {
+        console.log(user);
+        return new Promise((resolve, reject) => {
+            db
+                .collection(this.collectionName)
+                .update({ username: user.admin }, { $pull: {subscriptions: user.username}}, (err, result) => {
+                    if (result) {
+                        resolve(result);
+                    } else {
+                        reject(err);
+                    }
+                });
+        });
     }
     public insertUser(newItem) {
         const item = new userModel(newItem);
@@ -55,6 +151,19 @@ class DB {
             db
                 .collection(this.collectionName)
                 .find({ author: username }).sort({ date: -1 }).toArray((err, result) => {
+                    if (result) {
+                        resolve(result);
+                    } else {
+                        reject(err);
+                    }
+                });
+        });
+    }
+    public findById(id) {
+        return new Promise((resolve, reject) => {
+            db
+                .collection(this.collectionName)
+                .find({ _id: ObjectID(id) }).sort({ date: -1 }).toArray((err, result) => {
                     if (result) {
                         resolve(result);
                     } else {

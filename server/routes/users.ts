@@ -5,7 +5,7 @@ const passport = require('passport');
 const expressSession = require('express-session');
 const sessionStore = require('../passport/store')(expressSession);
 const store = new sessionStore({ url: 'mongodb://127.0.0.1/TwitIt' });
-import register from '../controllers/authController';
+import authController from '../controllers/authController';
 
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({ extended: true }));
@@ -15,7 +15,7 @@ router.use(expressSession({
     resave: false,
     saveUninitialized: false,
     store: store,
-    cookie: { maxAge : 3600000 },
+    cookie: { maxAge: 3600000 },
 }));
 router.use(passport.initialize());
 router.use(passport.session());
@@ -34,12 +34,38 @@ router.post('/login', passport.authenticate('login'), (req, res) => {
     }
 });
 router.post('/register', (req, res) => {
-    register(req.body).then((response) => {
+    authController.register(req.body).then((response) => {
         if (!response) {
             res.sendStatus(400);
         } else {
             res.send(req.user);
             console.log('successful registration');
+            res.status(200).end();
+        }
+    })
+        .catch(() => new Error());
+});
+router.post('/subscribe', (req, res) => {
+    console.log('its request')
+    console.log(req.body);
+    authController.subscribe(req.body).then((response) => {
+        if (!response) {
+            res.sendStatus(400);
+        } else {
+            console.log('successful subscription');
+            res.status(200).end();
+        }
+    })
+        .catch(() => new Error());
+});
+router.post('/unsubscribe', (req, res) => {
+    console.log('its request')
+    console.log(req.body);
+    authController.unsubscribe(req.body).then((response) => {
+        if (!response) {
+            res.sendStatus(400);
+        } else {
+            console.log('successful subscription');
             res.status(200).end();
         }
     })

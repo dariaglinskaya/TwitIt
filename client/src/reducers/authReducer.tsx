@@ -55,12 +55,12 @@ export default function authentication(state = INITIAL_STATE, action) {
                 loggedIn: false,
                 registerFailure: true,
             };
-        case userConstants.USER_SUBSCRIBE: {
+        case userConstants.SUBSCRIBE_SUCCESS: {
             return {
                 ...state,
                 user: {
                     ...state.user,
-                    subscriptions: [...state.user.subscriptions, action.userName]
+                    subscriptions: [...state.user.subscriptions, action.user.username]
                 }
             }
         }

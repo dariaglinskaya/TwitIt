@@ -9,7 +9,10 @@ export interface IState {
 }
 export interface IProps {
     subscribe: any;
+    unsubscribe: any;
     username: string;
+    authentication: any;
+    subscr: boolean;
 }
 export class SearchItem extends React.Component<IProps, IState>{
     constructor(props) {
@@ -20,16 +23,29 @@ export class SearchItem extends React.Component<IProps, IState>{
     }
     public subscribe(event) {
         event.preventDefault();
-        this.props.subscribe(this.props.username.toLowerCase());   
+        this.props.subscribe(this.props.username.toLowerCase(), this.props.authentication.user.username);
         this.setState(() => ({ subscribed: true }));
-        event.target.children[0].innerHTML="Unsubscribe";
+    }
+    public unsubscribe(event) {
+        event.preventDefault();
+        this.props.unsubscribe(this.props.username.toLowerCase(), this.props.authentication.user.username);
+        this.setState(() => ({ subscribed: false }));
+    }
+    public check() {
+        if(this.props.subscr) {
+            this.setState(() => ({ subscribed: true }));
+        }
+    }
+    componentDidMount() {
+        this.check()
     }
     public render() {
         return (
             <div className="search-item">
-            {console.log(this.props)}
-                <Link to={'/user/:'+this.props.username.toLowerCase()} className="author">@{this.props.username.toLowerCase()}</Link>
-                <Button type={this.state.subscribed ? "primary" : "default"} onClick={e => this.subscribe(e)}>Subscribe</Button>
+                <Link to={'/user/:' + this.props.username.toLowerCase()} className="author">@{this.props.username.toLowerCase()}</Link>
+                {this.state.subscribed ?
+                    <Button type="primary" onClick={e => this.unsubscribe(e)} >Unsubscribe</Button> :
+                    <Button type="default" onClick={e => this.subscribe(e)}>Subscribe</Button>}
             </div>
         );
     }
@@ -42,7 +58,8 @@ const mapStateToProps = state => {
 };
 const mapDispatchToProps = dispatch => {
     return {
-        subscribe: (name) => dispatch(userActions.subscribe(name))
+        subscribe: (name, admin) => dispatch(userActions.subscribe(name, admin)),
+        unsubscribe: (name, admin) => dispatch(userActions.unsubscribe(name, admin))
     };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(SearchItem);

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import * as React from 'react';
 import tweetsActions from '../actions/tweetsActions';
 import { Link } from 'react-router-dom';
+import { bindActionCreators } from 'redux';
 
 const { TextArea } = Input;
 
@@ -11,6 +12,7 @@ export interface IProps {
     isLoading: boolean;
     authentication: any;
     addTweet: any;
+    renderUserTweets: any;
 }
 
 export interface IState {
@@ -52,12 +54,16 @@ export class AddForm extends React.Component<IProps, IState>{
             this.props.addTweet(newTweet);
         }
     }
-
+    public userTweet(name, admin) {
+        this.props.renderUserTweets(name, admin);
+    }
     public render() {
         return (
             <form className="user-page" onSubmit={this.handleSubmit}>
                 <Icon type="user" className="user-page-icon" />
-                <Link to={"/user/:" + this.props.authentication.user.name} className="author" style={this.customStyle}>@{this.props.authentication.user.username}</Link>
+                <Link to={"/user/:" + this.props.authentication.user.username} className="author" style={this.customStyle}>
+                    <a onClick={() => this.userTweet(this.props.authentication.user.username,this.props.authentication.user )}>@{this.props.authentication.user.username}</a>                    
+                </Link>
                 <TextArea rows={4} ref='newTweet' className="add-tweet" placeholder='What do you think?' onChange={this.onTextChange} value={this.state.newTweetContent} />
                 <Button type="primary" htmlType="submit" className="add-tweet-btn" >Add</Button>
             </form>
@@ -74,8 +80,10 @@ const mapStateToProps = state => {
     };
 };
 const mapDispatchToProps = dispatch => {
+    const renderUserTweets = (user, admin) => tweetsActions.renderUserTweets(user, admin);
+    const addTweet = (newTweet) => tweetsActions.addTweet(newTweet);
     return {
-        addTweet: (newTweet) => dispatch(tweetsActions.addTweet(newTweet))
+        ...bindActionCreators({ addTweet, renderUserTweets }, dispatch)
     };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(AddForm);

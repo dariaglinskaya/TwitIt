@@ -16,7 +16,7 @@ export default function tweets(state = initialState, action: any) {
       break;
     }
     case tweetsConstant.TWEETS_FETCH_DATA_SUCCESS: {
-      return { ...state, tweets: action.tweets, isLoading: false };
+      return { ...state, tweets: action.tweets, isLoading: false, userTweets: [] };
     }
     case tweetsConstant.TWEETS_ADD: {
       return { ...state, tweets: [action.newTweet, ...state.tweets] };
@@ -30,11 +30,15 @@ export default function tweets(state = initialState, action: any) {
     case tweetsConstant.USERS_FETCH_DATA_SUCCESS: {
       return { ...state, usersFound: action.users, isLoading: false, searchSuccess: true }
     }
-    case tweetsConstant.LIKE_TWEET: {
+    case tweetsConstant.RENDER_TWEET_SUCCESS: {
+      return { ...state, usersTweets: action.userTweets, isLoading: false, renderSuccess: true }
+    }
+    case tweetsConstant.LIKE_SUCCESS: {
       return {
         ...state,
+        isLoading: false,
         tweets: state.tweets.map(tweet => {
-          if (tweet.id === action.tweet.id) {
+          if (tweet._id === action.tweet._id) {
             return {
               ...tweet,
               countLikes: tweet.countLikes + 1
@@ -45,11 +49,12 @@ export default function tweets(state = initialState, action: any) {
         })
       }
     }
-    case tweetsConstant.UNLIKE_TWEET: {
+    case tweetsConstant.UNLIKE_SUCCESS: {
       return {
         ...state,
+        isLoading: false,
         tweets: state.tweets.map(tweet => {
-          if (tweet.id === action.tweet.id) {
+          if (tweet._id === action.tweet._id) {
             return {
               ...tweet,
               countLikes: tweet.countLikes - 1

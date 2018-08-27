@@ -23,7 +23,45 @@ router.post('/search', (req, res) => {
         res.send(response)
     });
 })
-router.post('/addTweet', (req,res)=>{
+router.post('/like', (req, res) => {
+    console.log(req.body);
+    feedController.likeTweet(req.body).then((response) => {
+        if (!response) {
+            res.sendStatus(400);
+        } else {
+            res.status(200).end();
+        }
+    });
+});
+router.post('/unlike', (req, res) => {
+    feedController.unlikeTweet(req.body).then((response) => {
+        if (!response) {
+            res.sendStatus(400);
+        } else {
+            res.status(200).end();
+        }
+    });
+})
+router.post('/retweet', (req, res) => {
+    console.log(req.body);
+    feedController.retweetTweet(req.body).then((response) => {
+        if (!response) {
+            res.sendStatus(400);
+        } else {
+            res.status(200).end();
+        }
+    });
+});
+router.post('/unretweet', (req, res) => {
+    feedController.unretweetTweet(req.body).then((response) => {
+        if (!response) {
+            res.sendStatus(400);
+        } else {
+            res.status(200).end();
+        }
+    });
+})
+router.post('/addTweet', (req, res) => {
     console.log(req.body);
     feedController.addTweet(req.body).then((response) => {
         if (!response) {
@@ -34,4 +72,32 @@ router.post('/addTweet', (req,res)=>{
         }
     });
 })
+router.post('/userpage', (req, res) => {
+    console.log(req.body);
+    feedController.renderUserTweets(req.body).then((response) => {
+        if (!response) {
+            res.sendStatus(400);
+        } else {
+            console.log(response);
+            res.send(response);
+            res.status(200).end();
+        }
+    });
+});
+router.post('/personal', (req, res) => {
+    console.log(req.body);
+    feedController.renderUserTweets(req.body).then((response) => {
+        feedController.renderRetweets(req.body.admin).then((resp) => {
+            const arr = [].concat.apply([], resp);
+            const result = arr.concat(response);
+            if (!response) {
+                res.sendStatus(400);
+            } else {
+                res.send(result);
+                res.status(200).end();
+            }
+        })
+
+    });
+});
 module.exports = router;
