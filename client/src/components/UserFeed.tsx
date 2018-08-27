@@ -22,16 +22,13 @@ export class UserFeed extends React.Component<IProps, {}>{
         tweets.sort(function (a, b) {
             return +new Date(b.date) - +new Date(a.date);
         });
-        console.log(tweets);
         return tweets.map((tweet, index) => {
-            console.log(tweet);
             return <Tweet key={index}
                 {...tweet}
             />;
         });
     }
     public showSpin() {
-        console.log('show spinner')
         return <Spin />
     }
     public renderEmpty() {
@@ -40,7 +37,6 @@ export class UserFeed extends React.Component<IProps, {}>{
     public render() {
         if (this.props.tweets.isLoading === true) {
             return <div className="App-feed">
-                {console.log('spin')}
                 <Spin />
             </div>;
         } else {
@@ -48,7 +44,6 @@ export class UserFeed extends React.Component<IProps, {}>{
                 <div>
                     <div className="App-feed">
                         <div>
-                            {console.log(this.props.tweets.renderSuccess)}
                             {this.props.tweets.renderSuccess ? this.renderTweets() : this.showSpin()}
                         </div>
                     </div>

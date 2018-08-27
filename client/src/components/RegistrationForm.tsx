@@ -45,7 +45,6 @@ export class RegistrationForm extends React.Component<IProps, IState> {
     }
     public onUsernameChange(event) {
         const username: string = event.target.value;
-        console.log(this);
         this.setState(() => ({ username, registerFailure: false }));
     }
     public onPasswordChange(event) {

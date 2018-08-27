@@ -31,13 +31,16 @@ export class SearchItem extends React.Component<IProps, IState>{
         this.props.unsubscribe(this.props.username.toLowerCase(), this.props.authentication.user.username);
         this.setState(() => ({ subscribed: false }));
     }
-    public check() {
-        if(this.props.subscr) {
-            this.setState(() => ({ subscribed: true }));
-        }
-    }
     componentDidMount() {
-        this.check()
+        if (this.props.authentication.user.subscriptions !== undefined) {
+            this.props.authentication.user.subscriptions.forEach((item) => {
+                if (item === this.props.username) {
+                    this.setState(() => ({ subscribed: true }));
+                } else {
+                    this.setState(() => ({ subscribed: false }));
+                }
+            })
+        }
     }
     public render() {
         return (

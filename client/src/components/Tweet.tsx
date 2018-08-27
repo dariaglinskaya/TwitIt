@@ -28,7 +28,6 @@ export class Tweet extends React.Component<any, IState>{
             this.props.unLikeTweet(this.props);
             this.setState(() => ({ liked: false }));
         } else {
-            console.log(this.props)
             this.props.likeTweet(this.props);
             this.setState(() => ({ liked: true }));
         }
@@ -36,16 +35,36 @@ export class Tweet extends React.Component<any, IState>{
     public handleClickRetweet(event) {
         event.preventDefault();
         if (this.state.retweeted) {
-            this.props.unRetweet(this.props._id, this.props.authentication.user.username);
+            this.props.unRetweet(this.props);
             this.setState(() => ({ retweeted: false }));
         } else {
-            this.props.retweet(this.props._id, this.props.authentication.user.username);
+            this.props.retweet(this.props);
             this.setState(() => ({ retweeted: true }));
         }
 
     }
     public userTweet(name, admin) {
         this.props.renderUserTweets(name, admin);
+    }
+    public componentDidMount() {
+        if (this.props.liked !== undefined) {
+            this.props.liked.forEach((item) => {
+                if (item === this.props.authentication.user._id) {
+                    this.setState(() => ({ liked: true }));
+                } else {
+                    this.setState(() => ({ liked: false }));
+                }
+            })
+        }
+        if (this.props.retweeted !== undefined) {
+            this.props.retweeted.forEach((item) => {
+                if (item === this.props.authentication.user._id) {
+                    this.setState(() => ({ retweeted: true }));
+                } else {
+                    this.setState(() => ({ retweeted: false }));
+                }
+            })
+        }
     }
     public render() {
         return (
@@ -61,7 +80,7 @@ export class Tweet extends React.Component<any, IState>{
                 </a>
                 <span>{this.props.countLikes ? this.props.countLikes : ""}</span>
                 <a href='' onClick={this.handleClickRetweet.bind(this)}>
-                    <Icon type="retweet" style={(this.state.retweeted || this.props.retweeted) ? { color: "#1890ff" } : { color: "grey" }} />
+                    <Icon type="retweet" style={(this.state.retweeted) ? { color: "#1890ff" } : { color: "grey" }} />
                 </a>
                 <span>{this.props.countRetweets ? this.props.countRetweets : ""}</span>
             </div>
@@ -79,8 +98,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     const likeTweet = (tweet) => tweetsActions.likeTweet(tweet);
     const unLikeTweet = (tweet) => tweetsActions.unlikeTweet(tweet);
-    const retweet = (id, admin) => userActions.retweet(id, admin);
-    const unRetweet = (id, admin) => userActions.unretweet(id, admin);
+    const retweet = (id) => userActions.retweet(id);
+    const unRetweet = (id) => userActions.unretweet(id);
     const renderUserTweets = (user, admin) => tweetsActions.renderUserTweets(user, admin);
     return {
         ...bindActionCreators({ likeTweet, unLikeTweet, retweet, unRetweet, renderUserTweets }, dispatch)

@@ -13,7 +13,6 @@ const tweetsActions = {
 function renderUserTweets(user, admin) {
     const newUser = { name: user };
     return (dispatch) => {
-        console.log(newUser);
         dispatch(tweetsIsLoading(true));
         if (user === admin.username) {
             const info = {
@@ -36,7 +35,6 @@ function renderUserTweets(user, admin) {
                 })
                 .then((response) => response.json())
                 .then((response) => {
-                    console.log(response);
                     dispatch(renderTweetSuccess(response));
                 })
                 .catch(() => dispatch(renderTweetFailure()));
@@ -57,7 +55,6 @@ function renderUserTweets(user, admin) {
                 })
                 .then((response) => response.json())
                 .then((response) => {
-                    console.log(response);
                     dispatch(renderTweetSuccess(response));
                 })
                 .catch(() => dispatch(renderTweetFailure()));
@@ -123,7 +120,6 @@ function addTweetFailure() {
 }
 function addTweet(newTweet) {
     return (dispatch) => {
-        console.log(newTweet)
         dispatch(tweetsIsLoading(true));
         fetch('http://localhost:5000/addTweet', {
             headers: {
@@ -134,7 +130,6 @@ function addTweet(newTweet) {
         })
             .then((response) => response.json())
             .then((response) => {
-                console.log(response);
                 dispatch(addTweetSuccess(response));
             })
             .catch(() => dispatch(addTweetFailure()));
@@ -157,7 +152,7 @@ function searchUsers(user) {
             .catch(() => dispatch(tweetsHasErrored(true)));
     };
 }
-function likeTweet(tweet) {
+function likeTweet(props) {    
     return (dispatch) => {
         dispatch(tweetsIsLoading(true));
         fetch('http://localhost:5000/like', {
@@ -165,9 +160,9 @@ function likeTweet(tweet) {
                 'Content-Type': 'application/json'
             },
             method: "POST",
-            body: JSON.stringify(tweet)
+            body: JSON.stringify(props),
         })
-            .then(dispatch(likeSuccess(tweet)))
+            .then(dispatch(likeSuccess(props)))
             .catch(() => dispatch(likeFailure()));
     };
 }

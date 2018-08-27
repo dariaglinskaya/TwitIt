@@ -46,8 +46,6 @@ router.post('/register', (req, res) => {
         .catch(() => new Error());
 });
 router.post('/subscribe', (req, res) => {
-    console.log('its request')
-    console.log(req.body);
     authController.subscribe(req.body).then((response) => {
         if (!response) {
             res.sendStatus(400);
@@ -59,8 +57,6 @@ router.post('/subscribe', (req, res) => {
         .catch(() => new Error());
 });
 router.post('/unsubscribe', (req, res) => {
-    console.log('its request')
-    console.log(req.body);
     authController.unsubscribe(req.body).then((response) => {
         if (!response) {
             res.sendStatus(400);

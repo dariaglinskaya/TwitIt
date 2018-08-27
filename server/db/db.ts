@@ -15,7 +15,6 @@ class DB {
         this.collectionName = collectionName;
     }
     public addSubscription(user) {
-        console.log(user);
         return new Promise((resolve, reject) => {
             db
                 .collection(this.collectionName)
@@ -28,12 +27,24 @@ class DB {
                 });
         });
     }
-    public addRetweet(user) {
-        console.log(user);
+    public addRetweet(props) {
         return new Promise((resolve, reject) => {
             db
                 .collection(this.collectionName)
-                .update({ username: user.admin }, { $push: {retweets: user.id}}, (err, result) => {
+                .update({ username: props.authentication.user.username }, { $push: {retweets: props._id}}, (err, result) => {
+                    if (result) {
+                        resolve(result);
+                    } else {
+                        reject(err);
+                    }
+                });
+        });
+    }
+    public removeRetweet(props) {
+        return new Promise((resolve, reject) => {
+            db
+                .collection(this.collectionName)
+                .update({ username: props.authentication.user.username }, { $pull: {retweets: props._id}}, (err, result) => {
                     if (result) {
                         resolve(result);
                     } else {
@@ -43,11 +54,10 @@ class DB {
         });
     }
     public likeTweet(tweet) {
-        console.log(tweet.text);
         return new Promise((resolve, reject) => {
             db
                 .collection(this.collectionName)
-                .update({ _id:  ObjectID(tweet._id)}, { $inc: {countLikes: 1}}, (err, result) => {
+                .update({ _id:  ObjectID(tweet._id)}, { $inc: {countLikes: 1}, $push: {liked: tweet.authentication.user._id} }, (err, result) => {
                     if (result) {
                         resolve(result);
                     } else {
@@ -60,7 +70,7 @@ class DB {
         return new Promise((resolve, reject) => {
             db
                 .collection(this.collectionName)
-                .update({ _id: ObjectID(tweet._id) }, { $inc: {countLikes: -1}}, (err, result) => {
+                .update({ _id: ObjectID(tweet._id) }, { $inc: {countLikes: -1},  $pull: {liked: tweet.authentication.user._id} }, (err, result) => {
                     if (result) {
                         resolve(result);
                     } else {
@@ -73,7 +83,7 @@ class DB {
         return new Promise((resolve, reject) => {
             db
                 .collection(this.collectionName)
-                .update({ _id:  ObjectID(tweet.id)}, { $inc: {countRetweets: 1}}, (err, result) => {
+                .update({ _id:  ObjectID(tweet._id)}, { $inc: {countRetweets: 1}, $push: {retweeted: tweet.authentication.user._id}}, (err, result) => {
                     if (result) {
                         resolve(result);
                     } else {
@@ -86,7 +96,7 @@ class DB {
         return new Promise((resolve, reject) => {
             db
                 .collection(this.collectionName)
-                .update({ _id: ObjectID(tweet.id) }, { $inc: {countRetweets: -1}}, (err, result) => {
+                .update({ _id: ObjectID(tweet._id) }, { $inc: {countRetweets: -1}, $pull: {retweeted: tweet.authentication.user._id}}, (err, result) => {
                     if (result) {
                         resolve(result);
                     } else {
@@ -96,7 +106,6 @@ class DB {
         });
     }
     public removeSubscription(user) {
-        console.log(user);
         return new Promise((resolve, reject) => {
             db
                 .collection(this.collectionName)

@@ -47,7 +47,6 @@ function addTweet(newTweet) {
     const db = new DB('tweets');
     return db.insertTweet(newTweet)
         .then((res: Response) => {
-            console.log(res);
             return true;
         })
         .catch(() => {
@@ -68,33 +67,34 @@ function unlikeTweet(tweet) {
     const db = new DB('tweets');
     return db.unlikeTweet(tweet)
         .then((res: Response) => {
-            console.log(res);
             return true;
         })
         .catch(() => {
             return false;
         })
 }
-function retweetTweet(user) {
+function retweetTweet(props) {
     const db = new DB('tweets');
     const db2 = new DB('users');
-    return db.retweetTweet(user)
+    return db.retweetTweet(props)
         .then((res: Response) => {
-            db2.addRetweet(user).then((resp) => {
-                console.log(true)
+            db2.addRetweet(props).then((resp) => {
                 return true
             }).catch(() => {
                 return false;
             })
-        })
-
+        });
 }
-function unretweetTweet(tweetID) {
+function unretweetTweet(props) {
     const db = new DB('tweets');
-    return db.unretweetTweet(tweetID)
+    const db2 = new DB('users');
+    return db.unretweetTweet(props)
         .then((res: Response) => {
-            console.log(res);
-            return true;
+            db2.removeRetweet(props).then((resp) => {
+                return true
+            }).catch(() => {
+                return false;
+            })
         })
         .catch(() => {
             return false;

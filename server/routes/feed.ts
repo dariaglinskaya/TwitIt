@@ -24,7 +24,6 @@ router.post('/search', (req, res) => {
     });
 })
 router.post('/like', (req, res) => {
-    console.log(req.body);
     feedController.likeTweet(req.body).then((response) => {
         if (!response) {
             res.sendStatus(400);
@@ -43,7 +42,6 @@ router.post('/unlike', (req, res) => {
     });
 })
 router.post('/retweet', (req, res) => {
-    console.log(req.body);
     feedController.retweetTweet(req.body).then((response) => {
         if (!response) {
             res.sendStatus(400);
@@ -62,7 +60,6 @@ router.post('/unretweet', (req, res) => {
     });
 })
 router.post('/addTweet', (req, res) => {
-    console.log(req.body);
     feedController.addTweet(req.body).then((response) => {
         if (!response) {
             res.sendStatus(400);
@@ -73,19 +70,16 @@ router.post('/addTweet', (req, res) => {
     });
 })
 router.post('/userpage', (req, res) => {
-    console.log(req.body);
     feedController.renderUserTweets(req.body).then((response) => {
         if (!response) {
             res.sendStatus(400);
         } else {
-            console.log(response);
             res.send(response);
             res.status(200).end();
         }
     });
 });
 router.post('/personal', (req, res) => {
-    console.log(req.body);
     feedController.renderUserTweets(req.body).then((response) => {
         feedController.renderRetweets(req.body.admin).then((resp) => {
             const arr = [].concat.apply([], resp);

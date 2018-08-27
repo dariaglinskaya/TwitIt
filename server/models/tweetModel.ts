@@ -16,6 +16,12 @@ const TweetSchema = new Schema({
         type: Number, 
         default: 0
     },
+    liked: {
+        type: [Schema.Types.ObjectId] 
+    },
+    retweeted: {
+        type: [Schema.Types.ObjectId] 
+    }
     });
 const tweetModel = mongoose.model('tweets', TweetSchema);
 export default tweetModel;

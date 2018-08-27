@@ -25,7 +25,6 @@ export class User extends React.Component<IProps, {}>{
                     <Header />
                     <div>
                         <Col span={17} push={7}>
-                        {console.log('users')}
                             < UserFeed />
                         </Col>
                         <Col span={7} pull={17}>

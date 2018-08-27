@@ -42,12 +42,10 @@ export class LogIn extends React.Component<IProps, IState> {
 
     public handleChangeUsername(event) {
         const username = event.target.value;
-        console.log(this.state);
         this.setState({ username, loginFailure: false });
     }
     public handleChangePassword(event) {
         const password = event.target.value;
-        console.log(this.state);
         this.setState({ password, loginFailure: false });
     }
     shouldComponentUpdate(nextProps, nextState) {

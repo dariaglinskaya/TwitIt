@@ -29,7 +29,6 @@ function register(newUser) {
                 if (!response.ok) {
                     throw Error(response.statusText);
                 } else {
-                    console.log(response)
                     dispatch(registerSuccess());
                     return response;
                 }
@@ -83,11 +82,9 @@ function login(user) {
             body: JSON.stringify(user)
         })
             .then((response) => {
-                console.log(response)
                 if (!response.ok) {
                     throw Error(response.statusText);
                 } else {
-                    console.log(response);
                     response.json().then(data => {
                         dispatch(loginSuccess(true, data))
                     });
@@ -103,7 +100,6 @@ function logout() {
         dispatch(authIsLoading(true))
         fetch('http://localhost:5000/users/logout')
             .then((response) => {
-                console.log(response)
                 if (!response.ok) {
                     throw Error(response.statusText);
                 } else {
@@ -125,7 +121,6 @@ function subscribe(userName, admin) {
             body: JSON.stringify(user)
         })
             .then((response) => {
-                console.log(response)
                 if (!response.ok) {
                     throw Error(response.statusText);
                 } else {
@@ -147,7 +142,6 @@ function unsubscribe(userName, admin) {
             body: JSON.stringify(user)
         })
             .then((response) => {
-                console.log(response)
                 if (!response.ok) {
                     throw Error(response.statusText);
                 } else {
@@ -181,8 +175,7 @@ function unsubscribeFailure() {
         unsubscribed: false,
     };
 }
-function retweet(userID, admin) {
-    const user = {id: userID, admin: admin};
+function retweet(props) {
     return (dispatch) => {
         dispatch(isLoading());
         fetch('http://localhost:5000/retweet', {
@@ -190,11 +183,11 @@ function retweet(userID, admin) {
                 'Content-Type': 'application/json'
             },
             method: "POST",
-            body: JSON.stringify(user)
+            body: JSON.stringify(props)
         })
-            .then(dispatch(retweetSuccess(userID)))
+            .then(dispatch(retweetSuccess(props._id)))
             .catch(() => dispatch(retweetFailure()));
-    };    
+    };
 }
 function isLoading() {
     return {
@@ -202,10 +195,10 @@ function isLoading() {
         isLoading: true
     };
 }
-function retweetSuccess(userID) {
+function retweetSuccess(_id) {
     return {
         type: userConstants.USER_RETWEETED,
-        userID
+        _id
     };
 }
 function retweetFailure() {
@@ -213,8 +206,7 @@ function retweetFailure() {
         type: userConstants.RETWEET_FAILURE,
     };
 }
-function unretweet(userID, admin) {
-    const user = {id: userID, admin: admin};
+function unretweet(props) {
     return (dispatch) => {
         dispatch(isLoading());
         fetch('http://localhost:5000/unretweet', {
@@ -222,16 +214,16 @@ function unretweet(userID, admin) {
                 'Content-Type': 'application/json'
             },
             method: "POST",
-            body: JSON.stringify(user)
+            body: JSON.stringify(props)
         })
-            .then(dispatch(unretweetSuccess(userID)))
+            .then(dispatch(unretweetSuccess(props._id)))
             .catch(() => dispatch(unretweetFailure()));
-    }; 
+    };
 }
-function unretweetSuccess(userID) {
+function unretweetSuccess(_id) {
     return {
         type: userConstants.USER_UNRETWEETED,
-        userID
+        _id
     };
 }
 function unretweetFailure() {
