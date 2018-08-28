@@ -1,7 +1,7 @@
 {
   "name": "twit",
   "version": "1.0.0",
-  "main": "server.ts",
+  "main": "index.ts",
   "scripts": {
     "client": "cd client && yarn start",
     "start": "nodemon -e ts -w ./ -x npm run watch:serve",
