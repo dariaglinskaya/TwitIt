@@ -19,7 +19,7 @@ function initialState() {
 function register(newUser) {
     return (dispatch) => {
         dispatch(authIsLoading(true));
-        axios.post('http://localhost:5000/users/register', newUser)
+        axios.post('/users/register', newUser)
             .then(() => dispatch(registerSuccess()))
             .catch(() => dispatch(registerFailure()));
     };
@@ -62,7 +62,7 @@ function loginFailure(bool) {
 function login(user) {
     return (dispatch) => {
         dispatch(authIsLoading(true))
-        axios.post('http://localhost:5000/users/login', user)
+        axios.post('/users/login', user)
             .then((response) => dispatch(loginSuccess(true, response.data)))
             .catch(() => dispatch(loginFailure(true)));
     };
@@ -70,7 +70,7 @@ function login(user) {
 function logout() {
     return (dispatch) => {
         dispatch(authIsLoading(true))
-        axios.post('http://localhost:5000/users/logout')
+        axios.post('/users/logout')
             .then((response) => dispatch(initialState()))
             .catch(() => new Error());
     };
@@ -79,7 +79,7 @@ function subscribe(userName, admin) {
     const user = { username: userName, admin: admin };
     return (dispatch) => {
         dispatch(authIsLoading(true))
-        axios.post('http://localhost:5000/users/subscribe', user)
+        axios.post('/users/subscribe', user)
             .then(() => dispatch(subscribeSuccess(user)))
             .catch(() => dispatch(subscribeFailure()));
     };
@@ -88,7 +88,7 @@ function unsubscribe(userName, admin) {
     const user = { username: userName, admin: admin };
     return (dispatch) => {
         dispatch(authIsLoading(true))
-        axios.post('http://localhost:5000/users/unsubscribe', user)
+        axios.post('/users/unsubscribe', user)
             .then(() => dispatch(unsubscribeSuccess(user)))
             .catch(() => dispatch(unsubscribeFailure()));
     };
@@ -120,7 +120,7 @@ function unsubscribeFailure() {
 function retweet(props) {
     return (dispatch) => {
         dispatch(isLoading());
-        axios.post('http://localhost:5000/retweet', props)
+        axios.post('/retweet', props)
             .then(dispatch(retweetSuccess(props._id)))
             .catch(() => dispatch(retweetFailure()));
     };
@@ -145,7 +145,7 @@ function retweetFailure() {
 function unretweet(props) {
     return (dispatch) => {
         dispatch(isLoading());
-        axios.post('http://localhost:5000/unretweet', props)
+        axios.post('/unretweet', props)
             .then(dispatch(unretweetSuccess(props._id)))
             .catch(() => dispatch(unretweetFailure()));
     };

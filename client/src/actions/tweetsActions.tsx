@@ -20,7 +20,7 @@ function renderUserTweets(user, admin) {
                 name: user,
                 admin: admin
             }            
-            axios.post('http://localhost:5000/personal', info)
+            axios.post('/personal', info)
                 .then((response) => {
                     dispatch(tweetsIsLoading(true));
                     return response;
@@ -30,7 +30,7 @@ function renderUserTweets(user, admin) {
                 })
                 .catch(() => dispatch(renderTweetFailure()));
         } else {
-            axios.post('http://localhost:5000/userpage', newUser)
+            axios.post('/userpage', newUser)
                 .then((response) => {
                     dispatch(tweetsIsLoading(true));
                     return response;
@@ -102,7 +102,7 @@ function addTweetFailure() {
 function addTweet(newTweet) {
     return (dispatch) => {
         dispatch(tweetsIsLoading(true));
-        axios.post('http://localhost:5000/addTweet', newTweet)
+        axios.post('/addTweet', newTweet)
             .then((response) => {
                 dispatch(addTweetSuccess(response.data));
             })
@@ -112,7 +112,7 @@ function addTweet(newTweet) {
 function searchUsers(user) {
     return (dispatch) => {
         dispatch(tweetsIsLoading(true));
-        axios.post('http://localhost:5000/search', user)
+        axios.post('/search', user)
             .then((users) => {
                 dispatch(usersFetchDataSuccess(users.data));
             })
@@ -122,7 +122,7 @@ function searchUsers(user) {
 function likeTweet(props) {    
     return (dispatch) => {
         dispatch(tweetsIsLoading(true));
-        axios.post('http://localhost:5000/like', props)
+        axios.post('/like', props)
             .then(dispatch(likeSuccess(props)))
             .catch(() => dispatch(likeFailure()));
     };
@@ -144,7 +144,7 @@ function likeFailure() {
 function unlikeTweet(tweet) {
     return (dispatch) => {
         dispatch(tweetsIsLoading(true));
-        axios.post('http://localhost:5000/unlike', tweet)
+        axios.post('/unlike', tweet)
             .then(dispatch(unlikeSuccess(tweet)))
             .catch(() => dispatch(unlikeFailure()));
     };
@@ -165,7 +165,7 @@ function unlikeFailure() {
 function tweetsFetchData(user) {
     return (dispatch) => {
         dispatch(tweetsIsLoading(true));
-        axios.post('http://localhost:5000/feed', user)
+        axios.post('/feed', user)
             .then((response) => {
                 dispatch(tweetsIsLoading(true));
                 return response;
