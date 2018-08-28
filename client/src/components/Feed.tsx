@@ -24,6 +24,9 @@ export class Feed extends React.Component<IProps, {}>{
 
     public renderTweets() {
         const tweets = this.props.tweets.tweets;
+        tweets.sort(function (a, b) {
+            return +new Date(b.date) - +new Date(a.date);
+        });
         return tweets.map((tweet, index) => {
             return <Tweet key={index}
                 {...tweet}

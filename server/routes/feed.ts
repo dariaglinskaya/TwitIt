@@ -13,6 +13,7 @@ db.on('error', err => console.log('connection error to DB.', err.message));
 db.once('open', () => console.log('connected to DB'));
 
 router.post('/feed', (req, res) => {
+    console.log(req.body)
     feedController.getFeed(req.body).then((response) => {
         const arr = [].concat.apply([], response);
         res.send(arr)

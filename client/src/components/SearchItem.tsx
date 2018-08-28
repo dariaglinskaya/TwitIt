@@ -37,14 +37,12 @@ export class SearchItem extends React.Component<IProps, IState>{
     componentDidMount() {
         if (this.props.authentication.user.subscriptions !== undefined) {
             this.props.authentication.user.subscriptions.forEach((item) => {
-                console.log(this.props.username + '--' + item)
                 if (item === this.props.username) {
-                    console.log('true')
                     this.setState(() => ({ subscribed: true }));
                 } else {
                     this.setState(() => ({ subscribed: false }));
                 }
-            })
+            });
         }
     }
     public userTweet(name, admin) {
