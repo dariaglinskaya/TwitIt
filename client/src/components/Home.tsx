@@ -1,7 +1,6 @@
 import * as React from 'react';
-import '../index.css';
-import Header from './Header';
-import LogIn from './LogIn';
+import Header from '../containers/Header';
+import LogIn from '../containers/LogIn';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 

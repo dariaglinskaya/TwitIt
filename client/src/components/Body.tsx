@@ -1,9 +1,9 @@
 import { Col } from 'antd';
 import * as React from 'react';
-import AddForm from './AddForm';
+import AddForm from '../containers/AddForm';
 import Footer from './Footer';
-import Feed from './Feed';
-import Header from './Header';
+import Feed from '../containers/Feed';
+import Header from '../containers/Header';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 

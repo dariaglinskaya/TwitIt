@@ -1,9 +1,9 @@
 import { Col, Spin } from 'antd';
 import * as React from 'react';
-import AddForm from './AddForm';
+import AddForm from '../containers/AddForm';
 import Footer from './Footer';
-import Header from './Header';
-import SearchItem from './SearchItem';
+import Header from '../containers/Header';
+import SearchItem from '../containers/SearchItem';
 import { Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { compose } from 'redux';

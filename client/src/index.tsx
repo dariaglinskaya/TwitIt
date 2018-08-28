@@ -1,4 +1,3 @@
-import './index.css';
 import './App.css';
 import { Provider, connect } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch, } from 'react-router-dom';
@@ -9,7 +8,7 @@ import * as ReactDOM from 'react-dom';
 import Body from './components/Body';
 import Home from './components/Home';
 import Search from './components/Search';
-import RegistrationForm from './components/RegistrationForm';
+import RegistrationForm from './containers/RegistrationForm';
 import User from './components/User';
 
 import registerServiceWorker from './registerServiceWorker';

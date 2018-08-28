@@ -9,7 +9,7 @@
         "baseUrl": "./"
     },
     "include": [
-        "../**/*.ts", "../client/src/components/UserFeed.tsx"
+        "../**/*.ts", "../client/src/containers/UserFeed.tsx", "../client/src/containers/AddForm.tsx", "../client/src/containers/SearchItem.tsx", "../client/src/containers/LogIn.tsx", "../client/src/containers/RegistrationForm.tsx", "../client/src/containers/Header.tsx", "../client/src/containers/Feed.tsx"
     ],
     "exclude": [
         "node_modules"
