@@ -83,19 +83,25 @@ router.post('/userpage', (req, res) => {
 });
 router.post('/personal', (req, res) => {
     feedController.renderUserTweets(req.body).then((response) => {
-        console.log(req.body.admin)
-        feedController.renderRetweets(req.body.admin).then((resp) => {
-            console.log(resp)
-            const arr = [].concat.apply([], resp);
-            const result = arr.concat(response);
-            if (!response) {
-                res.sendStatus(400);
-            } else {
-                res.send(result);
-                res.status(200).end();
-            }
-        })
-
-    });
+        if (req.body.admin.retweets.length) {
+            feedController.renderRetweets(req.body.admin).then((resp) => {
+                const arr = [].concat.apply([], resp);
+                const result = arr.concat(response);
+                if (!response) {
+                    res.sendStatus(400);
+                } else {
+                    res.send(result);
+                    res.status(200).end();
+                }
+            })
+        } else {
+            console.log(1)
+            res.send(response);
+            res.status(200).end();
+        }
+    })
+        .catch(() => {
+            res.sendStatus(400);
+        });
 });
 module.exports = router;

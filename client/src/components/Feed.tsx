@@ -24,14 +24,18 @@ export class Feed extends React.Component<IProps, {}>{
 
     public renderTweets() {
         const tweets = this.props.tweets.tweets;
-        tweets.sort(function (a, b) {
-            return +new Date(b.date) - +new Date(a.date);
-        });
-        return tweets.map((tweet, index) => {
-            return <Tweet key={index}
-                {...tweet}
-            />;
-        });
+        if (tweets.length) {
+            tweets.sort(function (a, b) {
+                return +new Date(b.date) - +new Date(a.date);
+            });
+            return tweets.map((tweet, index) => {
+                return <Tweet key={index}
+                    {...tweet}
+                />;
+            });
+        } else {
+            return <div>No tweets found</div>
+        }
     }
 
     public renderEmpty() {

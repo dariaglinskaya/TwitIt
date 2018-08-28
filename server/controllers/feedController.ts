@@ -21,6 +21,7 @@ function getFeed(user) {
 };
 function renderRetweets(user) {
     const db = new DB('tweets');
+    console.log(user.retweets.length)
     if (user.retweets.length) {
         let promises = user.retweets.map((item) => {
             return db.findById(item);

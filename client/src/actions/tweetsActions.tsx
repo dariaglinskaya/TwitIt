@@ -36,6 +36,7 @@ function renderUserTweets(user, admin) {
                 })
                 .then((response) => response.json())
                 .then((response) => {
+                    console.log(response)
                     dispatch(renderTweetSuccess(response));
                 })
                 .catch(() => dispatch(renderTweetFailure()));
