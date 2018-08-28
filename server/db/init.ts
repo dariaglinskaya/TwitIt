@@ -1,5 +1,5 @@
 import * as mongoose from 'mongoose';
-const mongoURL = 'mongodb://127.0.0.1/TwitIt';
+const mongoURL = 'mongodb://dariaglinskaya:6972675Dasha@ds235352.mlab.com:35352/twitit';
 
 const DBInit = () => {
     mongoose.connect(mongoURL, { useNewUrlParser: true }, (err, d) => {

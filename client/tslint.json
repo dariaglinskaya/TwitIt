@@ -22,15 +22,9 @@
     "no-submodule-imports": false,
     "no-trailing-whitespace": false,
     "no-var-requires": false,
-    "object-literal-sort-keys": false,
     "only-arrow-functions": false,
     "ordered-imports": false,
     "prefer-conditional-expression": false,
-    "semicolon": [
-      true,
-      "always",
-      "ignore-bound-class-methods"
-    ],
     "trailing-comma": false,
     "variable-name": [
       true,

@@ -1,5 +1,5 @@
 import * as mongoose from 'mongoose';
-mongoose.connect('mongodb://localhost:27017/TwitIt');
+mongoose.connect('mongodb://dariaglinskaya:6972675Dasha@ds235352.mlab.com:35352/twitit');
 const Schema = mongoose.Schema;
 const TweetSchema = new Schema({
     date: {

@@ -5,7 +5,10 @@ const users = require('./routes/users');
 const feed = require('./routes/feed');
 app.use(cors())
 app.set('port', (process.env.PORT || 5000));
-app.use(express.static(__dirname + '/public'));
+if(process.env.NODE_ENV === 'production') {
+    app.use(express.static("client/public"))
+}
+app.use(express.static(__dirname + '/client/public'));
 
 app.use('/users', users);
 app.use('/', feed);
