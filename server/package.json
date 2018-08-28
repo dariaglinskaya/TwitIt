@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "main": "index.ts",
   "scripts": {
-    "start": "ts-node index.ts",
+    "client": "cd client && yarn start",
+    "start": "nodemon -e ts -w ./ -x npm run watch:serve",
+    "watch:serve": "ts-node index.ts",
     "dev": "ts-node ./lib/index.ts"
   },
   "dependencies": {
