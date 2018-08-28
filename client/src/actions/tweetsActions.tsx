@@ -1,4 +1,5 @@
 import tweetsConstant from '../constants/tweetsConst';
+import axios from 'axios';
 const tweetsActions = {
     tweetsHasErrored,
     tweetsIsLoading,
@@ -12,7 +13,6 @@ const tweetsActions = {
 };
 function renderUserTweets(user, admin) {
     const newUser = { name: user };
-    console.log( user + admin.username)
     return (dispatch) => {
         dispatch(tweetsIsLoading(true));
         if (user === admin.username) {
@@ -20,44 +20,23 @@ function renderUserTweets(user, admin) {
                 name: user,
                 admin: admin
             }            
-            fetch('http://localhost:5000/personal', {
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                method: "POST",
-                body: JSON.stringify(info)
-            })
+            axios.post('http://localhost:5000/personal', info)
                 .then((response) => {
-                    if (!response.ok) {
-                        throw Error(response.statusText);
-                    }
                     dispatch(tweetsIsLoading(true));
                     return response;
                 })
-                .then((response) => response.json())
                 .then((response) => {
-                    console.log(response)
-                    dispatch(renderTweetSuccess(response));
+                    dispatch(renderTweetSuccess(response.data));
                 })
                 .catch(() => dispatch(renderTweetFailure()));
         } else {
-            fetch('http://localhost:5000/userpage', {
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                method: "POST",
-                body: JSON.stringify(newUser)
-            })
+            axios.post('http://localhost:5000/userpage', newUser)
                 .then((response) => {
-                    if (!response.ok) {
-                        throw Error(response.statusText);
-                    }
                     dispatch(tweetsIsLoading(true));
                     return response;
                 })
-                .then((response) => response.json())
                 .then((response) => {
-                    dispatch(renderTweetSuccess(response));
+                    dispatch(renderTweetSuccess(response.data));
                 })
                 .catch(() => dispatch(renderTweetFailure()));
         }
@@ -123,16 +102,9 @@ function addTweetFailure() {
 function addTweet(newTweet) {
     return (dispatch) => {
         dispatch(tweetsIsLoading(true));
-        fetch('http://localhost:5000/addTweet', {
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            method: "POST",
-            body: JSON.stringify(newTweet)
-        })
-            .then((response) => response.json())
+        axios.post('http://localhost:5000/addTweet', newTweet)
             .then((response) => {
-                dispatch(addTweetSuccess(response));
+                dispatch(addTweetSuccess(response.data));
             })
             .catch(() => dispatch(addTweetFailure()));
     };
@@ -140,16 +112,9 @@ function addTweet(newTweet) {
 function searchUsers(user) {
     return (dispatch) => {
         dispatch(tweetsIsLoading(true));
-        fetch('http://localhost:5000/search', {
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            method: "POST",
-            body: JSON.stringify(user)
-        })
-            .then((response) => response.json())
+        axios.post('http://localhost:5000/search', user)
             .then((users) => {
-                dispatch(usersFetchDataSuccess(users));
+                dispatch(usersFetchDataSuccess(users.data));
             })
             .catch(() => dispatch(tweetsHasErrored(true)));
     };
@@ -157,13 +122,7 @@ function searchUsers(user) {
 function likeTweet(props) {    
     return (dispatch) => {
         dispatch(tweetsIsLoading(true));
-        fetch('http://localhost:5000/like', {
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            method: "POST",
-            body: JSON.stringify(props),
-        })
+        axios.post('http://localhost:5000/like', props)
             .then(dispatch(likeSuccess(props)))
             .catch(() => dispatch(likeFailure()));
     };
@@ -185,13 +144,7 @@ function likeFailure() {
 function unlikeTweet(tweet) {
     return (dispatch) => {
         dispatch(tweetsIsLoading(true));
-        fetch('http://localhost:5000/unlike', {
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            method: "POST",
-            body: JSON.stringify(tweet)
-        })
+        axios.post('http://localhost:5000/unlike', tweet)
             .then(dispatch(unlikeSuccess(tweet)))
             .catch(() => dispatch(unlikeFailure()));
     };
@@ -212,22 +165,12 @@ function unlikeFailure() {
 function tweetsFetchData(user) {
     return (dispatch) => {
         dispatch(tweetsIsLoading(true));
-        fetch('http://localhost:5000/feed', {
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            method: "POST",
-            body: JSON.stringify(user)
-        })
+        axios.post('http://localhost:5000/feed', user)
             .then((response) => {
-                if (!response.ok) {
-                    throw Error(response.statusText);
-                }
                 dispatch(tweetsIsLoading(true));
                 return response;
             })
-            .then((response) => response.json())
-            .then((tweets) => dispatch(tweetsFetchDataSuccess(tweets)))
+            .then((tweets) => dispatch(tweetsFetchDataSuccess(tweets.data)))
             .catch(() => dispatch(tweetsHasErrored(true)));
     };
 }

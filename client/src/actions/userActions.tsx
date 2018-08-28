@@ -1,4 +1,5 @@
 import { userConstants } from '../constants/userConst';
+import axios from 'axios';
 
 export const userActions = {
     login,
@@ -18,21 +19,8 @@ function initialState() {
 function register(newUser) {
     return (dispatch) => {
         dispatch(authIsLoading(true));
-        fetch('http://localhost:5000/users/register', {
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            method: "POST",
-            body: JSON.stringify(newUser)
-        })
-            .then((response) => {
-                if (!response.ok) {
-                    throw Error(response.statusText);
-                } else {
-                    dispatch(registerSuccess());
-                    return response;
-                }
-            })
+        axios.post('http://localhost:5000/users/register', newUser)
+            .then(() => dispatch(registerSuccess()))
             .catch(() => dispatch(registerFailure()));
     };
 
@@ -74,38 +62,16 @@ function loginFailure(bool) {
 function login(user) {
     return (dispatch) => {
         dispatch(authIsLoading(true))
-        fetch('http://localhost:5000/users/login', {
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            method: "POST",
-            body: JSON.stringify(user)
-        })
-            .then((response) => {
-                if (!response.ok) {
-                    throw Error(response.statusText);
-                } else {
-                    response.json().then(data => {
-                        dispatch(loginSuccess(true, data))
-                    });
-                    return response;
-                }
-            })
+        axios.post('http://localhost:5000/users/login', user)
+            .then((response) => dispatch(loginSuccess(true, response.data)))
             .catch(() => dispatch(loginFailure(true)));
     };
 }
-
 function logout() {
     return (dispatch) => {
         dispatch(authIsLoading(true))
-        fetch('http://localhost:5000/users/logout')
-            .then((response) => {
-                if (!response.ok) {
-                    throw Error(response.statusText);
-                } else {
-                    dispatch(initialState());
-                }
-            })
+        axios.post('http://localhost:5000/users/logout')
+            .then((response) => dispatch(initialState()))
             .catch(() => new Error());
     };
 }
@@ -113,20 +79,8 @@ function subscribe(userName, admin) {
     const user = { username: userName, admin: admin };
     return (dispatch) => {
         dispatch(authIsLoading(true))
-        fetch('http://localhost:5000/users/subscribe', {
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            method: "POST",
-            body: JSON.stringify(user)
-        })
-            .then((response) => {
-                if (!response.ok) {
-                    throw Error(response.statusText);
-                } else {
-                    dispatch(subscribeSuccess(user));
-                }
-            })
+        axios.post('http://localhost:5000/users/subscribe', user)
+            .then(() => dispatch(subscribeSuccess(user)))
             .catch(() => dispatch(subscribeFailure()));
     };
 }
@@ -134,20 +88,8 @@ function unsubscribe(userName, admin) {
     const user = { username: userName, admin: admin };
     return (dispatch) => {
         dispatch(authIsLoading(true))
-        fetch('http://localhost:5000/users/unsubscribe', {
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            method: "POST",
-            body: JSON.stringify(user)
-        })
-            .then((response) => {
-                if (!response.ok) {
-                    throw Error(response.statusText);
-                } else {
-                    dispatch(unsubscribeSuccess(user));
-                }
-            })
+        axios.post('http://localhost:5000/users/unsubscribe', user)
+            .then(() => dispatch(unsubscribeSuccess(user)))
             .catch(() => dispatch(unsubscribeFailure()));
     };
 }
@@ -178,13 +120,7 @@ function unsubscribeFailure() {
 function retweet(props) {
     return (dispatch) => {
         dispatch(isLoading());
-        fetch('http://localhost:5000/retweet', {
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            method: "POST",
-            body: JSON.stringify(props)
-        })
+        axios.post('http://localhost:5000/retweet', props)
             .then(dispatch(retweetSuccess(props._id)))
             .catch(() => dispatch(retweetFailure()));
     };
@@ -209,13 +145,7 @@ function retweetFailure() {
 function unretweet(props) {
     return (dispatch) => {
         dispatch(isLoading());
-        fetch('http://localhost:5000/unretweet', {
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            method: "POST",
-            body: JSON.stringify(props)
-        })
+        axios.post('http://localhost:5000/unretweet', props)
             .then(dispatch(unretweetSuccess(props._id)))
             .catch(() => dispatch(unretweetFailure()));
     };

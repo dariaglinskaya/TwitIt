@@ -82,6 +82,7 @@ router.post('/userpage', (req, res) => {
     });
 });
 router.post('/personal', (req, res) => {
+    console.log(req.body)
     feedController.renderUserTweets(req.body).then((response) => {
         if (req.body.admin.retweets.length) {
             feedController.renderRetweets(req.body.admin).then((resp) => {
