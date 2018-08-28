@@ -2,7 +2,9 @@ import { Button } from 'antd';
 import { connect } from 'react-redux';
 import * as React from 'react';
 import userActions from '../actions/userActions';
+import tweetsActions from '../actions/tweetsActions';
 import { Link } from 'react-router-dom';
+import { bindActionCreators } from 'redux';
 
 export interface IState {
     subscribed: boolean;
@@ -13,6 +15,7 @@ export interface IProps {
     username: string;
     authentication: any;
     subscr: boolean;
+    renderUserTweets: any;
 }
 export class SearchItem extends React.Component<IProps, IState>{
     constructor(props) {
@@ -34,7 +37,9 @@ export class SearchItem extends React.Component<IProps, IState>{
     componentDidMount() {
         if (this.props.authentication.user.subscriptions !== undefined) {
             this.props.authentication.user.subscriptions.forEach((item) => {
+                console.log(this.props.username + '--' + item)
                 if (item === this.props.username) {
+                    console.log('true')
                     this.setState(() => ({ subscribed: true }));
                 } else {
                     this.setState(() => ({ subscribed: false }));
@@ -42,10 +47,16 @@ export class SearchItem extends React.Component<IProps, IState>{
             })
         }
     }
+    public userTweet(name, admin) {
+        this.props.renderUserTweets(name, admin);
+    }
     public render() {
         return (
             <div className="search-item">
-                <Link to={'/user/:' + this.props.username.toLowerCase()} className="author">@{this.props.username.toLowerCase()}</Link>
+                {console.log(this.state)}
+                <Link to={'/user/:' + this.props.username.toLowerCase()} className="author">
+                    <a onClick={() => this.userTweet(this.props.username.toLowerCase(), this.props.authentication.user)}> @{this.props.username.toLowerCase()}</a>
+                </Link>
                 {this.state.subscribed ?
                     <Button type="primary" onClick={e => this.unsubscribe(e)} >Unsubscribe</Button> :
                     <Button type="default" onClick={e => this.subscribe(e)}>Subscribe</Button>}
@@ -60,9 +71,11 @@ const mapStateToProps = state => {
     };
 };
 const mapDispatchToProps = dispatch => {
+    const renderUserTweets = (user, admin) => tweetsActions.renderUserTweets(user, admin);
+    const subscribe = (name, admin) => userActions.subscribe(name, admin);
+    const unsubscribe = (name, admin) => userActions.unsubscribe(name, admin);
     return {
-        subscribe: (name, admin) => dispatch(userActions.subscribe(name, admin)),
-        unsubscribe: (name, admin) => dispatch(userActions.unsubscribe(name, admin))
+        ...bindActionCreators({ subscribe, unsubscribe, renderUserTweets }, dispatch)
     };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(SearchItem);

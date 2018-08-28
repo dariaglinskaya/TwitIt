@@ -12,6 +12,7 @@ const tweetsActions = {
 };
 function renderUserTweets(user, admin) {
     const newUser = { name: user };
+    console.log( user + admin.username)
     return (dispatch) => {
         dispatch(tweetsIsLoading(true));
         if (user === admin.username) {

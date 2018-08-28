@@ -70,6 +70,7 @@ router.post('/addTweet', (req, res) => {
     });
 })
 router.post('/userpage', (req, res) => {
+    console.log(req.body)
     feedController.renderUserTweets(req.body).then((response) => {
         if (!response) {
             res.sendStatus(400);
@@ -81,7 +82,9 @@ router.post('/userpage', (req, res) => {
 });
 router.post('/personal', (req, res) => {
     feedController.renderUserTweets(req.body).then((response) => {
+        console.log(req.body.admin)
         feedController.renderRetweets(req.body.admin).then((resp) => {
+            console.log(resp)
             const arr = [].concat.apply([], resp);
             const result = arr.concat(response);
             if (!response) {

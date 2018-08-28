@@ -28,7 +28,7 @@ export default function tweets(state = initialState, action: any) {
       return { ...state, usersFound: [action.usersFound] }
     }
     case tweetsConstant.USERS_FETCH_DATA_SUCCESS: {
-      return { ...state, usersFound: action.users, isLoading: false, searchSuccess: true }
+      return { ...state, usersFound: action.users, isLoading: false, searchSuccess: true, renderSuccess: false }
     }
     case tweetsConstant.RENDER_TWEET_SUCCESS: {
       return { ...state, usersTweets: action.userTweets, isLoading: false, renderSuccess: true }

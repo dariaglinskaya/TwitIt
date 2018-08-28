@@ -69,7 +69,7 @@ export default function authentication(state = INITIAL_STATE, action) {
                 ...state,
                 user: {
                     ...state.user,
-                    retweets: [...state.user.retweets, action.userID]
+                    retweets: [...state.user.retweets, action._id]
                 }
             }
         }
