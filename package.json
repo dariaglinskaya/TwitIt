@@ -1,0 +1,29 @@
+{
+  "name": "twit",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "engines": {
+    "node": "8.11.3"
+  },
+  "dependencies": {
+    "concurrently": "^4.0.1",
+    "cross-env": "^5.2.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "install": "(cd client && npm i) && (cd server && npm i)",
+    "start": "concurrently \"cd client && npm start\" \"cd server && npm start\"",
+    "heroku-postbuild": "npm start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dariaglinskaya/TwitIt.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dariaglinskaya/TwitIt/issues"
+  },
+  "homepage": "https://github.com/dariaglinskaya/TwitIt#readme"
+}
