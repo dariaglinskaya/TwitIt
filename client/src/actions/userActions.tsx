@@ -22,7 +22,7 @@ function register(newUser) {
         axios.post('/users/register', newUser)
             .then((res) => {
                 console.log(res)
-                dispatch(registerSuccess())})
+                dispatch(registerSuccess(res.config.data))})
             .catch(() => dispatch(registerFailure()));
     };
 
@@ -33,11 +33,12 @@ function registerFailure() {
         registerFailure: true,
     };
 }
-function registerSuccess() {
+function registerSuccess(user) {
     return {
         type: userConstants.REGISTER_SUCCESS,
         loggedIn: false,
         registerSuccess: true,
+        user
     };
 }
 function authIsLoading(bool) {
@@ -67,7 +68,7 @@ function login(user) {
         axios.post('/users/login', user)
             .then((response) => {
                 console.log(response)
-                dispatch(loginSuccess(true, response.config.adapter))})
+                dispatch(loginSuccess(true, response.config.data))})
             .catch((err) => {
                 console.log(err)
                 dispatch(loginFailure(true))
