@@ -26,9 +26,9 @@ router.post('/login', passport.authenticate('login'), (req, res) => {
     console.log(req.user)
     if (req.user) {
         console.log('true')
-        return res.status(200).send(req.user);
+        res.status(200).send(req.user);
     } else {
-        return res.sendStatus(401);
+        res.sendStatus(401);
     }
 });
 router.get('/logout', (req, res) => {
