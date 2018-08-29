@@ -62,7 +62,7 @@ function loginFailure(bool) {
 function login(user) {
     return (dispatch) => {
         dispatch(authIsLoading(true))
-        axios.post('http://localhost:5000/users/login', user)
+        axios.post('/users/login', user)
             .then((response) => {
                 console.log(response)
                 dispatch(loginSuccess(true, response.data))})
