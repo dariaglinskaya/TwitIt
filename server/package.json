@@ -4,7 +4,7 @@
   "main": "index.ts",
   "scripts": {
     "client": "cd client && yarn start",
-    "start": "nodemon -e ts -w ./ -x npm run watch:serve",
+    "start": "ts-node index",
     "watch:serve": "ts-node index.ts",
     "dev": "ts-node ./lib/index.ts"
   },
