@@ -22,9 +22,6 @@ router.use(passport.session());
 
 require('../passport/init')(passport);
 
-router.get('loggedin', (req, res) => {
-    res.status(200).end();
-});
 router.post('/login', passport.authenticate('login'), (req, res) => {
     console.log(req.user)
     if (req.user) {
@@ -33,6 +30,10 @@ router.post('/login', passport.authenticate('login'), (req, res) => {
     } else {
         return res.sendStatus(401);
     }
+});
+router.get('/logout', (req, res) => {
+    req.session.destroy();
+    res.status(200).end();
 });
 router.post('/register', (req, res) => {
     authController.register(req.body).then((response) => {
@@ -68,12 +69,4 @@ router.post('/unsubscribe', (req, res) => {
     })
         .catch(() => new Error());
 });
-router.get('/loggedin', (req, res) => req.user ? res.status(200).send(req.user) : res.sendStatus(401));
-router.get('/logout', (req, res) => {
-    req.session.destroy();
-    res.status(200).end();
-});
-
-router.get('/isAuthorized', (req, res) => req.user ? res.status(200).send(req.user) : res.sendStatus(401));
-
 module.exports = router;

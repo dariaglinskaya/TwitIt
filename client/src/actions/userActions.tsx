@@ -72,7 +72,7 @@ function login(user) {
 function logout() {
     return (dispatch) => {
         dispatch(authIsLoading(true))
-        axios.post('/users/logout')
+        axios.get('/users/logout')
             .then((response) => dispatch(initialState()))
             .catch(() => new Error());
     };
