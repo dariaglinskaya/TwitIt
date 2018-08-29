@@ -48,7 +48,7 @@ export default function authentication(state = INITIAL_STATE, action) {
             return {
                 ...state,
                 registerSuccess: true,
-                users: [...state.users, action.newUser]
+                users: [...state.users, action.user]
             };
         case userConstants.REGISTER_FAILURE:
             return {
