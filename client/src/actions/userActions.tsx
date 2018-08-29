@@ -63,7 +63,9 @@ function login(user) {
     return (dispatch) => {
         dispatch(authIsLoading(true))
         axios.post('/users/login', user)
-            .then((response) => dispatch(loginSuccess(true, response.data)))
+            .then((response) => {
+                console.log(response)
+                dispatch(loginSuccess(true, response.data))})
             .catch(() => dispatch(loginFailure(true)));
     };
 }

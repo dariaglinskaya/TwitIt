@@ -26,6 +26,7 @@ router.get('loggedin', (req, res) => {
     res.status(200).end();
 });
 router.post('/login', passport.authenticate('login'), (req, res) => {
+    console.log(req.user)
     if (req.user) {
         res.send(req.user);
         return res.status(200).end();

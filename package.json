@@ -16,7 +16,7 @@
   "devDependencies": {},
   "scripts": {
     "install": "(cd ./client && npm install) && (cd ./server && npm install)",
-    "start": "concurrently \"cd ./client && npm start\" \"cd ./server && npm start\"",
+    "start": "concurrently \"cd client && npm start\" \"cd server && npm start\" --ignore client",
     "heroku-postbuild": "npm start"
   },
   "repository": {
