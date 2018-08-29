@@ -2,11 +2,7 @@
   "name": "twit",
   "version": "0.1.0",
   "private": true,
-  "proxy": {
-    "/*": {
-      "target": "http://localhost:5000"
-    }
-  },
+  "proxy": "http://localhost:5000/",
   "engines": {
     "npm": "5.6.0",
     "node": "8.11.3"
