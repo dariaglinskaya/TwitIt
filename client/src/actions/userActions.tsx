@@ -20,7 +20,9 @@ function register(newUser) {
     return (dispatch) => {
         dispatch(authIsLoading(true));
         axios.post('/users/register', newUser)
-            .then(() => dispatch(registerSuccess()))
+            .then((res) => {
+                console.log(res)
+                dispatch(registerSuccess())})
             .catch(() => dispatch(registerFailure()));
     };
 
