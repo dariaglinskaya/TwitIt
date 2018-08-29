@@ -69,8 +69,8 @@ export class LogIn extends React.Component<IProps, IState> {
         const user = {
             username: username,
             password: password,
-            subscriptions: ['edwin'],
-            retweets: ['5b768c974f0f18075a7f7e67']
+            subscriptions: [],
+            retweets: []
         };
         user.subscriptions.push(username);
         this.props.form.resetFields();
