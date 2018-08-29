@@ -16,7 +16,7 @@
   "devDependencies": {},
   "scripts": {
     "install": "(cd ./client && npm install) && (cd ./server && npm install)",
-    "start": "cd server && ts-node server",
+    "start": "cd server && ts-node index",
     "heroku-postbuild": "cd client && npm install && npm run build"
   },
   "repository": {
