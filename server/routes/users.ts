@@ -26,8 +26,8 @@ router.post('/login', passport.authenticate('login'), (req, res) => {
     console.log(req.user)
     if (req.user) {
         console.log('true')
-        //res.send(req.user);
-        return res.sendStatus(200).end();
+        res.send(req.user);
+        return res.sendStatus(200);
     } else {
         return res.sendStatus(401);
     }
