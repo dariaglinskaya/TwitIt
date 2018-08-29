@@ -67,7 +67,7 @@ function login(user) {
         axios.post('/users/login', user)
             .then((response) => {
                 console.log(response)
-                dispatch(loginSuccess(true, response.data))})
+                dispatch(loginSuccess(true, response.config.adapter))})
             .catch((err) => {
                 console.log(err)
                 dispatch(loginFailure(true))
