@@ -35,9 +35,9 @@ module.exports = (connect) => {
             console.log('set passport', sid);
             const sess = session;
             sess.sessId = sid;
-            this.sessionModel.findOneAndUpdate({ sessId: sid }, { $set: sess }, { upsert: true }, (err, doc) => {
+            /*this.sessionModel.findOneAndUpdate({ sessId: sid }, { $set: sess }, { upsert: true }, (err, doc) => {
                 callback(err, { updated: 1 });
-            });
+            });*/
         }
         destroy(sid) {
             console.log('destroying by SID:', sid);
