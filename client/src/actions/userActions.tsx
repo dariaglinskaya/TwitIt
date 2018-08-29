@@ -66,7 +66,10 @@ function login(user) {
             .then((response) => {
                 console.log(response)
                 dispatch(loginSuccess(true, response.data))})
-            .catch(() => dispatch(loginFailure(true)));
+            .catch((err) => {
+                console.log(err)
+                dispatch(loginFailure(true))
+            });
     };
 }
 function logout() {
