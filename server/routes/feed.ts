@@ -54,11 +54,9 @@ router.post('/', (request, response) => {
 
 router.post('/', passport.authenticate('login'), (req, res) => {
     console.log(req.user)
-    
-        console.log('true')
-        res.send(req.user);
-        res.status(200).end();
-    
+    console.log('true')
+    //res.send(req.user);
+    res.sendStatus(200);
 });
 
 router.post('/feed', (req, res) => {
