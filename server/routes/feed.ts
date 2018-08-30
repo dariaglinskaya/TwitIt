@@ -32,14 +32,13 @@ router.post('/', passport.authenticate('login').then((request, response) => {
     console.log(request.user)
     if (!request.user) {
         response.sendStatus(401);
-
     } else {
         console.log('true')
         response.send(request.user);
         response.status(200).end();
     }
-}))
-    .catch((req,res) => res.sendStatus(401));
+})
+    .catch((req,res) => res.sendStatus(401)));
 
 router.post('/feed', (req, res) => {
     console.log(req.body)
