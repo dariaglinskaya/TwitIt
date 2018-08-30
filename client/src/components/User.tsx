@@ -22,6 +22,12 @@ export interface IState {
 }
 
 export class User extends React.Component<IProps, IState>{
+    constructor(props) {
+        super(props);
+        this.state = {
+            subscribed: false,
+        };
+    }
     private customStyle = {
         display: 'inline',
     };
