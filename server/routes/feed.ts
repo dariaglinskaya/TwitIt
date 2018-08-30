@@ -4,6 +4,7 @@ const router = express.Router();
 const bodyParser = require('body-parser');
 const passport = require('passport');
 const expressSession = require('express-session');
+import authController from '../controllers/authController';
 const sessionStore = require('../passport/store')(expressSession);
 const store = new sessionStore({ url: 'mongodb://dariaglinskaya:6972675Dasha@ds235352.mlab.com:35352/twitit' });
 import feedController from '../controllers/feedController';
@@ -52,7 +53,7 @@ router.post('/', (request, response) => {
         }
     })});*/
 
-router.post('/', passport.authenticate('login'), (req, res, err) => {
+/*router.post('/', passport.authenticate('login'), (req, res, err) => {
     console.log(req.user)
     if (!req.user) {
         return res.status(401).json({
@@ -63,8 +64,20 @@ router.post('/', passport.authenticate('login'), (req, res, err) => {
         //res.send(req.user);
         res.json(req.user);
     }
+});*/
+router.post('/', (req, res) => {
+    console.log(req.body)
+    authController.login(req.body).then((response) => {
+        if (!response) {
+            res.sendStatus(400);
+        } else {
+            res.send(req.user);
+            console.log('successful login');
+            res.status(200).end();
+        }
+    })
+        .catch(() => new Error());
 });
-
 router.post('/feed', (req, res) => {
     console.log(req.body)
     feedController.getFeed(req.body).then((response) => {

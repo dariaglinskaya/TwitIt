@@ -2,6 +2,7 @@ import DB from '../db/db';
 
 const authController = {
     register,
+    login,
     subscribe,
     unsubscribe,
 }
@@ -15,6 +16,17 @@ function register(user) {
         .catch(() => {
             db.insertUser(user);
             return true;
+        });
+}
+function login(user) {
+    const db = new DB('users');
+    console.log(user.username);
+    return db.findByUsername(user.username)
+        .then((res: Response) => {
+            return res;
+        })
+        .catch(() => {
+            return false;
         });
 }
 function subscribe(user) {
