@@ -59,8 +59,8 @@ router.post('/', passport.authenticate('login'), (req, res) => {
         return;
     } else {
         console.log('true')
-        res.send(req.user);
-        res.sendStatus(200).end();
+        //res.send(req.user);
+        res.status(200).json(req.user);
     }
 });
 
