@@ -9,7 +9,7 @@
         "baseUrl": "./"
     },
     "include": [
-        "../**/*.ts", "../client/src/containers/UserFeed.tsx", "../client/src/containers/AddForm.tsx", "../client/src/containers/SearchItem.tsx", "../client/src/containers/LogIn.tsx", "../client/src/containers/RegistrationForm.tsx", "../client/src/containers/Header.tsx", "../client/src/containers/Feed.tsx"
+        "../**/*.ts", "../client/src/containers/UserFeed.tsx", "../client/src/containers/AddForm.tsx", "../client/src/containers/SearchItem.tsx", "../client/src/containers/LogIn.tsx", "../client/src/containers/RegistrationForm.tsx", "../client/src/containers/Header.tsx", "../client/src/containers/Feed.tsx", "../__tests__/square.test.ts", "../__tests__/square.test.tsx", "../__tests__/square.test.ts", "../jest.config.js"
     ],
     "exclude": [
         "node_modules"

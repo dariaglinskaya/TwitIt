@@ -13,11 +13,16 @@
     "ts-node": "^7.0.1",
     "typescript": "^3.0.1"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "@types/jest": "^23.3.1",
+    "jest": "^23.5.0",
+    "ts-jest": "^23.1.4"
+  },
   "scripts": {
     "install": "(cd ./client && npm install) && (cd ./server && npm install)",
     "start": "cd server && ts-node index",
-    "heroku-postbuild": "cd client && npm install && npm run build"
+    "heroku-postbuild": "cd client && npm install && npm run build",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -28,5 +33,23 @@
   "bugs": {
     "url": "https://github.com/dariaglinskaya/TwitIt/issues"
   },
-  "homepage": "https://github.com/dariaglinskaya/TwitIt#readme"
+  "homepage": "https://github.com/dariaglinskaya/TwitIt#readme",
+  "jest": {
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js"
+    ],
+    "transform": {
+      "^.+\\.(ts|tsx)$": "ts-jest"
+    },
+    "globals": {
+      "ts-jest": {
+        "tsConfigFile": "tsconfig.json"
+      }
+    },
+    "testMatch": [
+      "**/__tests__/*.+(ts|tsx|js)"
+    ]
+  }
 }
