@@ -28,16 +28,29 @@ router.use(passport.session());
 
 require('../passport/init')(passport);
 
-router.post('/', passport.authenticate('login').then((request, response) => {
-    console.log(request.user)
-    if (!request.user) {
-        response.sendStatus(401);
-    } else {
-        console.log('true')
-        response.send(request.user);
-        response.status(200).end();
-    }
-}));
+function login(user) {
+    const userFound = passport.authenticate('login');
+    console.log(userFound);
+    return new Promise((resolve, reject) => {
+        if (userFound) {
+            resolve(userFound);
+        } else {
+            reject();
+        }
+    });
+};
+
+router.post('/', (request, response) => {
+    login(request).then((res) => {
+        console.log(request.user)
+        if (!request.user) {
+            response.sendStatus(401);
+        } else {
+            console.log('true')
+            response.send(request.user);
+            response.status(200).end();
+        }
+    })});
 
 router.post('/feed', (req, res) => {
     console.log(req.body)
