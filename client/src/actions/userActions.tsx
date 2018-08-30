@@ -67,7 +67,7 @@ function register(newUser) {
 function login(user) {
     return (dispatch) => {
         dispatch(authIsLoading(true))
-        axios.post('users/', user)
+        axios.post('/', user)
             .then((response) => {
                 console.log(response)
                 dispatch(loginSuccess(true, response.config.data))
