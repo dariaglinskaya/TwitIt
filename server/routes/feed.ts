@@ -52,11 +52,17 @@ router.post('/', (request, response) => {
         }
     })});*/
 
-router.post('/', passport.authenticate('login'), (req, res) => {
+router.post('/', passport.authenticate('login'), (req, res, err) => {
     console.log(req.user)
-    console.log('true')
-    //res.send(req.user);
-    res.sendStatus(200);
+    if (!req.user) {
+        return res.status(401).json({
+            error: err.message,
+          });
+    } else {
+        console.log('true')
+        //res.send(req.user);
+        res.json(req.user);
+    }
 });
 
 router.post('/feed', (req, res) => {
