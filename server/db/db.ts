@@ -160,6 +160,7 @@ class DB {
             db
                 .collection(this.collectionName)
                 .find({ author: username }).sort({ date: -1 }).toArray((err, result) => {
+                    console.log(result)
                     if (result) {
                         resolve(result);
                     } else {
@@ -172,7 +173,7 @@ class DB {
         return new Promise((resolve, reject) => {
             db
                 .collection(this.collectionName)
-                .find({ username: username }, (err, result) => {
+                .findOne({ username: username }, (err, result) => {
                     if (result) {
                         resolve(result);
                     } else {
