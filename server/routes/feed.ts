@@ -71,14 +71,14 @@ router.post('/', (req, res) => {
         if (!response) {
             res.sendStatus(400);
         } else {
-            res.send(req.user);
+            res.send(req.body);
             console.log('successful login');
             res.status(200).end();
         }
     })
         .catch(() => new Error());
 });
-router.post('/feed', (req, res) => {
+router.post('/newsFeed', (req, res) => {
     console.log(req.body)
     feedController.getFeed(req.body).then((response) => {
         const arr = [].concat.apply([], response);

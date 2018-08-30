@@ -165,7 +165,7 @@ function unlikeFailure() {
 function tweetsFetchData(user) {
     return (dispatch) => {
         dispatch(tweetsIsLoading(true));
-        axios.post('/feed', user)
+        axios.post('/newsFeed', user)
             .then((response) => {
                 dispatch(tweetsIsLoading(true));
                 return response;
