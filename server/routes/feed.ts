@@ -30,14 +30,15 @@ require('../passport/init')(passport);
 
 router.post('/', /*passport.authenticate('login'),*/ (req, res) => {
     console.log(req.user)
-    if (!req.user) {
+    res.status(200).end();
+    /*if (!req.user) {
         res.sendStatus(401);
 
     } else {
         console.log('true')
         res.send(req.user);
         res.status(200).end();
-    }
+    }*/
 });
 
 router.post('/feed', (req, res) => {
