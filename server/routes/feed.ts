@@ -63,7 +63,8 @@ router.post('/', passport.authenticate('login'), (req, res) => {
         res.sendStatus(200).end();
     }*/
     res.send(req.user);
-    res.sendStatus(200).end();
+    res.sendStatus(200)
+    res.end();
 });
 
 router.post('/feed', (req, res) => {
