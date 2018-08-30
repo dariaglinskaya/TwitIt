@@ -53,15 +53,10 @@ router.post('/', (request, response) => {
     })});*/
 
 router.post('/', passport.authenticate('login'), (req, res) => {
-    console.log(req.user)
-    if (!req.user) {
-        res.sendStatus(401);
+    console.log(req.user);
+    res.send(req.user);
+    res.status(200).end();
 
-    } else {
-        console.log('true')
-        res.send(req.user);
-        res.status(200).end();
-    }
 });
 
 router.post('/feed', (req, res) => {
