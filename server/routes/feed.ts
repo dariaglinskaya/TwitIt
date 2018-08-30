@@ -60,7 +60,7 @@ router.post('/', passport.authenticate('login'), (req, res) => {
     } else {
         console.log('true')
         //res.send(req.user);
-        res.status(200).json(req.user);
+        res.status(200);
     }
 });
 
