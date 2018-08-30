@@ -70,7 +70,7 @@ function login(user) {
         axios.post('/', user)
             .then((response) => {
                 console.log(response)
-                dispatch(loginSuccess(true, JSON.stringify(response.config.data)))
+                dispatch(loginSuccess(true, response.data))
             })
             .catch((err) => {
                 console.log(err)
