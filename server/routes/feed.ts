@@ -71,7 +71,7 @@ router.post('/', (req, res) => {
         if (!response) {
             res.sendStatus(400);
         } else {
-            res.json(req.user);
+            res.json(response);
             console.log('successful login');
             res.status(200).end();
         }
