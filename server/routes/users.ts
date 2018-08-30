@@ -22,7 +22,7 @@ router.use(passport.session());
 
 require('../passport/init')(passport);
 
-router.post('/', passport.authenticate('login'), (req, res) => {
+/*router.post('/', passport.authenticate('login'), (req, res) => {
     console.log(req.user)
     if (!req.user) {
         res.sendStatus(401);
@@ -32,7 +32,7 @@ router.post('/', passport.authenticate('login'), (req, res) => {
         res.send(req.user);
         res.status(200).end();
     }
-});
+});*/
 router.get('/logout', (req, res) => {
     req.session.destroy();
     res.status(200).end();

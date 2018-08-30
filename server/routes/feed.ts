@@ -2,8 +2,12 @@ const mongoose = require('mongoose');
 const express = require('express');
 const router = express.Router();
 const bodyParser = require('body-parser');
+const passport = require('passport');
+const expressSession = require('express-session');
+const sessionStore = require('../passport/store')(expressSession);
+const store = new sessionStore({ url: 'mongodb://dariaglinskaya:6972675Dasha@ds235352.mlab.com:35352/twitit' });
 import feedController from '../controllers/feedController';
-var mongoDB = 'mongodb://127.0.0.1/TwitIt';
+var mongoDB = 'mongodb://dariaglinskaya:6972675Dasha@ds235352.mlab.com:35352/twitit';
 mongoose.connect(mongoDB);
 mongoose.Promise = global.Promise;
 var db = mongoose.connection;
@@ -11,6 +15,30 @@ router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({ extended: true }));
 db.on('error', err => console.log('connection error to DB.', err.message));
 db.once('open', () => console.log('connected to DB'));
+router.use(expressSession({
+    name: 'login',
+    secret: 'dariaglinskaya',
+    resave: false,
+    saveUninitialized: false,
+    store: store,
+    cookie: { maxAge: 3600000 },
+}));
+router.use(passport.initialize());
+router.use(passport.session());
+
+require('../passport/init')(passport);
+
+router.post('/', passport.authenticate('login'), (req, res) => {
+    console.log(req.user)
+    if (!req.user) {
+        res.sendStatus(401);
+
+    } else {
+        console.log('true')
+        res.send(req.user);
+        res.status(200).end();
+    }
+});
 
 router.post('/feed', (req, res) => {
     console.log(req.body)
