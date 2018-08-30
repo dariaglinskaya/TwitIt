@@ -28,18 +28,18 @@ router.use(passport.session());
 
 require('../passport/init')(passport);
 
-router.post('/', /*passport.authenticate('login'),*/ (req, res) => {
-    console.log(req.user)
-    res.status(200).end();
-    /*if (!req.user) {
-        res.sendStatus(401);
+router.post('/', passport.authenticate('login').then((request, response) => {
+    console.log(request.user)
+    if (!request.user) {
+        response.sendStatus(401);
 
     } else {
         console.log('true')
-        res.send(req.user);
-        res.status(200).end();
-    }*/
-});
+        response.send(request.user);
+        response.status(200).end();
+    }
+}))
+    .catch((req,res) => res.sendStatus(401));
 
 router.post('/feed', (req, res) => {
     console.log(req.body)
