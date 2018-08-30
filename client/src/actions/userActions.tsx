@@ -16,17 +16,7 @@ function initialState() {
         type: userConstants.INITIAL_STATE,
     };
 }
-function register(newUser) {
-    return (dispatch) => {
-        dispatch(authIsLoading(true));
-        axios.post('/users/register', newUser)
-            .then((res) => {
-                console.log(res)
-                dispatch(registerSuccess(res.config.data))})
-            .catch(() => dispatch(registerFailure()));
-    };
 
-}
 function registerFailure() {
     return {
         type: userConstants.REGISTER_FAILURE,
@@ -62,13 +52,26 @@ function loginFailure(bool) {
         loginFailure: true,
     };
 }
+function register(newUser) {
+    return (dispatch) => {
+        dispatch(authIsLoading(true));
+        axios.post('/users/register', newUser)
+            .then((res) => {
+                console.log(res)
+                dispatch(registerSuccess(res.config.data))
+            })
+            .catch(() => dispatch(registerFailure()));
+    };
+
+}
 function login(user) {
     return (dispatch) => {
         dispatch(authIsLoading(true))
         axios.post('/users/login', user)
             .then((response) => {
                 console.log(response)
-                dispatch(loginSuccess(true, response.config.data))})
+                dispatch(loginSuccess(true, response.config.data))
+            })
             .catch((err) => {
                 console.log(err)
                 dispatch(loginFailure(true))

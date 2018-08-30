@@ -22,7 +22,7 @@ router.use(passport.session());
 
 require('../passport/init')(passport);
 
-router.post('/login', passport.authenticate('login'), (req, res) => {
+router.post('/', passport.authenticate('login'), (req, res) => {
     console.log(req.user)
     if (!req.user) {
         res.sendStatus(401);
