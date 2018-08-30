@@ -37,8 +37,7 @@ router.post('/', passport.authenticate('login').then((request, response) => {
         response.send(request.user);
         response.status(200).end();
     }
-})
-    .catch((req,res) => res.sendStatus(401)));
+}));
 
 router.post('/feed', (req, res) => {
     console.log(req.body)
