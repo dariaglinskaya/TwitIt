@@ -42,7 +42,7 @@ router.post('/register', (req, res) => {
         if (!response) {
             res.sendStatus(400);
         } else {
-            res.send(req.user);
+            res.send(req.body);
             console.log('successful registration');
             res.status(200).end();
         }
