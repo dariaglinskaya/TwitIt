@@ -39,9 +39,9 @@ function login(user) {
         }
     });
 };
-
+/*
 router.post('/', (request, response) => {
-    login(request).then((res) => {
+    login(request.user).then((res) => {
         console.log(request.user)
         if (!request.user) {
             response.sendStatus(401);
@@ -50,7 +50,14 @@ router.post('/', (request, response) => {
             response.send(request.user);
             response.status(200).end();
         }
-    })});
+    })});*/
+
+    router.post('/', passport.authenticate('login', {
+        successRedirect: 'newsFeed',
+        
+    }
+     
+));
 
 router.post('/feed', (req, res) => {
     console.log(req.body)
