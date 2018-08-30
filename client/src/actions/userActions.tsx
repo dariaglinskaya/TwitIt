@@ -58,7 +58,7 @@ function register(newUser) {
         axios.post('/users/register', newUser)
             .then((res) => {
                 console.log(res)
-                dispatch(registerSuccess(res.config.data))
+                dispatch(registerSuccess(res.data))
             })
             .catch(() => dispatch(registerFailure()));
     };
@@ -70,6 +70,7 @@ function login(user) {
         axios.post('/', user)
             .then((response) => {
                 console.log(response)
+                console.log(response.data)
                 dispatch(loginSuccess(true, response.data))
             })
             .catch((err) => {
