@@ -169,11 +169,11 @@ class DB {
                 });
         });
     }
-    public findByUsername(username) {
+    public findByUsername(user) {
         return new Promise((resolve, reject) => {
             db
                 .collection(this.collectionName)
-                .findOne({ username: username }, (err, result) => {
+                .findOne({ username: user.username, password: user.password }, (err, result) => {
                     if (result) {
                         resolve(result);
                     } else {

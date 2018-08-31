@@ -21,7 +21,7 @@ function register(user) {
 function login(user) {
     const db = new DB('users');
     console.log(user.username);
-    return db.findByUsername(user.username)
+    return db.findByUsername(user)
         .then((res: Response) => {
             return res;
         })
