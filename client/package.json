@@ -69,9 +69,16 @@
     "testMatch": [
       "**/__tests__/*.+(ts|tsx|js)"
     ],
+    "collectCoverage": true,
     "coverageReporters": [
       "text",
       "cobertura"
+    ],
+    "testPathIgnorePatterns": [
+      "/node_modules/"
+    ],
+    "collectCoverageFrom": [
+      "src/**/*.{tsx}"
     ]
   }
 }
