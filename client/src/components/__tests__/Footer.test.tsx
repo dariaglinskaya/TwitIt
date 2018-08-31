@@ -1,5 +1,4 @@
 import Footer from '../Footer';
-import {} from 'enzyme';
 import * as enzyme from 'enzyme';
 import * as Adapter from 'enzyme-adapter-react-16';
 import * as React from 'react';
